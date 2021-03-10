@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- maponedayorder.xml 파일 -->
+
+<mapper namespace="NsOnedayOrder">
+	<sql id="basic_select">
+		select * from onedayorders
+	</sql>
+
+
+	<!-- 원데이 클래스 결제 등록 -->
+	<insert id="InsertData" parameterType="MyOnedayorder">
+		insert into onedayorders
+		(onedayorder_seq, cust_email, code , sell_email ,
+		bookdate, booktime , person , totalprice , realtime , remark)
+		values
+		(onedayorder_seq.nextval, #{cust_email}, #{code} , #{sell_email} ,
+		#{bookdate}, #{booktime} , #{person} , #{totalprice} , default , #{remark})
+	</insert>
+	
+	<!-- 원데이 클래스 결제 테이블 remark 컬럼 업데이트 -->
+	<update id="UpdateRemarkData" parameterType="java.util.HashMap">
+		update onedayorders set remark=#{remark} where code=#{code}
+	</update>
+	
+	<!-- 원데이 클래스 결제 중복 체크 -->
+	<!-- 해당 조건에 맞는 클래스 코드를 체크하여 중복을 판단한다. -->
+	<!-- 조건 1. 같은 클래스 코드가 있는지 체크   -->
+	<select id="DuplCodeCheck" parameterType="MyOnedayorder" resultType="Integer">
+		select count(*) from onedayorders 
+		where code=#{code} 
+	</select>
+	
+	
+	<!-- 원데이 클래스 결제 중복 체크 -->
+	<!-- 해당 조건에 맞는 인원수를 체크하여 중복을 판단한다. -->
+	<!-- 조건 1. 클래스 코드 && 예약 일자 && 예약 시간   -->
+	<!-- 조건 2. 초기 설정 인원수의 값 - 결제 테이블에 조건 1을 만족하는 인원수의 sum 값 -->
+	<select id="DuplicationCheck" parameterType="MyOnedayorder" resultType="Integer">
+		select count(*) from onedayorders 
+		where code=#{code} and bookdate=#{bookdate} and booktime=#{booktime}
+		and #{person} <![CDATA[ <= ]]>
+	    (select person from onedayclasses where code=#{code}) <![CDATA[ - ]]> 
+	    (select sum(person) from onedayorders where code=#{code} and bookdate=#{bookdate} and booktime=#{booktime})
+	</select>
+	
+	<!-- 원데이 클래스 결제 중복 체크 -->
+	<!-- 해당 조건에 맞는 예약일자를 체크하여 중복을 판단한다. -->
+	<!-- 조건 1. 클래스 코드 && 예약일자 -->
+	<select id="DuplDateCheck" parameterType="MyOnedayorder" resultType="Integer">
+		select count(*) from onedayorders
+		where code=#{code} and bookdate=#{bookdate}
+	</select>
+	
+	<!-- 원데이 클래스 결제 중복 체크 -->
+	<!-- 해당 조건에 맞는 예약 시간을 체크하여 중복을 판단한다. -->
+	<!-- 조건 1. 클래스 코드 && 예약일자 && 예약시간 -->
+	<select id="DuplTimeCheck" parameterType="MyOnedayorder" resultType="Integer">
+		select count(*) from onedayorders
+		where code=#{code} and bookdate=#{bookdate} and booktime=#{booktime}
+	</select>
+	
+	
+	<!-- 회원 이메일로 원데이 클래스 결제 내역 담기 -->
+	<select id="SelectAllData" parameterType="String" resultType="MyOnedayorder">
+		<include refid="basic_select"/>
+		where cust_email=#{cust_email}
+		<if test="mode == 'bookdate'">
+			and bookdate like #{keyword}
+		</if>
+		order by bookdate asc , booktime asc
+	</select>
+	
+	
+	<!-- 회원별 결제 목록의 총 갯수 구하기 -->
+	<select id="SelectTotalCount" parameterType="String" resultType="Integer">
+		select count(*) from onedayorders
+		where cust_email=#{cust_email}
+		<if test="mode == 'bookdate'">
+			and bookdate like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 회원용 결제 상세보기 -->
+	<select id="SelectOneData" resultType="MyOnedayorder" parameterType="Integer">
+		<include refid="basic_select"/>
+		where onedayorder_seq=#{onedayorder_seq}
+	</select>
+	
+	<!-- 회원용 결제 취소하기 -->
+	<delete id="DeleteData" parameterType="Integer">
+		delete from onedayorders 
+		where onedayorder_seq=#{onedayorder_seq}
+	</delete>	
+	
+	<!-- 사업자용 결제 목록 총 갯수 구하기 -->
+	<select id="SelectSellTotalCount" parameterType="String" resultType="Integer">
+		select count(*) from onedayorders
+		where sell_email=#{sell_email}
+		<if test="mode == 'bookdate'">
+			and bookdate like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 사업자용 이메일로 원데이 클래스 결제 내역 담기 -->
+	<select id="SelectSellAllData" parameterType="String" resultType="MyOnedayorder">
+		<include refid="basic_select"/>
+		where sell_email=#{sell_email}
+		<if test="mode == 'bookdate'">
+			and bookdate like #{keyword}
+		</if>
+		order by bookdate asc , booktime asc
+	</select>
+	
+	<!-- 원데이 클래스 사업자용 결제 상세 테이블 갯수 구하기 -->
+	<!-- 검색 조건은 결제 일자 , 회원 이메일 -->
+	<select id="SelectSellDetailCount" parameterType="String" resultType="Integer">
+	  	select count(*) from onedayorders
+		where code=#{code} and bookdate=#{bookdate}
+		<if test="mode == 'cust_email'">
+			and cust_email like #{keyword}
+		</if>
+	</select>
+	
+	
+	<!-- 원데이 클래스 사업자용 결제 상세 세부 내역 보기 -->
+	<!-- 검색 조건은 결제 일자 , 회원 이메일 -->
+	<select id="SelectSellDetailAllData" parameterType="String" resultType="MyOnedayorder">
+		<include refid="basic_select"/>
+		where code=#{code} and bookdate=#{bookdate}
+		<if test="mode == 'cust_email'">
+			and cust_email like #{keyword}
+		</if>
+		order by booktime asc
+	</select>
+	
+	<!-- 원데이 클래스 관리자용 전체 결제 내역 테이블 갯수 구하기 -->
+	<!-- 검색 조건은 예약일자 , 예약 시간 , 클래스 코드 , 회원이메일 , 사업자 이메일 -->
+	<select id="SelectAdminTotalCount" resultType="Integer" parameterType="String">
+		select count(*) from onedayorders
+		<if test="mode == 'bookdate'">
+			where bookdate like #{keyword}
+		</if>
+		<if test="mode == 'booktime'">
+			where booktime like #{keyword}
+		</if>
+		<if test="mode == 'code'">
+			where code like #{keyword}
+		</if>
+		<if test="mode == 'cust_email'">
+			where cust_email like #{keyword}
+		</if>
+		<if test="mode == 'sell_email'">
+			where sell_email like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 원데이 클래스 관리자용 전체 결제 내역 테이블 갯수 구하기 -->
+	<!-- 검색 조건은 예약일자 , 예약 시간 , 클래스 코드 , 회원이메일 , 사업자 이메일 -->
+	<select id="SelectAdminAllData" resultType="MyOnedayorder" parameterType="String">
+		<include refid="basic_select"/>
+		<if test="mode == 'bookdate'">
+			where bookdate like #{keyword}
+		</if>
+		<if test="mode == 'booktime'">
+			where booktime like #{keyword}
+		</if>
+		<if test="mode == 'code'">
+			where code like #{keyword}
+		</if>
+		<if test="mode == 'cust_email'">
+			where cust_email like #{keyword}
+		</if>
+		<if test="mode == 'sell_email'">
+			where sell_email like #{keyword}
+		</if>
+		order by bookdate asc , booktime asc
+	</select>
+	
+</mapper>

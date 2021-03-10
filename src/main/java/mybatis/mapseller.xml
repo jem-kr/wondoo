@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapseller.xml 파일 -->
+<!-- SellerDao > namespace -->
+<mapper namespace="MapperSeller">
+
+	<!-- 사업자 회원 테이블 조회 -->
+	<sql id="myselect">
+		select *
+		from sellers
+	</sql>
+
+	<!-- 회원 탈퇴와 관련된 항목들 -->
+<!-- 	<update id="UpdateBoardRemark" parameterType="String">
+		update boards set remark = #{remark} 
+		where writer = #{writer}
+	</update>
+	<update id="UpdateOrderRemark" parameterType="String">
+		update orders set remark = #{remark} 
+		where mid = #{mid}
+	</update>	 -->
+	<delete id="DeleteData" parameterType="String">
+		delete from sellers
+	 	where sell_Email = #{sell_Email}
+	</delete>	
+	
+	<!-- 사업자 회원 조회 -->
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) as cnt from sellers
+		<if test="mode == 'sell_Name'">
+			where sell_Name like #{keyword}
+		</if>
+		<if test="mode == 'sell_Email'">
+			where sell_Email like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 사업자회원 전체목록 조회 -->	
+	<select id="SelectDataList" resultType="MySeller">
+		select sell_Email, sell_PW, sell_Name, sell_Contact, sell_Zipcode, sell_ADR01, sell_ADR02, 
+		sell_Pic, sell_Join, sell_License, sell_Status, remark 
+		from sellers
+		<if test="mode == 'sell_Contact'">
+			where sell_Contact like #{keyword}
+		</if>
+		<if test="mode == 'sell_Email'">
+			where sell_Email like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 회원가입시 데이터 추가 -->
+	<insert id="InsertData" parameterType="MySeller">
+		insert into sellers( sell_Email, sell_PW, sell_Name, sell_Contact, sell_Zipcode, sell_ADR01, sell_ADR02, sell_Pic, sell_Join, sell_License, sell_Status, remark ) 
+		values(#{sell_Email}, #{sell_PW}, #{sell_Name}, #{sell_Contact}, #{sell_Zipcode}, #{sell_ADR01}, #{sell_ADR02}, #{sell_Pic}, #{sell_Join}, #{sell_License}, #{sell_Status}, #{remark})
+	</insert>
+	
+	<!-- 이메일 주소로 동일한 메일 주소 조회 -->
+	<select id="SelectDataByPk" parameterType="String" resultType="MySeller">
+		<include refid="myselect" />
+		 where sell_Email = #{sell_Email}
+	</select>
+	
+	<!-- 로그인시 기존 데이터에서 이메일과 비밀번호가 일치하는지 조회 -->
+	<select id="SelectData" resultType="MySeller">
+		<include refid="myselect" />
+		where sell_Email = #{sell_Email} and sell_PW = #{sell_PW}
+	</select>
+
+	<!-- 이메일 찾기 시 기존 데이터에서 이름, 연락처, 생년월일 일치하는지 조회 -->
+	<select id="SelectEmail" resultType="MySeller">
+		select sell_Email, sell_Name from sellers
+		where sell_Name = #{sell_Name} and sell_Contact = #{sell_Contact}
+	</select>
+	
+	<!-- 비밀번호 찾기 시 기존 데이터에서 메일, 이름, 연락처 일치하는지 조회 -->
+	<select id="SelectPW" resultType="MySeller">
+		select sell_PW, sell_Name from sellers
+		where sell_Email = #{sell_Email} and sell_Name = #{sell_Name} and sell_Contact = #{sell_Contact}
+	</select>
+
+	<!-- 기존 회원 데이터 수정 관련 항목 -->
+	<update id="UpdateData" parameterType="MySeller">
+		update sellers set
+		sell_PW = #{sell_PW},
+		sell_Name = #{sell_Name},
+		sell_Contact = #{sell_Contact},
+		sell_Zipcode = #{sell_Zipcode},
+		sell_ADR01 = #{sell_ADR01},
+		sell_ADR02 = #{sell_ADR02},
+		remark = #{remark}
+		where sell_Email = #{sell_Email}
+	</update>
+	
+	<!-- 사업자 등록 신청 시 사업자번호, 이미지 데이터 수정 -->
+	<update id="UpdateSellApp" parameterType="MySeller">
+		update sellers set 
+		sell_Status = #{sell_Status},
+		sell_License = #{sell_License},
+		sell_Pic = #{sell_Pic}
+		where sell_Email = #{sell_Email}
+	</update>
+
+	<select id="CountData" resultType="Integer">
+		select count(*) as cnt from sellers 
+		where sell_Email = #{sell_Email}
+	</select>
+	   <!-- 관리자용 사업자 승인 상태 수정 -->
+   <update id="UpdateStatusData" parameterType="MySeller">
+      update sellers set 
+      sell_Status = #{sell_Status}
+      where sell_Email = #{sell_Email}
+   </update>
+</mapper>

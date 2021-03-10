@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+
+	<!-- 원데이 클래스 컨트롤러 컴포넌트 스캔(자동 Bean 객체 생성) -->
+	<context:component-scan base-package="onedayClass.controller" />
+	<context:component-scan base-package="dao" />
+
+	<!-- ViewResolver 설정하기 -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/onedayClass/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<!-- 파일 업로드 multipartResolver 등록 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <beans:property name="maxUploadSize" value="10485760" />
+      <beans:property name="maxInMemorySize" value="10240" />
+      <beans:property name="defaultEncoding" value="UTF-8" />
+   </beans:bean>   
+   
+   <!-- spring:message 태그를 사용하기 위한 빈 등록  -->
+   <!-- 파일의 수가 여러 개 일 수 있으므로 <list> 태그를 사용 -->
+   <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+   		<beans:property name="basenames">
+   			<beans:list>
+   				<beans:value>
+   					message.onedayclass
+   				</beans:value>
+   			</beans:list>
+   		</beans:property>
+   		<beans:property name="defaultEncoding" value="UTF-8"/>
+   </beans:bean>
+   
+   
+
+
+   
+   
+</beans:beans>

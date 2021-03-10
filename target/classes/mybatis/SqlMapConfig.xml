@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+  <configuration>
+	<!-- 마이바티스의 작동 규칙 정의 -->
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+
+        <setting name="jdbcTypeForNull" value="NULL"/>
+	</settings> 
+	
+	<typeAliases>
+		<typeAlias alias="MyNotice" type="bean.Notice" />
+		<typeAlias alias="MyComment" type="bean.Comment" />
+		<typeAlias alias="MyCustomer" type="bean.Customer" />
+		<typeAlias alias="MySeller" type="bean.Seller" />
+		<typeAlias alias="MyOnedayclass" type="bean.OnedayClass" />
+		<typeAlias alias="MyOnedayorder" type="bean.OnedayOrder" />
+	</typeAliases>	
+
+	<!-- mapper 태그 사용시 앞에 슬래시 붙이지 말고 패키지 경로 쭉~~~ 파일 이름 명시 -->
+	<mappers>
+		 	<mapper resource="mybatis/mapnotice.xml" />
+			<mapper resource="mybatis/mapcomment.xml" />
+	 		<mapper resource="mybatis/mapcustomer.xml" />
+			<mapper resource="mybatis/mapseller.xml" />
+			<mapper resource="mybatis/maponedayclass.xml" />
+			<mapper resource="mybatis/maponedayorder.xml" />
+	</mappers>
+	
+	
+</configuration>

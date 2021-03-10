@@ -1,0 +1,103 @@
+
+body { 
+  font-family:'Malgun Gothic';
+  padding-top: 100px; 
+  	margin:0 auto; 
+  
+}
+
+
+h2 {
+  padding: 20px 0;
+}
+
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+  text-align: center;
+  
+}
+
+.p {
+/*   text-align: center;
+  padding-top: 140px; */
+  font-size: 11px;
+}
+
+.table{
+	margin-top : 30px;
+}
+/* 검색 부분  시작*/
+#search_btn{
+	cursor: pointer;
+}
+
+
+#search {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+	margin: 10px 0px 10px 0px;
+}
+
+
+select#mode{
+	width: 10%;
+    height: 40px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);	
+}
+
+input#keyword{
+	display: block !important;
+	width: 20%;
+    height: 40px !important;
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    line-height: 1.428571429 !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important;
+    border-radius: 1px !important;
+    border: 1px solid rgba(111, 121, 122, 0.3) !important;
+    -webkit-box-shadow: none !important;
+}
+
+contact-form{
+	
+	text-align: center;
+}
+
+#search button{
+	height: 40px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);	
+}
+
+@media( max-width : 585px ) {
+	select#mode{
+		width: 30%;
+	} 
+	
+	input#keyword{
+		width: 60%;
+	}
+	
+	button {
+		width: 10%;
+	}
+	
+}

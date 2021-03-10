@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MapperComment">
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) as cnt from comments
+	</select>
+	<select id="SelectDataList" resultType="MyComment" parameterType="Integer">
+		select cnum, no, writer, content, 
+		to_char(regdate,'YYYY-MM-DD') regdate, remark
+		from comments
+		where no=#{num} 
+		order by no asc
+	</select>
+	<delete id="DeleteData" parameterType="Integer">
+		delete from comments where cnum = #{cnum}
+	</delete>
+	<select id="CommentWriterCheck" resultType="String" >
+		select writer from comments where cnum=#{cnum}
+	</select>
+	<insert id="InsertData" parameterType="MyComment">
+		insert into comments (cnum, no, writer, content, regdate)
+		values (seqcomm.nextval, #{no}, #{writer} ,#{content}, sysdate)
+	</insert>
+	<update id="UpdateData" parameterType="MyComment" >
+		update comments set content = #{content}
+		where cnum = #{cnum}
+	</update>
+</mapper>

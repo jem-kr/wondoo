@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MapperNotice">
+	<!-- 검색모드, 키워드 별 게시물 건수 조회  -->
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) as cnt from notice
+		<if test="mode == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="mode == 'content'">
+			where content like #{keyword}
+		</if>
+	</select>
+	<!-- 검색모드, 키워드 별 총 게시물 데이터를 조회합니다. -->
+	<select id="SelectDataList" resultType="MyNotice">
+		select num, writer, title, content, image, readhit,
+		to_char(regdate,'YYYY-MM-DD') regdate, fix,
+		remark, (select count(*) from comments where num=no) as comcount 
+		from notice 
+		<if test="mode == 'title'">
+			where title like #{keyword} 
+		</if>
+		<if test="mode == 'content'">
+			where content like #{keyword} 
+		</if>
+		order by fix desc, num desc
+	</select>
+	<!-- 상세보기를 위해 1건의 데이터를 조회합니다. -->
+	<select id="SelectDataByPk" parameterType="Integer" resultType="MyNotice">
+		select * from notice
+		 where num = #{num}
+	</select>	
+	<!-- 게시물 조회수 증가 -->
+	<update id="UpdateReadhit" parameterType="int">
+		update notice set readhit = readhit + 1 
+		where num = #{num}
+	</update>	
+	
+	<delete id="DeleteData" parameterType="int">
+		delete from notice where num = #{num}
+	</delete>
+	<insert id="InsertData" parameterType="MyNotice">
+		insert into notice (num, writer, title, content, image, readhit, regdate, fix)
+		values (seqnoti.nextval, #{writer}, #{title} ,#{content}, #{image}, default, sysdate, #{fix})
+	</insert>
+	<update id="UpdateData" parameterType="MyNotice" >
+		update notice set title=#{title}, content = #{content}, image = #{image}, fix = #{fix}
+		where num = #{num}
+	
+	</update>
+</mapper>

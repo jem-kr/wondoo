@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+article {
+	display: flex;
+	flex-direction: column;
+}
+
+article .btn {
+	margin-top: 50px;
+}
+
+.question {
+	display: none;
+}
+
+.result {
+	display: none;
+}
+
+#img {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+#cafelogo {
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+	body {
+		background-color: lightblue;
+	}
+}
+
+body {
+	padding-top: 100px;
+}
+
+.progress {
+	margin-top: 50px;
+}
+
+article h1 {
+	margin-top: 50px;
+}
+
+article h2 {
+	margin-top: 50px;
+}
+
+article h4 {
+	margin-top: 50px;
+}
+
+article img {
+	margin-top: 50px;
+}

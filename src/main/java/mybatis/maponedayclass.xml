@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- maponedayclass.xml 파일 -->
+
+<mapper namespace="NsOnedayClass">
+	<sql id="basic_select">
+		select * from onedayclasses
+	</sql>
+
+	<!-- 원데이 클래스 등록하기 -->
+	<insert id="InsertData"  parameterType="MyOnedayclass">
+		insert into onedayclasses
+		(oneday_seq, code , sell_email, type, classname
+		,instructor ,person ,oneprice ,startdate 
+		,enddate ,opentime ,closetime ,add_opentime1 ,add_closetime1 
+		,add_opentime2 ,add_closetime2 ,zipcode ,address1 ,address2 
+		,content ,main_image ,detail_image1 ,detail_image2) 
+		values
+		(oneday_seq.nextval, #{code} ,#{sell_email} ,#{type} , #{classname}
+		,#{instructor} ,#{person} ,#{oneprice} ,#{startdate} 
+		,#{enddate} ,#{opentime} ,#{closetime} ,#{add_opentime1} ,#{add_closetime1}
+		,#{add_opentime2} ,#{add_closetime2} ,#{zipcode} ,#{address1} ,#{address2} 
+		,#{content} ,#{main_image} ,#{detail_image1} ,#{detail_image2})
+	</insert>
+	
+	<!-- 코드 중복 검사 -->
+	<select id="SelectCodeCheck" parameterType="String" resultType="Integer">
+		select count(*) from onedayclasses where code=#{code}
+	</select>
+	
+
+	<!-- 원데이 클래스 목록보기 -->
+	<!-- 검색 , 키워드 별 건수를 조회함 -->
+	<select id="SelectTotalCount" parameterType="String" resultType="Integer">
+		select count(*) from onedayclasses 
+		<if test="mode == 'address1'">
+			where address1 like #{keyword}
+		</if>
+		<if test="mode == 'sell_email'">
+			where sell_email like #{keyword}
+		</if>
+		<if test="mode == 'classname'">
+			where classname like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 주제 / 이메일 / 지역 / 클래스명으로 목록 조회함 -->
+	<select id="SelectAllData" resultType="MyOnedayclass">
+		<include refid="basic_select"/>
+		<if test="mode == 'address1'">
+			where address1 like #{keyword}
+		</if>
+		<if test="mode == 'sell_email'">
+			where sell_email like #{keyword}
+		</if>
+		<if test="mode == 'classname'">
+			where classname like #{keyword}
+		</if>
+		order by oneday_seq desc
+	</select>
+	
+	<!-- 원데이 클래스 상세보기 -->
+	<!-- 원데이 클래스 수정하기 -->
+	<select id="SelectOneData" parameterType="String" resultType="MyOnedayclass">
+		<include refid="basic_select"/>
+		where code=#{code}
+	</select>
+	
+	<!-- 원데이 클래스 수정하기 -->
+	<update id="UpdateData" parameterType="MyOnedayclass">
+		update onedayclasses set
+		oneday_seq=#{oneday_seq} ,
+		type=#{type} , 
+		classname=#{classname} ,
+		instructor=#{instructor} ,
+		person=#{person} ,
+		oneprice=#{oneprice} ,
+		startdate=#{startdate}  ,
+		enddate=#{enddate} ,
+		opentime=#{opentime} ,
+		closetime=#{closetime} ,
+		add_opentime1=#{add_opentime1} ,
+		add_closetime1=#{add_closetime1} ,
+		add_opentime2=#{add_opentime2} ,
+		add_closetime2=#{add_closetime2} ,
+		zipcode=#{zipcode} ,
+		address1=#{address1} ,
+		address2=#{address2} ,
+		content=#{content} ,
+		main_image=#{main_image} ,
+		detail_image1=#{detail_image1}  ,
+		detail_image2=#{detail_image2}
+		where code=#{code} 
+	</update>
+	
+	<!-- 원데이 클래스 삭제하기 -->
+	<delete id="DeleteData" parameterType="Object">
+		delete from onedayclasses where code=#{code} and oneday_seq=#{oneday_seq} 
+	</delete>
+	
+	<!-- 가장 최근 등록 수업 3개 가져오기 (메인화면용) -->
+	<select id="ShowMainView" resultType="MyOnedayclass">
+		<include refid="basic_select"/>
+		order by oneday_seq desc
+	</select>
+</mapper>

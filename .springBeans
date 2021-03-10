@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.16.202101120224-CI-B2760]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+	</configs>
+	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/config/oneday-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/seller-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/cbti-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/customer-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/common-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/notice-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
