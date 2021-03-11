@@ -1,0 +1,375 @@
+@charset "EUC-KR";
+
+/*----------------------
+	1. Body
+------------------------*/
+
+*{margin:0;padding:0;}
+body {
+  padding-top: 150px;
+  background: #fff none repeat scroll 0 0;
+  color: #3e3f3f;
+  font-family: "Raleway",sans-serif;
+}
+h1, h2, h3, h4, h5, h6, p {
+  margin:0;
+}
+a {
+  color: #3e3f3f;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+a:focus {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+a, a:hover {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+img {
+  max-width:100%;
+}
+
+/*-----------------------
+	장바구니 제목
+-------------------------*/
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.subtitle-des {
+  display: flex;
+  justify-content: flex-end;
+  color: #727272;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+
+/*-----------------------
+	16. Cart Page
+-------------------------*/
+.table-responsive {
+  padding: 1px;
+}
+.table-title {
+  background: #fff none repeat scroll 0 0;
+}
+.cart-table .table-title th {
+  border-bottom: 0 none !important;
+  color:#3e3f3f;
+  background-color: #ebebeb;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.cart-table tbody {}
+.table-responsive tbody tr.table-info {
+  border-bottom: 1px solid #ddd;
+}
+.table-responsive tbody tr.table-info td {
+  border-right: 1px solid #ddd;
+  vertical-align: middle !important;
+}
+.table-responsive tbody tr.table-info td:first-child {
+  border-left: 1px solid #ddd;
+}
+.table-info .produ {
+  width: 15%;
+  padding: 15px;
+}
+.namedes {
+  width: 25%;
+}
+.table-info td h2 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.table-info p {
+  font-size: 12px;
+  font-weight: 300;
+}
+.produ > img {
+  max-width: 100%;
+}
+.unit {
+  text-align: center;
+  width: 15%;
+}
+.table-info h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.quantity {
+  text-align: center;
+  width: 15%;
+}
+.cart-plus-minus {
+    display: inline-block;
+}
+.cart-plus-minus input {
+  border: 0 none;
+  color: #595a5a;
+  display: block;
+  float: left;
+  font-family: lato;
+  font-size: 12px;
+  height: 24px;
+  text-align: center;
+  width: 30px;
+}
+.cart-plus-minus .qtybutton {
+  background: #fff none repeat scroll 0 0;
+  color: #636363;
+  cursor: pointer;
+  float: left;
+  font-family: lato;
+  font-size: 18px;
+  font-weight: 700;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 30px;
+}
+.cart-plus-minus .dec {
+}
+.cart-plus-minus .inc {
+    font-size: 13px;
+}
+.valu {
+  text-align: center;
+  width: 15%;
+}
+.acti {
+  text-align: center;
+  width: 15%;
+}
+.table-info i {
+  font-size: 18px;
+}
+.cart-table a{}
+.cart-table a:hover {
+  color: #5080BF;
+}
+.add-to-cart {
+  background: #e09e25 none repeat scroll 0 0;
+  color: #fff;
+  font-weight: 600;
+  padding: 7px 10px;
+}
+.add-to-cart:hover {
+  background: #555;
+  color: #fff !important;
+}
+.coupon {
+  margin-top: 10px;
+}
+.coupon a {
+  background: #ebebeb none repeat scroll 0 0;
+  border: 1px solid #cccccc;
+  color: #595a5a;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 15px;
+  text-transform: uppercase;
+}
+.coupon h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 40px;
+  text-transform: uppercase;
+}
+.coupon input {
+  border: 1px solid #cccccc;
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  padding: 7px 15px;
+  text-transform: uppercase;
+  width: 40%;
+}
+.coupon a, .proceed a{
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 20px;
+  border: 1px solid #cccccc;
+  color: #595a5a;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 15px;
+  text-decoration:none;
+  text-transform: uppercase;
+}
+.coupon a:hover, .proceed a:hover {
+  background: #ebebeb none repeat scroll 0 0;
+  color: #111;
+}
+.coupon p {
+  color: #656565;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 40px;
+}
+.coupon p span {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.proceed{margin-top:10px;text-align:right;}
+.proceed a {
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.total {
+  background: #fff none repeat scroll 0 0;
+  float: right;
+  margin: 30px 0;
+  padding: 25px 15px 20px 70px;
+}
+.total h5 {
+  color: #595a5a;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.total h5 span {
+  margin-left: 80px;
+}
+.total h6 {
+  color: #5080BF;
+  font-size: 18px;
+  font-weight: 700;
+}
+.total h6 span {
+  margin-left: 68px;
+}
+#all_procedto {
+  background: #5080BF none repeat scroll 0 0;
+  border: 0 solid;
+  border-radius: 20px;
+  color: #fff;
+  float: right;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+#select_procedto {
+  background: #fff none repeat scroll 0 0;
+  border: 1 solid #3e3f3f;
+  border-radius: 20px;
+  color: #3e3f3f;
+  float: right;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.wishlist-table {
+  margin-bottom: 0;
+}
+
+
+
+/* ======================
+    STEP 2 . 배송 정보
+=========================*/
+.step2 tbody tr td.col-sm-2{
+  background-color: #ebebeb;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input:not(.radio_css,.cart-plus-minus-box){
+    width: 30%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+    -webkit-box-shadow: none;
+}
+
+/* 주소 입력 부분 */
+.address_find{
+  display: flex;
+  flex-direction: column;
+}
+
+/* 주소 입력 부분 첫째줄 */
+.zipcode_find{
+  margin-bottom: 10px;
+}
+/* 우편번호 찾기 버튼 */
+button#zipcodebtn{
+    font-size: 13px;
+	margin: 0;
+  	width: 13%;
+    color: #fff;
+    outline: none;
+    background: #84C1D9;
+    border-radius: 20px;
+    height: 30px;
+    padding: 0px 5px ;
+    font-size: 13px;
+    line-height: 1.428571429;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+}
+
+/* 주소 입력 부분 둘째줄 */
+/* 주소 , 상세 주소 부분 */
+.address_css{
+  flex-direction: row;
+}
+
+.address_css input#address1{
+  width: 60%;
+}
+
+@media( max-width : 585px ) {
+	.zipcode_find input{
+    width: 50%;
+  }
+	button#zipcodebtn {
+		width: 50%;
+	}
+	
+  .address_css{
+    display: flex;
+    flex-direction: column !important;
+  }
+  
+  .address_css input#address1{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .address_css input#address2{
+    width: 100%;
+  }
+
+  input:not(.radio_css,.cart-plus-minus-box, #zipcode){
+    width: 100%;
+  }
+	
+}

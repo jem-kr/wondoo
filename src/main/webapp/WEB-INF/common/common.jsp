@@ -198,7 +198,8 @@ int twelve = 12;
 										<li><a href="${contextPath}/list.sc">나의 장바구니</a></li>
 									</ul>
 								</div>
-							</c:if> <c:if test="${whologin == 2}">
+							</c:if> 
+							<c:if test="${whologin == 2}">
 								<div class="dropdown-menu">
 									<ul>
 										<li><a href="${contextPath}/sellLogout.se">로그아웃</a></li>
@@ -212,18 +213,8 @@ int twelve = 12;
 											href="${contextPath}/sellApp.se?sell_Email=${sessionScope.loginfo_seller.sell_Email}">사업승인신청</a></li>
 									</ul>
 								</div>
-							</c:if></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">커피 <span class="caret"></span></a>
-							<div class="dropdown-menu">
-								<ul>
-									<c:if test="${ whologin == 2}">
-										<li><a href="${contextPath}/cfInsert.cf">상품 등록</a></li>
-									</c:if>
-									<li><a href="${contextPath}/cfList.cf">원두 목록</a></li>
-								</ul>
-							</div></li>
-
+							</c:if>
+						</li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">원데이클래스 <span class="caret"></span></a>
 							<div class="dropdown-menu">
@@ -244,8 +235,6 @@ int twelve = 12;
                              			<li><a href="${contextPath}/adminApp.cu">사업자회원 관리</a></li>
                             			<li><a href="${contextPath}/adminList.cu">개인회원 관리</a></li>
 										<li><a href="${contextPath}/onedayAdminOrderlist.odc">원데이 클래스 <br>전체 결제내역</a></li>
-										<li><a href="${contextPath}/adminorderlist.pm">상품 전체
-												결제내역</a></li>
 									</ul>
 								</div></li>
 						</c:if>
@@ -260,10 +249,17 @@ int twelve = 12;
 							</a></li>
 						</c:if>
 						<c:if test="${whologin==2 }">
-							<li><a href="${contextPath}/sellLogout.se"> <i
-									class="fa fa-sign-out" style="font-size: 15px"></i> logout
-							</a></li>
+							<li>
+								<a href="${contextPath}/sellLogout.se"> 
+									<i class="fa fa-sign-out" style="font-size: 15px"></i> logout
+								</a>
+							</li>
 						</c:if>
+						<li>
+							<a href="${contextPath}/caInsert.ca"> 
+								<i class="fas fa-shopping-cart"></i> 장바구니
+							</a>
+						</li>
 					</ul>
 				</div>
 
