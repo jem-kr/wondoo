@@ -17,21 +17,25 @@
     <section class="cart-page page fix"><!--Start Cart Area-->
         <div class="container">
             <div class="row">
-                <!-- ====================
-                   STEP1. 장바구니 부분
-                =========================
-                -->
-                <div class="col-sm-12 step1">
+                
+                <div class="col-sm-12">
                     <div>
-                        <h2 class="subtitle wow fadeInDown" data-wow-duration="500ms"
+                        <h2 id="subject" class="subtitle wow fadeInDown" data-wow-duration="500ms"
                             data-wow-delay="0.3s">장바구니</h2>
                         <ul class="subtitle-des wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
                             <li id="font_step1">01&nbsp;&nbsp;장바구니&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</li> 
-                            <li id="font_step2">02&nbsp;&nbsp;배송지 입력&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</li> 
-                            <li id="font_step3">03&nbsp;&nbsp;결제 완료</li> 
+                            <li id="font_step2">02&nbsp;&nbsp;배송지 입력&nbsp;&nbsp;&nbsp;</li> 
                         </ul>
                     </div>
-                    <div class="table-responsive wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
+                    <%-- ================================
+                    		form 태그 시작 
+                    ===================================== --%>
+                    <c:set var="contextPath" value="<%=contextPath%>" scope="application" />
+                    <form id="contact-form" method="post" action="${contextPath}/orderPayment.or" role="form">
+                    <!-- ====================
+                  		 STEP1. 장바구니 부분
+             		   ====================== -->
+                    <div class="step1 table-responsive wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
                         <table class="table cart-table">
                             <thead class="table-title">
                                 <tr>
@@ -68,22 +72,24 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <!-- ====================
-                   STEP2. 배송지 입력 부분
-                =========================
-                -->
-                <div class="col-sm-12 step2">
-                    <div>
-                        <h2 class="subtitle wow fadeInDown" data-wow-duration="500ms"
-                            data-wow-delay="0.3s">배송정보</h2>
-                        <ul class="subtitle-des wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-                            <li id="font_step1">01&nbsp;&nbsp;장바구니&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</li> 
-                            <li id="font_step2">02&nbsp;&nbsp;배송지 입력&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</li> 
-                            <li id="font_step3">03&nbsp;&nbsp;결제 완료</li> 
-                        </ul>
-                    </div>
-                    <div class="table-responsive wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s" >
+                    <div class="col-sm-6 col-md-7">
+           			</div>
+             	    <div class="footer_step1 col-sm-6 col-md-5">
+	                    <div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
+	                        <a href="#" id="back_list"><i class="fas fa-chevron-left"></i>&nbsp;쇼핑 계속하기</a>
+	                        <div class="total">
+	                            <h5>총 1개의 상품금액 <span>5000</span>원</h5>
+	                            <h5><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;배송비 <span>2500</span>원</h5>
+	                            <hr>
+	                            <h6>합계 <span>7500</span>원</h6>
+	                        </div>
+	                        <a id="all_procedto" href="#">전체 상품주문</a>
+	                    </div>
+              		  </div>
+                      <!-- ====================
+                 		  STEP2. 배송지 입력 부분
+                		=========================  -->
+                     <div class="step2 table-responsive wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="0.6s" >
                         <table class="table cart-table">
                             <tbody>
                                 <tr class="table-info">
@@ -112,7 +118,7 @@
                                         <div class="address_find">
                                             <div class="zipcode_find">
                                                 <input id="zipcode" name="zipcode" type="text">
-                                                <button id="zipcodebtn">우편번호 찾기</button>
+                                                <button id="zipcodebtn" onclick='zipCheck();'>우편번호 찾기</button>
                                             </div>
                                             <div class="address_css">
                                                 <input id="address1" name="address1" type="text">
@@ -140,22 +146,20 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                </div>
-                <div class="col-sm-6 col-md-5">
-                    <div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-                        <a href="#"><i class="fas fa-chevron-left"></i>&nbsp;쇼핑 계속하기</a>
-                        <div class="total">
-                            <h5>총 1개의 상품금액 <span>5000</span>원</h5>
-                            <h5><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;배송비 <span>2500</span>원</h5>
-                            <hr>
-                            <h6>합계 <span>7500</span>원</h6>
-                        </div>
-                        <a id="all_procedto" href="#">전체 상품주문</a>
-                        <a id="select_procedto" href="#">선택 상품주문</a>
-                    </div>
-                    
+                    <div class="col-sm-6 col-md-7">
+           	   		</div>
+                	<div class="footer_step2 col-sm-6 col-md-5">
+                    	<div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
+                        	<a href="#" class="prev"><i class="fas fa-chevron-left"></i>&nbsp;이전 단계</a>
+                    	</div>
+                    	<div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
+                    		<input id="payment_css" type="submit" value="전체 상품결제">
+                    	</div>
+                	</div>
+                </form>
+                 <%-- ================================
+                    		form 태그 끝
+                 ===================================== --%>
                 </div>
             </div>
         </div>
