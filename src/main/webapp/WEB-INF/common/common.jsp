@@ -225,6 +225,26 @@ int twelve = 12;
 									<li><a href="${contextPath}/onedayList.odc">수업목록</a></li>
 								</ul>
 							</div></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">커피 <span class="caret"></span></a>
+							<div class="dropdown-menu">
+								<ul>
+									<c:if test="${whologin == 2}">
+										<li><a href="${contextPath}/cfInsert.pr">커피상품등록</a></li>
+									</c:if>
+									<li><a href="${contextPath}/cfList.pr">커피목록</a></li>
+								</ul>
+							</div></li>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">용품 및 기타 <span class="caret"></span></a>
+							<div class="dropdown-menu">
+								<ul>
+									<c:if test="${whologin == 2}">
+										<li><a href="${contextPath}/prInsert.pr">상품등록</a></li>
+									</c:if>
+									<li><a href="${contextPath}/prList.pr">용품목록</a></li>
+								</ul>
+							</div></li>
 						<c:if test="${whologin == 1}">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">관리자메뉴 <span class="caret"></span></a>
