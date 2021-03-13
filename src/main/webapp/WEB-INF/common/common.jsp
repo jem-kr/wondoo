@@ -229,9 +229,6 @@ int twelve = 12;
 							data-toggle="dropdown">커피 <span class="caret"></span></a>
 							<div class="dropdown-menu">
 								<ul>
-									<c:if test="${whologin == 2}">
-										<li><a href="${contextPath}/cfInsert.pr">커피상품등록</a></li>
-									</c:if>
 									<li><a href="${contextPath}/cfList.pr">커피목록</a></li>
 								</ul>
 							</div></li>
@@ -239,9 +236,6 @@ int twelve = 12;
 							data-toggle="dropdown">용품 및 기타 <span class="caret"></span></a>
 							<div class="dropdown-menu">
 								<ul>
-									<c:if test="${whologin == 2}">
-										<li><a href="${contextPath}/prInsert.pr">상품등록</a></li>
-									</c:if>
 									<li><a href="${contextPath}/prList.pr">용품목록</a></li>
 								</ul>
 							</div></li>
@@ -258,6 +252,17 @@ int twelve = 12;
 									</ul>
 								</div></li>
 						</c:if>
+						<li>
+							<c:if test="${whologin == 2}">
+								<a href="${contextPath}/prInsert.pr">상품등록</a>
+							</c:if>
+							<c:if test="${whologin == 3}">
+							<a href="${contextPath}/caInsert.ca"> 
+								<i class="fas fa-shopping-cart"></i> 장바구니
+							</a>
+							</c:if>
+						</li>
+						
 						<c:if test="${whologin==0 }">
 							<li><a href="${contextPath}/custLog.cu"> <i
 									class="fa fa-user-circle-o" style="font-size: 15px"></i> login
@@ -275,11 +280,7 @@ int twelve = 12;
 								</a>
 							</li>
 						</c:if>
-						<li>
-							<a href="${contextPath}/caInsert.ca"> 
-								<i class="fas fa-shopping-cart"></i> 장바구니
-							</a>
-						</li>
+						
 					</ul>
 				</div>
 

@@ -59,6 +59,12 @@
 	</select>
 	
 	
+	<!--상품 등록  -->
+	<insert id="InsertData" parameterType="MyProduct">
+		insert into products (products_seq, pro_type, pro_name, pro_price, pro_stock, pro_detail, pro_origin, pro_sell_email, pro_pic, pro_category)
+		values (products_seq.nextval, #{pro_type}, #{pro_name}, #{pro_price}, #{pro_stock}, #{pro_detail}, #{pro_origin}, #{pro_sell_email}, #{pro_pic}, #{pro_category})
+	</insert>
+	
 	<!-- 가장 최근 등록 수업 3개 가져오기 (메인화면용) -->
 	<select id="ShowMainView" resultType="MyProduct">
 		<include refid="basic_select"/>

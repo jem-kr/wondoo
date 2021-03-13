@@ -59,7 +59,7 @@ public class ProductInsertController extends SuperClass {
 
 	// 유효성 검사는 jsp 단 자바스크립트로 진행하였다.
 	@PostMapping(value = command)
-	public ModelAndView doPost(@RequestParam(value = "sell_email", required = true) String sell_email,
+	public ModelAndView doPost(@RequestParam(value = "pro_sell_email", required = true) String pro_sell_email,
 			Product product, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
@@ -87,7 +87,7 @@ public class ProductInsertController extends SuperClass {
 
 			System.out.println(this.getClass() + "원데이 클래스 추가 하기");
 
-			product.setPro_sell_email(sell_email);
+			product.setPro_sell_email(pro_sell_email);
 			System.out.println(product.toString());
 
 			int cnt = -1;
