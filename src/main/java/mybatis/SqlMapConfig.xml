@@ -19,18 +19,18 @@
 		<typeAlias alias="MyOnedayclass" type="bean.OnedayClass" />
 		<typeAlias alias="MyOnedayorder" type="bean.OnedayOrder" />
 		<typeAlias alias="MyProduct" type="bean.Product"/>
+		<typeAlias alias="MyCart" type="bean.Cart"/>
 	</typeAliases>	
 
 	<!-- mapper 태그 사용시 앞에 슬래시 붙이지 말고 패키지 경로 쭉~~~ 파일 이름 명시 -->
 	<mappers>
-		 	<mapper resource="mybatis/mapnotice.xml" />
-			<mapper resource="mybatis/mapcomment.xml" />
-	 		<mapper resource="mybatis/mapcustomer.xml" />
-			<mapper resource="mybatis/mapseller.xml" />
-			<mapper resource="mybatis/maponedayclass.xml" />
-			<mapper resource="mybatis/maponedayorder.xml" />
-			<mapper resource="mybatis/mapproduct.xml" />
+	 	<mapper resource="mybatis/mapnotice.xml" />
+		<mapper resource="mybatis/mapcomment.xml" />
+ 		<mapper resource="mybatis/mapcustomer.xml" />
+		<mapper resource="mybatis/mapseller.xml" />
+		<mapper resource="mybatis/maponedayclass.xml" />
+		<mapper resource="mybatis/maponedayorder.xml" />
+		<mapper resource="mybatis/mapproduct.xml" />
+		<mapper resource="mybatis/mapcart.xml" />
 	</mappers>
-	
-	
 </configuration>

@@ -2,4 +2,4 @@ eclipse.preferences.version=1
 encoding//src/main/resources/message/customer.properties=UTF-8
 encoding//src/main/resources/message/onedayclass.properties=UTF-8
 encoding//src/main/resources/message/seller.properties=UTF-8
-encoding//src/main/webapp/WEB-INF/cart/cartInsert.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/cart/cartList.jsp=UTF-8

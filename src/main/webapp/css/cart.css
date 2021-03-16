@@ -91,6 +91,7 @@ img {
   padding: 15px;
 }
 .namedes {
+  text-align: center;
   width: 25%;
 }
 .table-info td h2 {
@@ -334,7 +335,11 @@ button#zipcodebtn{
   flex-direction: row;
 }
 
-.address_css input#address1{
+.address_css input#fake_orders_ADR01{
+  width: 60%;
+}
+
+.address_css input#orders_ADR01{
   width: 60%;
 }
 
@@ -353,8 +358,29 @@ button#zipcodebtn{
   	padding: 10px 0px !important;
 }
 
+/* 장바구니 삭제 처리 시 모달 부분 */
+.modalbtn:hover{
+	background: #A3D0EB !important;
+	border-color: #A3D0EB !important;
+	color: #fff !important;
+	font-weight: bold;
+}
+
+
+/* 배송지 입력 방법 라디오 버튼*/
+.delivery{
+	font-weight: normal;
+}
+
+/* 배송지 요청 사항 부분  */
+#orders_Request{
+	width: 100%;
+	border: 1px solid rgba(111, 121, 122, 0.3);
+}
+
+
 @media( max-width : 585px ) {
-	.zipcode_find input{
+  .zipcode_find input#orders_Zipcode , .zipcode_find input#fake_orders_Zipcode{
     width: 50%;
   }
 	button#zipcodebtn {
@@ -366,12 +392,17 @@ button#zipcodebtn{
     flex-direction: column !important;
   }
   
-  .address_css input#address1{
+  .address_css input#orders_ADR01{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .address_css input#fake_orders_ADR01{
     width: 100%;
     margin-bottom: 10px;
   }
 
-  .address_css input#address2{
+  .address_css input#orders_ADR02{
     width: 100%;
   }
 

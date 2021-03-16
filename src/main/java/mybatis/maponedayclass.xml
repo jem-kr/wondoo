@@ -36,28 +36,30 @@
 	<!-- 검색 , 키워드 별 건수를 조회함 -->
 	<select id="SelectTotalCount" parameterType="String" resultType="Integer">
 		select count(*) from onedayclasses 
+		where enddate <![CDATA[ >= ]]> #{today}
 		<if test="mode == 'address1'">
-			where address1 like #{keyword}
+			and address1 like #{keyword}
 		</if>
 		<if test="mode == 'sell_email'">
-			where sell_email like #{keyword}
+			and sell_email like #{keyword}
 		</if>
 		<if test="mode == 'classname'">
-			where classname like #{keyword}
+			and classname like #{keyword}
 		</if>
 	</select>
 	
 	<!-- 주제 / 이메일 / 지역 / 클래스명으로 목록 조회함 -->
 	<select id="SelectAllData" resultType="MyOnedayclass">
 		<include refid="basic_select"/>
+		where enddate <![CDATA[ >= ]]> #{today}
 		<if test="mode == 'address1'">
-			where address1 like #{keyword}
+			and address1 like #{keyword}
 		</if>
 		<if test="mode == 'sell_email'">
-			where sell_email like #{keyword}
+			and sell_email like #{keyword}
 		</if>
 		<if test="mode == 'classname'">
-			where classname like #{keyword}
+			and classname like #{keyword}
 		</if>
 		order by oneday_seq desc
 	</select>
@@ -102,8 +104,16 @@
 	</delete>
 	
 	<!-- 가장 최근 등록 수업 3개 가져오기 (메인화면용) -->
-	<select id="ShowMainView" resultType="MyOnedayclass">
+	<select id="ShowMainView" resultType="MyOnedayclass" parameterType="String">
 		<include refid="basic_select"/>
+		where enddate <![CDATA[ >= ]]> #{today}
 		order by oneday_seq desc
+	</select>
+	
+	<!-- 원데이 클래스 날짜가 경과된지 1주일이 지난 건에 대해서는
+		 날짜를 비교하여 삭제처리를 해줘야하므로 전체 대상건 가져오기
+	 -->
+	<select id="SelectAllListData" resultType="MyOnedayclass">
+		<include refid="basic_select"/>
 	</select>
 </mapper>

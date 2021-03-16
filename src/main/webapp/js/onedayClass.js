@@ -258,9 +258,6 @@ function getContextPath() {
 // pickadate API
 
 function booking_date() {
-
-	
-
 	var enddate = $('#enddate').val();
 
 	$('.datepicker').pickadate({
@@ -285,8 +282,6 @@ var font_color = '#5080BF';
 
 // 이용 일자 선택 
 function myBookdateCheck(){
-	var bookdate = $('#bookdate').val();
-
 	var bookdate = $('#bookdate').val();
 
 	if (bookdate == '') { // 예약일자가 선택이 안되었으면
@@ -322,10 +317,10 @@ function myBookdateCheck(){
 
 		var booktime = $('#booktime').val();
 
-		booktime = booktime.substring(0, 8);
+		booktime = booktime.substring(0, 7);
 
 		if (booktime.includes('PM')) {// 오후이면
-			booktime = parseInt(booktime.substring(0, 2));
+			booktime = parseInt(booktime.substring(0, 1));
 			booktime += 12;
 
 			if (date == bookdate && booktime < hours) {
@@ -335,7 +330,7 @@ function myBookdateCheck(){
 				$('#booktime').val('-');
 			}
 		} else {// 오전이면
-			booktime = parseInt(booktime.substring(0, 2));
+			booktime = parseInt(booktime.substring(0, 1));
 
 			if (date == bookdate && booktime < hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');
@@ -384,10 +379,10 @@ function myBooktimeCheck() {
 
 		var booktime = $('#booktime').val();
 
-		booktime = booktime.substring(0, 8);
+		booktime = booktime.substring(0, 7);
 
 		if (booktime.includes('PM')) {// 오후이면
-			booktime = parseInt(booktime.substring(0, 2));
+			booktime = parseInt(booktime.substring(0, 1));
 			booktime += 12;
 
 			if (date == bookdate && booktime < hours) {
@@ -397,7 +392,7 @@ function myBooktimeCheck() {
 				$('#booktime').val('-');
 			}
 		} else {// 오전이면
-			booktime = parseInt(booktime.substring(0, 2));
+			booktime = parseInt(booktime.substring(0, 1));
 
 			if (date == bookdate && booktime < hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');

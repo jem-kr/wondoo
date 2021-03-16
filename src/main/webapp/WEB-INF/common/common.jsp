@@ -257,7 +257,7 @@ int twelve = 12;
 								<a href="${contextPath}/prInsert.pr">상품등록</a>
 							</c:if>
 							<c:if test="${whologin == 3}">
-							<a href="${contextPath}/caInsert.ca"> 
+							<a href="${contextPath}/caList.ca?cart_cust_email=${sessionScope.loginfo.cust_Email}"> 
 								<i class="fas fa-shopping-cart"></i> 장바구니
 							</a>
 							</c:if>
@@ -318,7 +318,37 @@ int twelve = 12;
 		</div>
 	</c:if>
 
-
+	<%-- =================================================
+	      [장바구니 추가 후 이동 경로 모달 section 시작 부분] 
+	     ================================================= --%>
+	<c:if test="${not empty sessionScope.cart_modal}">
+		<input type="text" id="cart_popup" value="${sessionScope.cart_modal}">
+		<!-- 장바구니 데이터 추가 후 페이지 경로 이동 시 회원 이메일 파라미터 값이 필요함 -->
+        <input type="hidden" disabled="disabled" name="cust_Email" id="cust_Email" value="${sessionScope.loginfo.cust_Email}">
+		<div class="container">
+		
+		  <!-- Modal -->
+		  <div class="modal fade" id="cart_pop" role="dialog">
+		    <div class="modal-dialog modal-sm">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 id="modal-title" class="modal-title" style="font-size: 35px">
+		          	 <i class="fas fa-cart-arrow-down"></i>
+		          </h4>
+		        </div>
+		        <div class="modal-body">
+		          <p id="modal-body" style="font-size: 13px">장바구니에 상품이 담겼습니다.</p>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 13px" onclick="gotopage_caList();">바로가기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 13px">쇼핑 계속하기</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>  
+	</c:if>
 
 </body>
 
@@ -326,12 +356,41 @@ int twelve = 12;
 	/* 페이지가 열렸을 때 에러메세지를 담고있는 모달을 보여줘야함 */
 	function modal_popup() {
 		var modal_popup = $('#modal_popup').val();
+		var cart_popup = $('#cart_popup').val();
 
 		if (modal_popup != '') {
 			$('#modal_pop').modal();
 		}
-	<%session.removeAttribute("message");%>
+		
+		if (cart_popup != '') {
+			$('#cart_pop').modal();
+		}
+	<%
+		session.removeAttribute("message");
+		session.removeAttribute("cart_modal");
+	%>
 	}
+	
+
+	/* ===============================
+		장바구니 추가 성공 후 이동 경로 확인 부분
+	   ===============================
+	*/
+
+	function getContextPath() {
+		var offset = location.href.indexOf(location.host) + location.host.length;
+		var ctxPath = location.href.substring(offset, location.href.indexOf('/', offset + 1));
+		return ctxPath;
+	}
+
+
+	// 장바구니 바로가기 버튼을 클릭 시 장바구니 페이지로 이동 
+	function gotopage_caList() {
+		var cart_cust_email = $('#cust_Email').val();
+		location.href = getContextPath() + "/caList.ca?cart_cust_email=" + cart_cust_email;
+	}
+
+
 </script>
 
 

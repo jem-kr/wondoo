@@ -36,56 +36,59 @@ public class OnedayClassListController extends SuperClass {
 	}
 
 	@GetMapping(value = command)
-	public ModelAndView doGet(
-			HttpServletRequest request,
-			@RequestParam(value = "pageNumber", required = false)String pageNumber,
-			@RequestParam(value = "pageSize", required = false)String pageSize,
-			@RequestParam(value = "mode", required = false)String mode,
-			@RequestParam(value = "keyword", required = false)String keyword			
-			) {
-		
+	public ModelAndView doGet(HttpServletRequest request,
+			@RequestParam(value = "pageNumber", required = false) String pageNumber,
+			@RequestParam(value = "pageSize", required = false) String pageSize,
+			@RequestParam(value = "mode", required = false) String mode,
+			@RequestParam(value = "keyword", required = false) String keyword) {
+		// 해당 목록 가져오기
+		// 클래스 유효 날짜가 경과된 대상은 회원들에게 보여주면 안됨
+		// 현재 날짜 구하기
+
 		FlowParameters2 param = new FlowParameters2(pageNumber, pageSize, mode, keyword);
-		
+
 		System.out.println(this.getClass() + " : " + param.toString());
-		
+
 		int totalCount = onedayDao.SelectTotalCount(
-				param.getMode(), "%" + param.getKeyword() +"%");
-		
+				param.getMode(), 
+				"%" + param.getKeyword() + "%",
+				today);
+
 		String contextPath = request.getContextPath() + "/";
 		String myurl = contextPath + this.command;
-		
-		// 페이징 처리 
+
+		// 페이징 처리
 		Paging2 pageInfo = new Paging2(
-				param.getPageNumber(),
-				param.getPageSize(),
+				param.getPageNumber(), 
+				param.getPageSize(), 
 				totalCount, 
-				myurl,
-				param.getMode(), 
-				param.getKeyword());
-		
-		// 해당 목록 가져오기 
-		List<OnedayClass> lists = this.onedayDao.SelectAllData(
-				pageInfo.getOffset(),
-				pageInfo.getLimit(),
+				myurl, 
 				param.getMode(),
-				"%" + param.getKeyword() + "%");
-		
-		// 목록 갯수 
+				param.getKeyword());
+
+		List<OnedayClass> lists = this.onedayDao.SelectAllData(
+				pageInfo.getOffset(), 
+				pageInfo.getLimit(),
+				param.getMode(), 
+				"%" + param.getKeyword() + "%", 
+				today);
+
+		// 목록 갯수
 		mav.addObject("totalCount", totalCount);
-		
+
 		// 목록
 		mav.addObject("lists", lists);
-		
+
 		// 페이징 관력 항목들
 		mav.addObject("pagingHtml", pageInfo.getPagingHtml());
-		
+
 		// 필드 검색과 관련 항목들
 		mav.addObject("mode", param.getMode());
 		mav.addObject("keyword", param.getKeyword());
 
 		// 파라미터 리스트 문자열 : 상세보기 , 수정 , 삭제 등에 사용됨
 		mav.addObject("parameters", param.toString());
-		
+
 		this.mav.setViewName(super.getpage);
 		return this.mav;
 	}

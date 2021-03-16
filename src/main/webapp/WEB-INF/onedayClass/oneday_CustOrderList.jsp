@@ -77,7 +77,7 @@
 							                    	<td>${bean.bookdate}</td>
 							                    	<td>${bean.booktime}</td>
 						                     		<td>
-						                     			<img alt="image" src="/upload/${bean.main_image}" width="150" height="100"> 
+						                     			<img alt="image" src="${contextPath}/upload/${bean.main_image}" width="150" height="100"> 
 						                     		</td>
 						                  			<td>
 						                  				<a href="${contextPath}/onedayCustOrderDetail.odc?onedayorder_seq=${bean.onedayorder_seq}">

@@ -92,7 +92,6 @@
 											</li>
 											<li>
 												<div class="form-group payment_input">
-													<!-- 파라미터 이름은 수정 할 것  -->
 													<div class="column_name ">
 														<spring:message code="oneday.time" />
 													</div>
@@ -135,7 +134,8 @@
 										<p id="price"><i class="fas fa-won-sign"></i>&nbsp;${totalprice}원</p>
 									</div>
 									<div class="submit_detail">
-										<input type="button" id="pay" class="btn-send" value="결제하기" onclick="payment();"> 
+										<!-- <input type="button" id="pay" class="btn-send" value="결제하기" onclick="payment();"> -->
+										<input type="submit" id="pay" class="btn-send" value="테스트용 결제 버튼">  
 									</div>
 								</form>
 							</div>
@@ -146,33 +146,5 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- ------------------------------------- [모달 section]--------------------------------------- -->
-	<div class="container">
-
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 id="modal-title" class="modal-title" style="font-size: 35px">
-						</h4>
-					</div>
-					<div class="modal-body">
-						<p id="modal-body" style="font-size: 13px">
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							style="font-size: 13px">예</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							style="font-size: 13px">아니오</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 </body>
 </html>

@@ -9,10 +9,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 		
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<!-- <mvc:annotation-driven /> -->
+	<mvc:annotation-driven />
 
 	<!-- 	controller라는 패키지에서 컨트롤러를 검색합니다.		-->	
  	<context:component-scan base-package="cart.controller" />
+ 	<context:component-scan base-package="dao" />
 	
 	<!-- ViewResolver 설정하기 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

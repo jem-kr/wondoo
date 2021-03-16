@@ -23,6 +23,15 @@
 			<div id="top">
 				<h2 class="wow fadeInLeft animated portfolio-item"
 					data-wow-duration="500ms" data-wow-delay="0ms">ONEDAY CLASS</h2>
+				
+				<c:if test="${not empty sessionScope.loginfo_seller || sessionScope.loginfo.cust_Email == 'admin@gmail.com'}">
+					<hr>
+					<p class="subtitle-des wow fadeInLeft animated" data-wow-duration="500ms"
+					data-wow-delay="0ms">
+						※ 개설한 원데이 클래스의 수업 날짜가 경과된 건은 자동으로 삭제됩니다.<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;자동 삭제 처리는 일주일 정도 소요됩니다.
+					</p>
+				</c:if>
 				<span class="subtitle-des wow fadeInDown" data-wow-duration="500ms"
 					data-wow-delay="0.1s" id="search_btn" data-toggle="tooltip"
 					title="클릭하세요!" onclick="search();"> <i class="fas fa-search"></i>
