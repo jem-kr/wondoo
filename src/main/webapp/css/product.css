@@ -1,7 +1,7 @@
 @charset "EUC-KR";
 
 /* ==================================
-		원데이 클래스 등록
+		상품 등록
    ==================================  */
 
 body{
@@ -396,7 +396,7 @@ div#submit{
 
 
 /* ==================================
-		원데이 클래스 목록
+		 목록
    ==================================  */
    
 /*이미지 hover 되었을 때 전체*/
@@ -535,7 +535,7 @@ input#keyword{
 	
 
 /* ====================
-    원데이클래스 상세보기
+   상세보기
 =======================*/
 #contact-submit{
 	width: 100% !important;
@@ -546,7 +546,7 @@ input#keyword{
     이미지 부분
 =======================*/
 
- /* 클래스 명 */
+ /* 상품명 */
 h3.widget-head {
     color: #5080BF;
     font-family: "맑은 고딕" !important;
@@ -579,12 +579,12 @@ h3.widget-head {
     height: 100% !important;
 }
 
-/* 사진 밑 부분 원데이 클래스 내용 부분 */
+/* 사진 밑 부분 상품 설명 내용 부분 */
 
 
 
 
-/*  원데이 클래스 내용 있는 부분 */
+/*  상품 설명 부분 */
 #content_css {
     padding-top: 0px !important;
     border: 0;
@@ -624,14 +624,14 @@ h3#sellname_css{
 	margin-top: 0px;
 	
 }
-/* 사이드 부분 두번째 예약 정보  있는 부분*/
+/* 사이드 부분 두번째 정보  있는 부분*/
 .sidebar .categories ul li {
     height: 80px;
     padding: 0;
     list-style: none;
 }
 
-/* 수업 신청 부분 */
+/* 구매하기 부분 */
 h3#class_css{
     text-align: center;
     font-size: 15px;
@@ -943,7 +943,7 @@ input#fake_person{
 
 
 /* =======================
-	원데이 클래스 수정 및 등록
+	상품 수정 및 등록
 ========================== */
 .sub_steptitle{
 	margin-bottom: 70px;

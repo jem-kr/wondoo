@@ -67,4 +67,14 @@ public class ProductDao {
 		return bean;
 	}
 
+	public int UpdateData(Product product) {
+		int cnt = this.sst.update(namespace+"UpdateData", product);
+		return cnt;
+	}
+
+	public int DeleteData(int products_seq) {
+		int cnt = this.sst.delete(namespace+"DeleteData", products_seq);
+		return cnt;
+	}
+
 }

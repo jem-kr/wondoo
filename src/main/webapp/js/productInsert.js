@@ -43,7 +43,7 @@ $(document).ready(function() {
 */
 
 
-function today() {
+function setprice() {
 	/* ===============================  
 		상품 수정
 	 ==================================*/
@@ -63,59 +63,6 @@ function today() {
 };
 
 
-
-/* ===============================
-	코드 중복 검사 ajax 활용
-   ===============================
-*/
-
-function code_ajax() {
-	
-	// 유효성 검사
-	var code = $('#code').val();
-	var font_color = '#5080BF';
-
-	if (code.length == 0) {
-		$("#err_code").text('클래스 코드를 입력하세요!');
-		$("#err_code").css("color", font_color);
-	}  else {
-		$("#err_code").text('');
-	}
-
-	//alert(code);
-
-	// 중복 ajax 
-	$.ajax({
-		url: '/onedayCodeCheck.odc',
-		type: 'post',
-		dataType: "json",
-		contentType: "application/json; charset=UTF-8",
-		data: code, // 1. {code : code } code=code 형식 , 2. String 으로 받을 수 있음..  
-		success: function(data) { // OnedayClassCodeCheckController 컨트롤러 cnt 값
-			console.log("1 = 중복o / 0 = 중복x : "+ data);         
-			if (data == '1') {
-				$('#err_code').text('이미 존재하는 클래스 코드입니다. 다른 코드로 지정하세요!' );
-				$('#err_code').css('color', font_color);
-			}else {
-				if (code.length > 0) {
-					if (code.indexOf('coffee_') == 0 || code.indexOf('pottery_') == 0) {
-						if(code == 'coffee_' || code=='pottery_'){
-							$("#err_code").text('기본 설정 값 다음부터 입력이 가능합니다!');
-							$('#err_code').css('color', font_color);
-						}else{
-							$("#err_code").text('');
-						}
-					} else {
-						$("#err_code").text('기본 설정 값 다음부터 입력이 가능합니다! 주제를 다시 선택하세요.');
-					}
-				}
-			}
-		}, error: function() {
-			console.log("통신 실패-값이 안넘어감");   
-		}
-
-	});
-}
 
 
 
@@ -163,7 +110,6 @@ $(document).ready(function() {
 	});
 
 
-	// 상단 code_ajax() 함수에서 유효성 검사 진행
 
 	// 상품명
 	$("#pro_name").keyup(function() {
@@ -381,7 +327,7 @@ function prevTab(elem) {
 
 
 /*================================
-	유효성 검사 - STEP3 / 최종 등록 단계
+	유효성 검사 - STEP2 / 사진 및 최종 등록 단계
   ================================*/
 function submitCheck() {
 

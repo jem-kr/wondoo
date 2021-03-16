@@ -27,8 +27,8 @@ import dao.ProductDao;
 public class ProductInsertController extends SuperClass {
 	private final String command = "/prInsert.pr";
 	private final String get_gotopage = "productInsert";
-	private final String redirect = "redirect:/prList.pr";
-
+	private final String p_redirect = "redirect:/prList.pr";
+	private final String c_redirect = "redirect:/cfList.pr";
 	@Autowired
 	@Qualifier(value = "productDao")
 	private ProductDao dao;
@@ -75,8 +75,6 @@ public class ProductInsertController extends SuperClass {
 		System.out.println("실제 경로 출력 : " + realPath);
 
 		try {
-			// 조건
-			// 3개의 사진이 모두 등록되어야함
 
 			if (multi_file1 != null) {
 				destination1 = utility.Utility.getUploadedFileInfo(multi_file1, realPath);
@@ -85,7 +83,7 @@ public class ProductInsertController extends SuperClass {
 				product.setPro_pic(destination1.getName());
 			}
 
-			System.out.println(this.getClass() + "원데이 클래스 추가 하기");
+			System.out.println(this.getClass() + "상품 추가 하기");
 
 			product.setPro_sell_email(pro_sell_email);
 			System.out.println(product.toString());
@@ -97,7 +95,11 @@ public class ProductInsertController extends SuperClass {
 			if (cnt > 0) {
 				System.out.println("상품 등록 성공");
 				session.setAttribute("message", "정상적으로 둥록이 완료 되었습니다!");
-				mav.setViewName(redirect);
+				if(product.getPro_category().equalsIgnoreCase("p")) {
+				mav.setViewName(p_redirect);
+				}else {
+					mav.setViewName(c_redirect);
+				}
 			} else {
 				System.out.println("상품 등록 실패");
 				session.setAttribute("message", " 등록 실패! <br>상품 등록이 실패되었습니다.");

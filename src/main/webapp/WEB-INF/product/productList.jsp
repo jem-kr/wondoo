@@ -9,8 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 목록</title>
-<script type="text/javascript" src="${contextPath}/js/onedayClass.js"></script>
-<link rel="stylesheet" href="${contextPath}/css/onedayClass.css">
+<script type="text/javascript" src="${contextPath}/js/product.js"></script>
+<link rel="stylesheet" href="${contextPath}/css/product.css">
 </head>
 <body onload="list_loading();" class="top">
 	<!-- 
@@ -68,7 +68,7 @@
 											<a href="${contextPath}/prDetail.pr?products_seq=${bean.products_seq}">자세히 보기</a>
 											<c:if test="${bean.pro_sell_email eq sessionScope.loginfo_seller.sell_Email}">
 												<a href="${contextPath}/prUpdate.pr?products_seq=${bean.products_seq}">수정</a>
-												<a href="${contextPath}/prDelete.pr?products_seq=${bean.products_seq}">삭제</a>
+												<a data-toggle="modal" data-target="#myModal">삭제</a>
 											</c:if>
 										</div>
 									</div>
@@ -104,7 +104,7 @@
 											<a href="${contextPath}/prDetail.pr?products_seq=${bean.products_seq}">자세히 보기</a>
 											<c:if test="${bean.pro_sell_email eq sessionScope.loginfo_seller.sell_Email}">
 												<a href="${contextPath}/prUpdate.pr?products_seq=${bean.products_seq}">수정</a>
-												<a href="${contextPath}/prDelete.pr?products_seq=${bean.products_seq}">삭제</a>
+												<a data-toggle="modal" data-target="#myModal">삭제</a>
 											</c:if>
 										</div>
 									</div>
@@ -132,10 +132,10 @@
 	</section>
 
 
-	<%-- <!-- ------------------------------------- [모달 section]--------------------------------------- -->
+	 <!-- ------------------------------------- [모달 section]--------------------------------------- -->
 	<div class="container">
 
-		Modal
+		
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
@@ -150,13 +150,13 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal"
-							style="font-size: 13px">예</button>
+							style="font-size: 13px" onclick="del_check();">예</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal"
 							style="font-size: 13px">아니오</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div> --%>
+	</div> 
 </body>
 </html>

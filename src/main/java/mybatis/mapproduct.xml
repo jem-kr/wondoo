@@ -38,10 +38,10 @@
 	<select id="SelectTotalCoffeeCount" parameterType="String" resultType="Integer">
 		select count(*) from products where pro_category ='c'
 		<if test="mode == 'pro_type'">
-			and where pro_type like #{keyword}  
+			and pro_type like #{keyword}  
 		</if>
 		<if test="mode == 'pro_name'">
-			and where pro_name like #{keyword}  
+			and pro_name like #{keyword}  
 		</if>
 		
 	</select>
@@ -50,10 +50,10 @@
 		<include refid="basic_select"/>
 		where pro_category ='c'
 		<if test="mode == 'pro_type'">
-			and where pro_type like #{keyword} 
+			and pro_type like #{keyword} 
 		</if>
 		<if test="mode == 'pro_name'">
-			and where pro_name like #{keyword} 
+			and pro_name like #{keyword} 
 		</if>
 		 order by products_seq desc
 	</select>
@@ -75,4 +75,14 @@
 		<include refid="basic_select"/>
 		where products_seq=#{products_seq}
 	</select>
+	
+	
+	<update id="UpdateData" parameterType="MyProduct">
+		update products set pro_type = #{pro_type}, pro_name = #{pro_name}, pro_price = #{pro_price}, pro_stock = #{pro_stock}, pro_detail = #{pro_detail}, pro_origin = #{pro_origin}, pro_pic = #{pro_pic}, pro_category = #{pro_category}
+		where products_seq = #{products_seq}
+	</update>
+	
+	<delete id="DeleteData" parameterType="Integer">
+		delete from products where products_seq = #{products_seq}
+	</delete>
 </mapper>
