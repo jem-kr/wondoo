@@ -11,7 +11,12 @@
 
     <script type="text/javascript" src="${contextPath}/js/product.js"></script>
     <link rel="stylesheet" href="${contextPath}/css/onedayClass.css">
-    
+    <style type="text/css">
+    .pro_picture{
+    	max-width: 648px;
+    	max-height: 438px;
+    }
+    </style>
 </head>
 <body class="top" onload="detail_loading();">
 	 <section id="blog-full-width">
@@ -33,7 +38,7 @@
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner carousel-zoom carousel-fade">
                                         <div class="item active">
-                                            <img class="img-responsive" src="./upload/${bean.pro_pic}" alt="">
+                                            <img class="img-responsive pro_picture" src="./upload/${bean.pro_pic}" alt="">
                                         </div>
                                     <!-- Carousel nav -->
                                     
