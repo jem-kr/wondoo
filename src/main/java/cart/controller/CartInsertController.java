@@ -18,6 +18,7 @@ import bean.Seller;
 import common.controller.SuperClass;
 import dao.CartDao;
 import dao.ProductDao;
+import oracle.net.aso.i;
 
 @Controller
 public class CartInsertController extends SuperClass {
@@ -88,62 +89,66 @@ public class CartInsertController extends SuperClass {
 				// 단 , 기존 상품 업데이트 시 사업자가 초기 설정한 재고 수의 초과 여부에 따라 등록 처리해줘야함
 				int cnt = -1; // 초기화
 
-				cnt = this.cartDao.DuplProNoCheck(bean.getCart_pro_no());
+				cnt = this.cartDao.DuplProNoCheck(bean);
 
 				if (cnt > 0) { // 장바구니 테이블에 중복되는 상품번호가 존재
 					System.out.println("중복 O , 기존 데이터에 누적 처리 실행");
 
 					// 기존 상품 업데이트 전 사업자가 초기 설정한 재고의 수를 초과 했는지 안했는지에 따라
 					// 설정을 다르게 해줘야함
+					// 각각의 회원은 사업자가 초기 설정한 재고까지만 상품을 담을 수 있으며 
+					// 한명의 회원일 경우 자기가 담아놓은 순서 ㄴ 의 조건을 만족해야함.
+					
 					// 순서 ㄱ. 장바구니 테이블에서 해당 상품에 대한 수량 sum 값 구하기 → 변수 sum_qty
-					// ㄴ. 사업자가 초기 설정한 재고량 - sum_qty 의 차 구하기 → 변수 gap
-
-					// switch case 문 (3개의 조건에 해당하는 결과 변수 생성 → 변수 result
-					// 조건 가. 회원이 선택한 수량 <= gap 이면 해당 상품에 해당하는 수량 , 가격을 누적 → result == 1
-					// 조건 나. 회원이 선택한 수량 > gap 이면 gap까지만 상품을 담을 수 있다는 메세지 alert → result == -1
-					// 조건 다. gap == 0 이면 상품이 품절되었다는 메세지 alert → result == -1
+					// 순서 ㄴ. 사업자가 초기 설정한 재고량 - sum_qty 의 차 구하기 → 변수 gap
+					// sum_qty 는 회원 이메일에 따라서 null or 정수 값이 될수도 있기에 object 타입으로 처리 
+					
+					// 조건 가. gap == 0 이면 상품이 품절되었다는 메세지 alert
+					// 조건 나. gap != 0 이면 아래 조건 수행 (하위 조건을 처리하므로 gap 이 0보다 작을 경우는 없음)
+					
+					// switch case 문 (2개의 하위 조건에 해당하는 결과 변수 생성 → 변수 result
+					// 하위 조건 가. 회원이 선택한 수량 <= gap 이면 해당 상품에 해당하는 수량 , 가격을 누적 → result == 1
+					// 하위 조건 나. 회원이 선택한 수량 > gap 이면 gap까지만 상품을 담을 수 있다는 메세지 alert → result == -1
 
 					int sum_qty = -1; // 장바구니 테이블에서 수량에 대한 전체 sum 값
-					sum_qty = this.cartDao.SelectByQty(bean.getCart_pro_no());
+					sum_qty = this.cartDao.SelectByQty(bean);
+					System.out.println(sum_qty);
 
 					product = this.productDao.SelectOneData(cart_pro_no); // 상품 정보
 
-					int gap = product.getPro_stock() - sum_qty;
-					System.out.println("확인");
-					System.out.println(sum_qty);
-					System.out.println(product.getPro_stock());
-					System.out.println(gap);
-					
+					int gap = product.getPro_stock() - (Integer)sum_qty;
+
 					int result = 0; // 조건에 해당하는 결과를 저장하는 변수
 
-					if (bean.getCart_cust_qty() <= gap) { // 조건 가.
-						result = 1;
-					} else if (bean.getCart_cust_qty() > gap) { // 조건 나.
-						result = -1;
-					} else if (gap == 0) { // 조건 다.
-						result = 0;
-					}
-					
-					switch (result) {
-					case 1:
-						cnt = -1; // 초기화
-						cnt = this.cartDao.UpdateQtyPrice(bean);
-
-						if (cnt > 0) {// 중복되는 상품이 존재하여 기존 데이터에 수량 , 가격 누적 처리
-							System.out.println("기존 데이터에 수량 , 가격 누적 성공");
-							session.setAttribute("cart_modal", "success");
-							this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
-
+					if (gap == 0) { // 조건 가.
+						session.setAttribute("message", "상품을 더 이상 담을 수 없습니다!");
+						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+					} else { // 조건 나.
+						
+						if (bean.getCart_cust_qty() <= gap) { // 하위 조건 가.
+							result = 1;
+						} else if (bean.getCart_cust_qty() > gap) { // 하위 조건 나.
+							result = -1;
 						}
-						break;
-					case -1:
-						session.setAttribute("message", "해당 상품은 " + gap + "개 남았습니다. <br> 수량을 확인하세요!");
-						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
-						break;
-					case 0:
-						session.setAttribute("message", "상품이 품절되었습니다!");
-						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
-						break;
+
+						switch (result) {
+						case 1:
+							cnt = -1; // 초기화
+							cnt = this.cartDao.UpdateQtyPrice(bean);
+
+							if (cnt > 0) {// 중복되는 상품이 존재하여 기존 데이터에 수량 , 가격 누적 처리
+								System.out.println("기존 데이터에 수량 , 가격 누적 성공");
+								session.setAttribute("cart_modal", "success");
+								this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+
+							}
+							break;
+						case -1:
+							session.setAttribute("message", "해당 상품은 " + gap + "개 남았습니다. <br> 수량을 확인하세요!");
+							this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+							break;
+						}
+
 					}
 
 				} else { // 장바구니 테이블에 상품번호가 중복되지 않음 (신규)

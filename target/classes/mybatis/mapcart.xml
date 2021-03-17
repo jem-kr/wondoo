@@ -37,21 +37,24 @@
 	</delete>
 	
 	<!-- 장바구니 상품번호 중복 체크 -->
-	<select id="DuplProNoCheck" parameterType="Integer" resultType="Integer">
+	<select id="DuplProNoCheck" parameterType="MyCart" resultType="Integer">
 		select count(*) from cart
 		where cart_pro_no=#{cart_pro_no}
+		and cart_cust_email=#{cart_cust_email}
 	</select>
 	
 	<!-- 장바구니 상품번호 중복 체크 후 기존에 들어있던 상품이면 수량 , 가격을 누적한다.-->
 	<update id="UpdateQtyPrice" parameterType="MyCart">
 		update cart set cart_cust_qty = cart_cust_qty  <![CDATA[+]]> #{cart_cust_qty} , 
 		cart_price = cart_price <![CDATA[+]]> #{cart_price}
-		where cart_pro_no=#{cart_pro_no}
+		where cart_pro_no=#{cart_pro_no} 
+		and cart_cust_email=#{cart_cust_email}
 	</update>
 	
 	<!-- 상품 수량 , 가격을 누적하기 전 재고량을 파악해야함 -->
-	<select id="SelectByQty" parameterType="Integer" resultType="Integer">
-		select sum(cart_cust_qty) from cart
-		where cart_pro_no=#{cart_pro_no}
+	<select id="SelectByQty" parameterType="MyCart" resultType="Integer">
+		select nvl(sum(cart_cust_qty),0) from cart
+		where cart_pro_no=#{cart_pro_no} 
+		and cart_cust_email=#{cart_cust_email}
 	</select>
 </mapper>
