@@ -11,6 +11,12 @@
 <title>상품 목록</title>
 <script type="text/javascript" src="${contextPath}/js/product.js"></script>
 <link rel="stylesheet" href="${contextPath}/css/product.css">
+<style type="text/css">
+.pro_picture{
+	max-width: 350px;
+	max-height: 236.56px;
+}
+</style>
 </head>
 <body onload="list_loading();" class="top">
 	<!-- 
@@ -41,7 +47,7 @@
 						<option class="form-control" value="pro_type">타입</option>
 						<option class="form-control" value="pro_name">이름</option>
 					</select> <input type="text" class="form-control"
-						placeholder="검색할 내용을 입력하세요" id="keyword" name="keyword">
+						placeholder="타입은 싱글오리진, 블렌딩, 캡슐 중에 입력하세요" id="keyword" name="keyword">
 					<button type="submit">
 						<i class="fas fa-search"></i>
 					</button>
@@ -62,7 +68,7 @@
 							<!--  시퀀스 -->
 							<figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
 								<div class="img-wrapper">
-									<img src="./upload/${bean.pro_pic}" class="img-responsive" alt="image">
+									<img src="./upload/${bean.pro_pic}" class="img-responsive pro_picture" alt="image">
 									<div class="overlay">
 										<div class="buttons">
 											<a href="${contextPath}/prDetail.pr?products_seq=${bean.products_seq}">자세히 보기</a>
@@ -98,7 +104,7 @@
 							<input type="hidden" id="products_seq" value="${bean.products_seq}">
 							<figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
 								<div class="img-wrapper">
-									<img src="./upload/${bean.pro_pic}" class="img-responsive" alt="image">
+									<img src="./upload/${bean.pro_pic}" class="img-responsive pro_picture" alt="image">
 									<div class="overlay">
 										<div class="buttons">
 											<a href="${contextPath}/prDetail.pr?products_seq=${bean.products_seq}">자세히 보기</a>

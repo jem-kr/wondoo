@@ -51,7 +51,7 @@ public class ProductInsertController extends SuperClass {
 			System.out.println("관리자 승인 여부 : " + bean.getSell_Status());
 			System.out.println("승인 안된 사업자"); 
 			// 에러 메세지 바인딩
-			session.setAttribute("message", "수업 등록 전 관리자 승인이 필요합니다!");
+			session.setAttribute("message", "상품 등록 전 관리자 승인이 필요합니다!");
 			
 			return "redirect:/sellApp.se?sell_Email=" + bean.getSell_Email();
 		}

@@ -157,7 +157,7 @@
 												        </button>
 												
 												        <div id="main_wrap" class="image-upload-wrap"> 
-												            <input class="file-upload-input" id="p_img" name="p_img"  type='file' onchange="readURL_main(this);" accept="image/*">
+												            <input class="file-upload-input" id="p_img" name="p_img"  type='file' onchange="readURL_main(this);" accept="image/*" >
 												            <div class="drag-text">
 												            <h3><i class="fas fa-paperclip"></i></h3>
 												            </div>
