@@ -47,7 +47,7 @@ public class CartInsertController extends SuperClass {
 	@GetMapping(command)
 	public ModelAndView doGet(@RequestParam(value = "products_seq", required = true) int cart_pro_no,
 			@RequestParam(value = "qty", required = true) int cart_cust_qty,
-			@RequestParam(value = "totalprice", required = true) String cart_total_price, HttpServletRequest request) {
+			@RequestParam(value = "totalprice", required = true) String cart_price, HttpServletRequest request) {
 		// 회원일때만 상품 구매가 가능함
 		// 조건 1. 사업자일 경우 → 상품 구매 불가
 		// 조건 2. 비회원일 경우 → 상품 구매 불가
@@ -73,28 +73,92 @@ public class CartInsertController extends SuperClass {
 				session.setAttribute("message", "관리자는 상품을 구매할 수 없습니다!");
 				mav.setViewName("redirect:/cfList.pr");
 			} else if (customer != null && customer.getCust_Email().equals("admin@gmail.com") == false) {// 일반 회원이라면
-				product = this.productDao.SelectOneData(cart_pro_no); // 상품 정보
 
 				Cart bean = new Cart();
 				bean.setCart_seq(0);
 				bean.setCart_cust_email(customer.getCust_Email());
 				bean.setCart_cust_qty(cart_cust_qty);
 				bean.setCart_pro_no(cart_pro_no);
-				bean.setCart_sell_email(product.getPro_sell_email());
 
 				// 가격 콤마 제거
-				int totalprice = Integer.parseInt(cart_total_price.replace(",", ""));
-				bean.setCart_total_price(totalprice);
+				int _cartprice = Integer.parseInt(cart_price.replace(",", ""));
+				bean.setCart_price(_cartprice);
 
+				// 상품 번호 중복 체크 후 신규 추가와 기존 상품 업데이트로 나눠야함
+				// 단 , 기존 상품 업데이트 시 사업자가 초기 설정한 재고 수의 초과 여부에 따라 등록 처리해줘야함
 				int cnt = -1; // 초기화
 
-				cnt = this.cartDao.InsertData(bean);
-				
-				if (cnt > 0) { // 장바구니 추가 완료
-					System.out.println("장바구니 추가 완료");
-					session.setAttribute("cart_modal", "success");
-					this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+				cnt = this.cartDao.DuplProNoCheck(bean.getCart_pro_no());
+
+				if (cnt > 0) { // 장바구니 테이블에 중복되는 상품번호가 존재
+					System.out.println("중복 O , 기존 데이터에 누적 처리 실행");
+
+					// 기존 상품 업데이트 전 사업자가 초기 설정한 재고의 수를 초과 했는지 안했는지에 따라
+					// 설정을 다르게 해줘야함
+					// 순서 ㄱ. 장바구니 테이블에서 해당 상품에 대한 수량 sum 값 구하기 → 변수 sum_qty
+					// ㄴ. 사업자가 초기 설정한 재고량 - sum_qty 의 차 구하기 → 변수 gap
+
+					// switch case 문 (3개의 조건에 해당하는 결과 변수 생성 → 변수 result
+					// 조건 가. 회원이 선택한 수량 <= gap 이면 해당 상품에 해당하는 수량 , 가격을 누적 → result == 1
+					// 조건 나. 회원이 선택한 수량 > gap 이면 gap까지만 상품을 담을 수 있다는 메세지 alert → result == -1
+					// 조건 다. gap == 0 이면 상품이 품절되었다는 메세지 alert → result == -1
+
+					int sum_qty = -1; // 장바구니 테이블에서 수량에 대한 전체 sum 값
+					sum_qty = this.cartDao.SelectByQty(bean.getCart_pro_no());
+
+					product = this.productDao.SelectOneData(cart_pro_no); // 상품 정보
+
+					int gap = product.getPro_stock() - sum_qty;
+					System.out.println("확인");
+					System.out.println(sum_qty);
+					System.out.println(product.getPro_stock());
+					System.out.println(gap);
+					
+					int result = 0; // 조건에 해당하는 결과를 저장하는 변수
+
+					if (bean.getCart_cust_qty() <= gap) { // 조건 가.
+						result = 1;
+					} else if (bean.getCart_cust_qty() > gap) { // 조건 나.
+						result = -1;
+					} else if (gap == 0) { // 조건 다.
+						result = 0;
+					}
+					
+					switch (result) {
+					case 1:
+						cnt = -1; // 초기화
+						cnt = this.cartDao.UpdateQtyPrice(bean);
+
+						if (cnt > 0) {// 중복되는 상품이 존재하여 기존 데이터에 수량 , 가격 누적 처리
+							System.out.println("기존 데이터에 수량 , 가격 누적 성공");
+							session.setAttribute("cart_modal", "success");
+							this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+
+						}
+						break;
+					case -1:
+						session.setAttribute("message", "해당 상품은 " + gap + "개 남았습니다. <br> 수량을 확인하세요!");
+						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+						break;
+					case 0:
+						session.setAttribute("message", "상품이 품절되었습니다!");
+						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+						break;
+					}
+
+				} else { // 장바구니 테이블에 상품번호가 중복되지 않음 (신규)
+					System.out.println("중복 X , 신규 상품 등록 처리 실행");
+
+					cnt = -1; // 초기화
+					cnt = this.cartDao.InsertData(bean);
+
+					if (cnt > 0) {
+						System.out.println("신규 상품 등록 처리 성공");
+						session.setAttribute("cart_modal", "success");
+						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+					}
 				}
+
 			}
 
 		} else { // 로그인이 되어있지 않으면

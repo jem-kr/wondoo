@@ -67,16 +67,18 @@ public class CartListController extends SuperClass {
 		int delivery_price = 0;
 		
 		if (lists.size() > 0) { // 장바구니 내역이 있으면
-			Product product;
+			
+			Product product ;
+			
 			for (Cart cart : lists) { // 확장 for문을 돌리면서 필요한 상품 정보 셋팅
 				product = this.productDao.SelectOneData(cart.getCart_pro_no());
-
+				System.out.println(product);
 				cart.setPro_name(product.getPro_name());
 				cart.setPro_pic(product.getPro_pic());
 				cart.setPro_stock(product.getPro_stock());
 				cart.setPro_price(product.getPro_price());
 				
-				sum_price += cart.getCart_total_price();
+				sum_price += cart.getCart_price();
 			}
 			
 			this.mav.addObject("sum_price",sum_price); // 회원이 장바구니에 담아놓은 상품 총 가격

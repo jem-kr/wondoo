@@ -15,15 +15,13 @@
 		cart_pro_no, 
 		cart_cust_qty, 
 		cart_cust_email, 
-		cart_sell_email,
-		cart_total_price)
+		cart_price)
 		values(
 		cart_seq.nextval, 
 		#{cart_pro_no}, 
 		#{cart_cust_qty}, 
 		#{cart_cust_email}, 
-		#{cart_sell_email},
-		#{cart_total_price})
+		#{cart_price})
 	</insert>
 	
 	<!-- 장바구니 목록 보기  -->
@@ -37,4 +35,23 @@
 		delete from cart 
 		where cart_seq=#{cart_seq}
 	</delete>
+	
+	<!-- 장바구니 상품번호 중복 체크 -->
+	<select id="DuplProNoCheck" parameterType="Integer" resultType="Integer">
+		select count(*) from cart
+		where cart_pro_no=#{cart_pro_no}
+	</select>
+	
+	<!-- 장바구니 상품번호 중복 체크 후 기존에 들어있던 상품이면 수량 , 가격을 누적한다.-->
+	<update id="UpdateQtyPrice" parameterType="MyCart">
+		update cart set cart_cust_qty = cart_cust_qty  <![CDATA[+]]> #{cart_cust_qty} , 
+		cart_price = cart_price <![CDATA[+]]> #{cart_price}
+		where cart_pro_no=#{cart_pro_no}
+	</update>
+	
+	<!-- 상품 수량 , 가격을 누적하기 전 재고량을 파악해야함 -->
+	<select id="SelectByQty" parameterType="Integer" resultType="Integer">
+		select sum(cart_cust_qty) from cart
+		where cart_pro_no=#{cart_pro_no}
+	</select>
 </mapper>
