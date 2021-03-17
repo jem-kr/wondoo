@@ -129,12 +129,12 @@ function zipCheck() {
 
 
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('zipcode').value = data.zonecode;
-			document.getElementById('fakezipcode').value = data.zonecode;
-			document.getElementById("address1").value = addr;
-			document.getElementById("fakeaddress1").value = addr;
+			document.getElementById('orders_Zipcode').value = data.zonecode;
+			document.getElementById('fake_orders_Zipcode').value = data.zonecode;
+			document.getElementById("orders_ADR01").value = addr;
+			document.getElementById("fake_orders_ADR01").value = addr;
 			// 커서를 상세주소 필드로 이동한다.
-			document.getElementById("address2").focus();
+			document.getElementById("orders_ADR02").focus();
 		}
 	}).open({
 		left: (window.screen.width / 2) - (width / 2),
@@ -244,7 +244,6 @@ function qty_check() {
 function delivery_restore(){
 	$("input:not(.delivery input)").attr("disabled", "disabled");
 	$("button#zipcodebtn").attr("disabled", "disabled");
-	$("input:not(.delivery input)").attr("value");
 }
 
 
@@ -252,12 +251,11 @@ function delivery_restore(){
 function delivery_change(){
 	$("input").removeAttr("disabled");
 	$("button#zipcodebtn").removeAttr("disabled");
-	$("input:not(.delivery input)").attr("value");
 }
 
 // 신규 배송지
 function delivery_new(){
-	$("input:not(.delivery input)").removeAttr("value");
-	$("input").removeAttr("disabled");
+	$("input.new_data").attr("value" , "");
+	$("input.new_data").removeAttr("disabled");
 	$("button#zipcodebtn").removeAttr("disabled");
 }

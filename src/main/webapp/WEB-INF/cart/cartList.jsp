@@ -46,10 +46,16 @@
 	                                    <th class="acti">상품 삭제</th>
 	                                </tr>													
 	                            </thead>
+	                            <!-- =====================================
+	                            		list 반복문 부분 [시작]
+	                            ========================================== -->
 	                            <c:forEach var="bean" items="${requestScope.lists}">
 		                            <tbody>
 		                                <tr class="table-info">
+		                                	
 		                                    <td class="produ">
+		                                    	<%--@--%><input type="text" id="orders_cust_email" name="orders_cust_email" value="${customer.cust_Email}">
+		                      		      		<%--@--%><input type="text" id="orders_pro_no" name="orders_pro_no" value="${bean.cart_pro_no}">
 		                                        <a href="${contextPath}/prDetail.pr?products_seq=${bean.cart_pro_no}">
 		                                        	<img width="250" height="150" alt="noimage" src="${contextPath}/upload/${bean.pro_pic}">
 		                                        </a>
@@ -66,14 +72,15 @@
 		                                        <div class="cart-plus-minus">
 		                                            <div class="dec qtybutton" onclick="minusqty();">-</div>
 		                                            <input type="hidden" disabled="disabled" id="pro_stock" value="${bean.pro_stock}" name="qtybutton" class="cart-plus-minus-box">
-		                                            <input type="text" id="cart_cust_qty" value="${bean.cart_cust_qty}" 
+		                                            <%--@--%><input type="text" id="orders_qty" name="orders_qty"  value="${bean.cart_cust_qty}" 
 		                                            name="qtybutton" class="cart-plus-minus-box" oninput="qty_check()">
 		                                            <div class="inc qtybutton" onclick="plusqty();">+</div>
 		                                        </div>
 		                                    </td>
 		                                    <td class="unit">
 		                                    	<input type="hidden" disabled="disabled" id="pro_price" value="${bean.pro_price}" name="qtybutton" class="cart-plus-minus-box">
-		                                        <h5 id="cart_total_price"><fmt:formatNumber pattern="#,###,###" value="${bean.cart_total_price}"/></h5>
+		                                        <h5 id="cart_price"><fmt:formatNumber pattern="#,###,###" value="${bean.cart_price}"/></h5>
+		                                       	<%--@--%><input type="text" id="orders_amount" name="orders_amount" value="${bean.cart_price}">
 		                                    </td>
 		                                    <td class="acti">
 		                                    	<input id="cart_seq" type="hidden" disabled="disabled" value="${bean.cart_seq}">
@@ -82,6 +89,9 @@
 		                                </tr>
 		                            </tbody>
 	                            </c:forEach>
+	                            <!-- =====================================
+	                            		list 반복문 부분 [끝]
+	                            ========================================== -->
 	                        </table>
 	                    </div>
 	                    <div class="col-sm-6 col-md-7">
@@ -99,7 +109,13 @@
 		                            	<span><fmt:formatNumber pattern="#,###,###" value="${requestScope.delivery_price}"/></span>원
 		                            </h5>
 		                            <hr>
-		                            <h6>합계 <span>7500</span>원</h6>
+		                            <h6>
+		                            	합계<span>
+		                            		<fmt:formatNumber pattern="#,###,###" value="${requestScope.sum_price + requestScope.delivery_price}"/>
+		                            	</span>원
+		                            	<%-- 이건 DB에 들어가는 파라미터는 아니지만.. 결제 API 사용시 총 결제 금액이 필요 할 듯 해서 일단..남길게 --%>
+		                            	<%--@@--%><input type="text" id="orders_total_amount" name="orders_total_amount" value="${requestScope.sum_price + requestScope.delivery_price}">
+		                            </h6>
 		                        </div>
 		                        <a id="all_procedto" href="#">전체 상품주문</a>
 		                    </div>
@@ -138,7 +154,7 @@
 	                                        * 받으실 분
 	                                    </td>
 	                                    <td class="col-sm-10">
-	                                        <input id="cust_name" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
+	                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
 	                                    </td>
 	                                </tr>
 	                                <tr class="table-info">
@@ -148,15 +164,15 @@
 	                                    <td class="col-sm-10">
 	                                        <div class="address_find">
 	                                            <div class="zipcode_find">
-	                                                <input disabled="disabled"  id="fake_orders_Zipcode" name="fake_orders_Zipcode" type="text" value="${customer.cust_Zipcode}">
-	                                                <input id="orders_Zipcode" name="orders_Zipcode" type="hidden" value="${customer.cust_Zipcode}">
-	                                                <button id="zipcodebtn" disabled="disabled" onclick='zipCheck();'>우편번호 찾기</button>
+	                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text" value="${customer.cust_Zipcode}">
+	                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden" value="${customer.cust_Zipcode}">
+	                                                <button id="zipcodebtn" type="button" disabled="disabled" onclick='zipCheck();'>우편번호 찾기</button>
 	                                            </div>
 	                                            <div class="address_css">
-	                                                <input disabled="disabled"  id="fake_orders_ADR01" name="fake_orders_ADR01" type="text" value="${customer.cust_ADR01}">
-	                                                <input id="orders_ADR01" name="orders_ADR01" type="hidden" value="${customer.cust_ADR01}">
-	                                                <input disabled="disabled"  id="orders_ADR02" name="orders_ADR02" type="text" value="${customer.cust_ADR02}">
-	                                                <input id="orders_ADR02" name="orders_ADR02" type="hidden" value="${customer.cust_ADR02}">
+	                                                <input disabled="disabled"  id="fake_orders_ADR01" class="new_data" name="fake_orders_ADR01" type="text" value="${customer.cust_ADR01}">
+	                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
+	                                                <input disabled="disabled"  id="fake_orders_ADR02" class="new_data" name="fake_orders_ADR02" type="text" value="${customer.cust_ADR02}">
+	                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
 	                                            </div>
 	                                        </div>
 	                                    </td>
@@ -167,10 +183,11 @@
 	                                    </td>
 	                                    <td class="col-sm-10">
 	                                    	<c:if test="${not empty customer.cust_Contact}">
-	                                        	<input disabled="disabled" id="phone" name="phone" type="text" value="${customer.cust_Contact}">
+	                                        	<input disabled="disabled" class="new_data" id="fake_orders_phone" name="fake_orders_phone" type="text" value="${customer.cust_Contact}">
+	                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="hidden" value="${customer.cust_Contact}">
 	                                        </c:if>
 	                                        <c:if test="${empty customer.cust_Contact}">
-	                                        	<input id="phone" name="phone" type="text">
+	                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
 	                                        </c:if>
 	                                    </td>
 	                                </tr>
@@ -179,7 +196,7 @@
 	                                        &nbsp;&nbsp;&nbsp;남기실 말씀
 	                                    </td>
 	                                    <td class="col-sm-10">
-	                                        <textarea id="orders_Request" name="orders_Request" rows="5"></textarea>
+	                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
 	                                    </td>
 	                                </tr>
 	                            </tbody>
@@ -187,7 +204,7 @@
 	                	    </c:if>
 	                	    <%-- 1. 기존 배송지가 있는 경우 [끝] --%>
 	                	    
-	                	    <%-- 2. 기존 배송지가 없는 경우 [시작] --%>
+	                	    <%-- 2. 기존 배송지가 없는 경우 [시작] 
 	                	    <c:if test="${empty customer.cust_Zipcode}">
 	                        <table class="table cart-table">
 	                            <tbody>
@@ -218,7 +235,7 @@
 	                                        <div class="address_find">
 	                                            <div class="zipcode_find">
 	                                                <input id="orders_Zipcode" name="orders_Zipcode" type="text" value="${customer.cust_Zipcode}">
-	                                                <button id="zipcodebtn" onclick='zipCheck();'>우편번호 찾기</button>
+	                                                <button id="zipcodebtn" type="button" onclick='zipCheck();'>우편번호 찾기</button>
 	                                            </div>
 	                                            <div class="address_css">
 	                                                <input id="orders_ADR01" name="orders_ADR01" type="text" value="${customer.cust_ADR01}">
@@ -250,7 +267,7 @@
 	                                </tr>
 	                            </tbody>
 	                        </table>
-	                	    </c:if>
+	                	    </c:if> --%>
 	                  	  </div>
 	                    <div class="col-sm-6 col-md-7">
 	           	   		</div>
