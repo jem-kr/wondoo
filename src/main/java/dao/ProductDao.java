@@ -77,4 +77,9 @@ public class ProductDao {
 		return cnt;
 	}
 
+	public List<Product> ShowMainView() {
+		List<Product> lists = this.sst.selectList(namespace+"ShowMainView");
+		return lists;
+	}
+
 }

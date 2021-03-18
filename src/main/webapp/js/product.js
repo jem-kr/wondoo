@@ -7,7 +7,12 @@ function getContextPath(){
 
 function del_check(){
 	var products_seq=$('#products_seq').val();
-	location.href = getContextPath()+"/prDelete.pr?products_seq="+products_seq;
+	if(confirm("상품을 삭제하시겠습니까?")){
+		location.href = getContextPath()+"/prDelete.pr?products_seq="+products_seq;
+	} else{
+		return false;	
+	}
+
 };
 
 

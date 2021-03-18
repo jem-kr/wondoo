@@ -115,29 +115,29 @@
 				커피 섹션
 			====================== --%>
 			<div class="row">
-				<c:forEach var="coffeebean" items="${requestScope.coffeelists}" varStatus="status">
+				<c:forEach var="productbean" items="${requestScope.products}" varStatus="status">
 					<c:if test="${status.count <= 3}">
 						<div class="col">
 							<div class="col-sm-4 col-xs-12">
 								<figure class="wow fadeInLeft animated portfolio-item"
 									data-wow-duration="500ms" data-wow-delay="0ms">
 									<div class="img-wrapper">
-										<img src="./upload/${coffeebean.c_image}" class="img-responsive"
+										<img src="./upload/${productbean.pro_pic}" class="img-responsive"
 											alt="this is a title">
 										<div class="overlay">
 											<div class="buttons">
-												<a href="${contextPath}/cfdetailview.cf?c_no=${coffeebean.c_no}">상품보기</a>
+												<a href="${contextPath}/prDetail.pr?products_seq=${productbean.products_seq}">상품보기</a>
 											</div>
 										</div>
 									</div>
 									<figcaption>
 										<h4>
-											<a href="${contextPath}/cfdetailview.cf?c_no=${coffeebean.c_no}">${coffeebean.c_name}</a>
+											<a href="${contextPath}/prDetail.pr?products_seq=${productbean.products_seq}">${productbean.pro_name}</a>
 										</h4>
 										<div class="list_bottom">
 											<p id="list_price">
 												<i class="fas fa-won-sign"></i>&nbsp;
-												<fmt:formatNumber pattern="###,###" value="${coffeebean.c_price}" />
+												<fmt:formatNumber pattern="###,###" value="${productbean.pro_price}" />
 											</p>
 										</div>
 									</figcaption>
@@ -183,6 +183,7 @@
 						</div>
 					</c:if>
 				</c:forEach>
+			</div>
 			</div>
 	</section>
 	<!-- #works -->

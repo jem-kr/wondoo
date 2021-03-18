@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import bean.OnedayClass;
+import bean.Product;
 import dao.OnedayClassDao;
 import dao.OnedayOrderDao;
+import dao.ProductDao;
 
 // 메인 컨트롤러 
 // 메인 화면에 가장 최근에 등록된 상품 + 원데이 클래스를 추천한다.
@@ -29,7 +31,12 @@ public class MainController extends SuperClass {
 	@Autowired
 	@Qualifier(value = "orderDao")
 	private OnedayOrderDao orderDao;
-
+	
+	@Autowired
+	@Qualifier(value="productDao")
+	private ProductDao productDao;
+	
+	
 	public MainController() {
 		super("main", null); // super(getpage , postpage)
 		this.mav = new ModelAndView();
@@ -78,10 +85,10 @@ public class MainController extends SuperClass {
 
 		// 가장 최근에 등록된 원데이 클래스 3개를 가져온다.
 		List<OnedayClass> lists = this.onedayDao.ShowMainView(today);
-
-		if (lists.size() > 0) {
-			System.out.println("메인 ==> 원데이 클래스 리스트 담기 성공");
-
+		List<Product> products = this.productDao.ShowMainView();
+		if (lists.size() > 0 && products.size()>0) {
+			System.out.println("메인 ==> 원데이 클래스, 상품 리스트 담기 성공");
+			mav.addObject("products",products);
 			mav.addObject("lists", lists);
 			mav.setViewName(super.getpage);
 

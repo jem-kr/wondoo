@@ -16,6 +16,19 @@
     	max-width: 648px;
     	max-height: 438px;
     }
+    .btn-delete{
+    width: 100% !important;
+    margin-bottom:20px;
+    color: #fff !important;
+    outline: none !important;
+    background: red !important;
+    border-radius: 0px;
+    border: red;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    text-align: center;	
+    }
     </style>
 </head>
 <body class="top" onload="detail_loading();">
@@ -57,6 +70,7 @@
 	                            </div>
                             </c:if>
                     </article>
+                    
                 </div>
                 <div class="col-md-4">
                     <div class="sidebar">
@@ -78,11 +92,15 @@
                                 </div>
                             </div>
                         </div>
-                    	
+                    	<c:if test="${bean.pro_sell_email eq sessionScope.loginfo_seller.sell_Email}">
+                        	<div class="delete_detail">
+                        		<button class="btn-delete" onclick="del_check();" >상품 삭제 하기</button>
+                        	</div>
+                        	</c:if> 
                     	<%-- ========================== Form 양식 시작 부분 ====================================--%>
                     	<c:set var="contextPath" value="<%=contextPath%>" scope="application" />
                         <form method="get" action="${contextPath}/caInsert.ca">
-                        	<input type="hidden" id="" name="products_seq" value="${bean.products_seq}">
+                        	<input type="hidden" id="products_seq" name="products_seq" value="${bean.products_seq}">
                             <div id="form_css"  class="categories widget">
                                 <h3 id="class_css" class="widget-head">상품정보</h3>
                                 <ul>
@@ -136,8 +154,9 @@
                                         </div>
                                     </li>
                                 </ul>
+                               
                             </div>
-                        
+                        	
                             <div class="submit_detail">
                                 <input type="submit" id="contact-submit" class="btn-send" value="상품 구매 하기">
                             </div>
