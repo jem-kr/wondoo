@@ -13,6 +13,9 @@
 	<script type="text/javascript" src="${contextPath}/js/cart.js"></script>
 	<!-- Stylesheet CSS -->
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/cart.css" />
+	<script type="text/javascript">
+	
+	</script>
 </head>
 <body>
     <section class="cart-page page fix"><!--Start Cart Area-->
@@ -49,7 +52,7 @@
 	                            <!-- =====================================
 	                            		list 반복문 부분 [시작]
 	                            ========================================== -->
-	                            <c:forEach var="bean" items="${requestScope.lists}">
+	                            <c:forEach var="bean" items="${requestScope.lists}" varStatus="status">
 		                            <tbody>
 		                                <tr class="table-info">
 		                                	
@@ -71,7 +74,7 @@
 		                                    <td class="quantity">
 		                                        <div class="cart-plus-minus">
 		                                            <div class="dec qtybutton" onclick="minusqty();">-</div>
-		                                            <input type="hidden" disabled="disabled" id="pro_stock" value="${bean.pro_stock}" name="qtybutton" class="cart-plus-minus-box">
+		                                            <input type="hidden" id="pro_stock" disabled="disabled" value="${bean.pro_stock}" name="qtybutton" class="cart-plus-minus-box">
 		                                            <%--@--%><input type="text" id="orders_qty" name="orders_qty"  value="${bean.cart_cust_qty}" 
 		                                            name="qtybutton" class="cart-plus-minus-box" oninput="qty_check()">
 		                                            <div class="inc qtybutton" onclick="plusqty();">+</div>
@@ -154,7 +157,8 @@
 	                                        * 받으실 분
 	                                    </td>
 	                                    <td class="col-sm-10">
-	                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
+	                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}" onblur="err_check_name();">
+	                                        <span class="valid_check" id="err_cust_name"></span>
 	                                    </td>
 	                                </tr>
 	                                <tr class="table-info">
@@ -169,9 +173,9 @@
 	                                                <button id="zipcodebtn" type="button" disabled="disabled" onclick='zipCheck();'>우편번호 찾기</button>
 	                                            </div>
 	                                            <div class="address_css">
-	                                                <input disabled="disabled"  id="fake_orders_ADR01" class="new_data" name="fake_orders_ADR01" type="text" value="${customer.cust_ADR01}">
+	                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text" value="${customer.cust_ADR01}">
 	                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
-	                                                <input disabled="disabled"  id="fake_orders_ADR02" class="new_data" name="fake_orders_ADR02" type="text" value="${customer.cust_ADR02}">
+	                                                <input disabled="disabled"  id="fake_orders_adr02" class="new_data" name="fake_orders_adr02" type="text" value="${customer.cust_ADR02}">
 	                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
 	                                            </div>
 	                                        </div>

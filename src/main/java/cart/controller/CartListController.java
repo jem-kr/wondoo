@@ -72,7 +72,6 @@ public class CartListController extends SuperClass {
 			
 			for (Cart cart : lists) { // 확장 for문을 돌리면서 필요한 상품 정보 셋팅
 				product = this.productDao.SelectOneData(cart.getCart_pro_no());
-				System.out.println(product);
 				cart.setPro_name(product.getPro_name());
 				cart.setPro_pic(product.getPro_pic());
 				cart.setPro_stock(product.getPro_stock());

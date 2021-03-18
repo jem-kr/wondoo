@@ -335,11 +335,11 @@ button#zipcodebtn{
   flex-direction: row;
 }
 
-.address_css input#fake_orders_ADR01{
+.address_css input#fake_orders_adr01{
   width: 60%;
 }
 
-.address_css input#orders_ADR01{
+.address_css input#orders_adr01{
   width: 60%;
 }
 
@@ -373,14 +373,14 @@ button#zipcodebtn{
 }
 
 /* 배송지 요청 사항 부분  */
-#orders_Request{
+#orders_request{
 	width: 100%;
 	border: 1px solid rgba(111, 121, 122, 0.3);
 }
 
 
 @media( max-width : 585px ) {
-  .zipcode_find input#orders_Zipcode , .zipcode_find input#fake_orders_Zipcode{
+  .zipcode_find input#orders_zipcode , .zipcode_find input#fake_orders_zipcode{
     width: 50%;
   }
 	button#zipcodebtn {
@@ -392,17 +392,17 @@ button#zipcodebtn{
     flex-direction: column !important;
   }
   
-  .address_css input#orders_ADR01{
+  .address_css input#orders_adr01{
     width: 100%;
     margin-bottom: 10px;
   }
   
-  .address_css input#fake_orders_ADR01{
+  .address_css input#fake_orders_adr01{
     width: 100%;
     margin-bottom: 10px;
   }
 
-  .address_css input#orders_ADR02{
+  .address_css input#orders_adr02{
     width: 100%;
   }
 
