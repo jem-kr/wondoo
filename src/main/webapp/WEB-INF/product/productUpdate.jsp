@@ -172,7 +172,7 @@
                                                     <%-- ======================구분선===================== --%>
                                                     <div class="file-upload">
                                                     	<div class="oldimage" align="center">
-                                                    	<input name = "p_img" type="hidden" value="${bean.pro_pic}">
+                                                    	<input name = "oldimg" type="text" value="${bean.pro_pic}" id="oldimg">
                                                     	<img alt="기존이미지" src="${contextPath}/upload/${bean.pro_pic}" width="200" height="200" align="middle">
                                                     	</div>
 												        <button class="file-upload-btn" type="button" data-toggle="tooltip" title="썸네일 사진을 업로드 해주세요!" onclick="$('#p_img').trigger( 'click' )">
@@ -200,7 +200,7 @@
                                                     </ul>
                                                     <div id="submit">
                                                     	<input type="submit" id="contact-submit-css" class="btn btn-default btn-send" value="수정하기" 
-                                                    	onclick="return submitCheck();">
+                                                    	onclick="return updateCheck();">
                                                     </div>
                                                 </div>
                                                 

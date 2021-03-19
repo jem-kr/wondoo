@@ -349,7 +349,16 @@ function submitCheck() {
 
 }
 
+function updateCheck() {
 
+	// 기존 사진을 이용할 때 등록되지 않았을때 , 
+	var main_image = $('#p_img').val();
+	var oldimg = $('#oldimg').val();
+	if (main_image == '') {
+		main_image = oldimg;
+	} 
+
+}
 
 
 /* ===================
