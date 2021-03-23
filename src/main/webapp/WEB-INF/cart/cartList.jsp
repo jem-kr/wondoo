@@ -129,149 +129,152 @@
 	                     <div class="step2 table-responsive wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="0.6s" >
 	                        <%-- 1. 기존 배송지가 있는 경우 [시작] --%>
 	                		<c:if test="${not empty customer.cust_Zipcode}">
-	                        <table class="table cart-table">
-	                            <tbody>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 배송지 입력
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                    	<label class="delivery" onclick="delivery_restore();">
-	                                        	<input id="cust_name" class="radio_css" name="cust_name" type="radio" checked="checked">&nbsp;
-	                                        	기본 배송지
-	                                        </label>
-	                                        &nbsp;&nbsp;&nbsp;
-	                                        <label class="delivery" onclick="delivery_change();">
-	                                        	<input id="cust_name" class="radio_css" name="cust_name" type="radio" >&nbsp;
-	                                        	기본 배송지 변경
-	                                        </label>
-	                                        &nbsp;&nbsp;&nbsp;
-	                                        <label class="delivery" onclick="delivery_new();">
-	                                        	<input id="cust_name" class="radio_css" name="cust_name" type="radio">&nbsp;
-	                                        	신규 배송지
-	                                        </label>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 받으실 분
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}" onblur="err_check_name();">
-	                                        <span class="valid_check" id="err_cust_name"></span>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 받으실 곳
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <div class="address_find">
-	                                            <div class="zipcode_find">
-	                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text" value="${customer.cust_Zipcode}">
-	                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden" value="${customer.cust_Zipcode}">
-	                                                <button id="zipcodebtn" type="button" disabled="disabled" onclick='zipCheck();'>우편번호 찾기</button>
-	                                            </div>
-	                                            <div class="address_css">
-	                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text" value="${customer.cust_ADR01}">
-	                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
-	                                                <input disabled="disabled"  id="fake_orders_adr02" class="new_data" name="fake_orders_adr02" type="text" value="${customer.cust_ADR02}">
-	                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
-	                                            </div>
-	                                        </div>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 휴대폰 번호
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                    	<c:if test="${not empty customer.cust_Contact}">
-	                                        	<input disabled="disabled" class="new_data" id="fake_orders_phone" name="fake_orders_phone" type="text" value="${customer.cust_Contact}">
-	                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="hidden" value="${customer.cust_Contact}">
-	                                        </c:if>
-	                                        <c:if test="${empty customer.cust_Contact}">
-	                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
-	                                        </c:if>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        &nbsp;&nbsp;&nbsp;남기실 말씀
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
-	                                    </td>
-	                                </tr>
-	                            </tbody>
-	                        </table>
+		                        <table class="table cart-table">
+		                            <tbody>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 배송지 입력
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                    	<label class="delivery" onclick="delivery_restore();">
+		                                        	<input class="radio_css" name="cust_name" type="radio" checked="checked">&nbsp;
+		                                        	기본 배송지
+		                                        </label>
+		                                        &nbsp;&nbsp;&nbsp;
+		                                        <label class="delivery" onclick="delivery_change();">
+		                                        	<input class="radio_css" name="cust_name" type="radio" >&nbsp;
+		                                        	기본 배송지 변경
+		                                        </label>
+		                                        &nbsp;&nbsp;&nbsp;
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        &nbsp;&nbsp;받으실 분
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 받으실 곳
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <div class="address_find">
+		                                            <div class="zipcode_find">
+		                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text" value="${customer.cust_Zipcode}">
+		                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden" value="${customer.cust_Zipcode}">
+		                                                <button id="zipcodebtn" type="button" disabled="disabled" onclick='zipCheck1();' data-toggle="tooltip" title="주소 변경 시 클릭하세요!">우편번호 찾기</button>
+		                                            </div>
+		                                            <div class="address_css">
+		                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text" value="${customer.cust_ADR01}">
+		                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
+		                                                <input disabled="disabled"  id="fake_orders_adr02" class="new_data" name="fake_orders_adr02" type="text" value="${customer.cust_ADR02}" oninput="input_adr2()">
+		                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
+		                                            </div>
+		                                             <p class="valid_check" id="err_address2"></p>
+		                                        </div>
+		                                       
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 휴대폰 번호
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                    	<c:if test="${not empty customer.cust_Contact}">
+		                                        	<input disabled="disabled" class="new_data" id="fake_orders_phone" name="fake_orders_phone" type="text" value="${customer.cust_Contact}" oninput="input_phone()">
+		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="hidden" value="${customer.cust_Contact}">
+		                                        </c:if>
+		                                        <c:if test="${empty customer.cust_Contact}">
+		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
+		                                        </c:if>
+		                                        <p class="valid_check" id="err_phone"></p>
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        &nbsp;&nbsp;&nbsp;남기실 말씀
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
+		                                        <p class="valid_check" id="err_request"></p>
+		                                    </td>
+		                                </tr>
+		                            </tbody>
+	                        	</table>
 	                	    </c:if>
-	                	    <%-- 1. 기존 배송지가 있는 경우 [끝] --%>
-	                	    
-	                	    <%-- 2. 기존 배송지가 없는 경우 [시작] 
-	                	    <c:if test="${empty customer.cust_Zipcode}">
-	                        <table class="table cart-table">
-	                            <tbody>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 배송지 입력
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <label class="delivery">
-	                                        	<input id="cust_name" class="radio_css" name="cust_name" type="radio">&nbsp;
-	                                        	신규 배송지
-	                                        </label>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 받으실 분
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <input id="cust_name" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 받으실 곳
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <div class="address_find">
-	                                            <div class="zipcode_find">
-	                                                <input id="orders_Zipcode" name="orders_Zipcode" type="text" value="${customer.cust_Zipcode}">
-	                                                <button id="zipcodebtn" type="button" onclick='zipCheck();'>우편번호 찾기</button>
-	                                            </div>
-	                                            <div class="address_css">
-	                                                <input id="orders_ADR01" name="orders_ADR01" type="text" value="${customer.cust_ADR01}">
-	                                                <input id="orders_ADR02" name="orders_ADR02" type="text" value="${customer.cust_ADR02}">
-	                                            </div>
-	                                        </div>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        * 휴대폰 번호
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                    	<c:if test="${not empty customer.cust_Contact}">
-	                                        	<input id="phone" name="phone" type="text" value="${customer.cust_Contact}">
-	                                        </c:if>
-	                                        <c:if test="${empty customer.cust_Contact}">
-	                                        	<input id="phone" name="phone" type="text">
-	                                        </c:if>
-	                                    </td>
-	                                </tr>
-	                                <tr class="table-info">
-	                                    <td class="col-sm-2">
-	                                        &nbsp;&nbsp;&nbsp;남기실 말씀
-	                                    </td>
-	                                    <td class="col-sm-10">
-	                                        <textarea id="orders_Request" name="orders_Request" rows="5"></textarea>
-	                                    </td>
-	                                </tr>
-	                            </tbody>
-	                        </table>
-	                	    </c:if> --%>
+	                	     <%-- 2. 기존 배송지가 없는 경우(신규 등록) [시작] --%>
+	                		<c:if test="${empty customer.cust_Zipcode}">
+	                			 <table class="table cart-table">
+		                            <tbody>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 배송지 입력
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <label class="delivery">
+		                                        	<input class="radio_css" name="cust_name" type="radio" checked="checked">&nbsp;
+		                                        	신규 배송지
+		                                        </label>
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                       &nbsp;&nbsp;받으실 분
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}" onblur="err_check_name();">
+		                                       
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 받으실 곳
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <div class="address_find">
+		                                            <div class="zipcode_find">
+		                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text">
+		                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden">
+		                                                <button id="zipcodebtn" type="button" onclick='zipCheck2();'>우편번호 찾기</button>
+		                                            </div>
+		                                            <div class="address_css">
+		                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text">
+		                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden">
+		                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="text">
+		                                            </div>
+		                                        </div>
+		                                        <p class="valid_check" id="err_address2"></p>
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        * 휴대폰 번호
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                    	<c:if test="${not empty customer.cust_Contact}">
+		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text" value="${customer.cust_Contact}">
+		                                        </c:if>
+		                                        <c:if test="${empty customer.cust_Contact}">
+		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
+		                                        </c:if>
+		                                        <p class="valid_check" id="err_phone"></p>
+		                                    </td>
+		                                </tr>
+		                                <tr class="table-info">
+		                                    <td class="col-sm-2">
+		                                        &nbsp;&nbsp;&nbsp;남기실 말씀
+		                                    </td>
+		                                    <td class="col-sm-10">
+		                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
+		                                        <p class="valid_check" id="err_request"></p>
+		                                    </td>
+		                                </tr>
+		                            </tbody>
+	                        	</table>
+	                		</c:if>
 	                  	  </div>
 	                    <div class="col-sm-6 col-md-7">
 	           	   		</div>
@@ -280,7 +283,7 @@
 	                        	<a href="#" class="prev"><i class="fas fa-chevron-left"></i>&nbsp;이전 단계</a>
 	                    	</div>
 	                    	<div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-	                    		<input id="payment_css" type="submit" value="전체 상품결제">
+	                    		<input id="payment_css" type="submit" value="전체 상품결제" onclick="return pay_check();">
 	                    	</div>
 	                	</div>
                 </form>
@@ -319,7 +322,6 @@
 	    </div>
 	  </div>
 	</div>
-	
 	  <%-- ==============================================
                일반 에러 메세지 모달 section
           =============================================--%>

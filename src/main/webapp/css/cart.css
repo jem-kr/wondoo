@@ -379,6 +379,11 @@ button#zipcodebtn{
 }
 
 
+/* 유효성 에러 부분 */
+.valid_check{
+	font-size: 14px !important;
+}
+
 @media( max-width : 585px ) {
   .zipcode_find input#orders_zipcode , .zipcode_find input#fake_orders_zipcode{
     width: 50%;
