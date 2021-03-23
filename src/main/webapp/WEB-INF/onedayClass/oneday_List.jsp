@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="./../common/common.jsp"%>
@@ -159,7 +158,6 @@
 
 	<%-- <!-- ------------------------------------- [모달 section]--------------------------------------- -->
 	<div class="container">
-
 		Modal
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-sm">
@@ -184,4 +182,5 @@
 		</div>
 	</div> --%>
 </body>
+</html>
 </html>

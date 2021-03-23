@@ -1,19 +1,4 @@
 
-/* ===============================
-	장바구니 삭제
-   ===============================
-*/
-function getContextPath() {
-	var offset = location.href.indexOf(location.host) + location.host.length;
-	var ctxPath = location.href.substring(offset, location.href.indexOf('/', offset + 1));
-	return ctxPath;
-}
-
-function del_check() {
-	var cart_seq = $('#cart_seq').val();
-	//alert(cart_seq);
-	location.href = getContextPath() + "/caDelete.ca?cart_seq=" + cart_seq;
-}
 
 /*====================
 	  장바구니 자바스크립트
@@ -251,32 +236,19 @@ function pay_check(){
 */
 
 
-function plusqty(){
-	var pro_stock = parseInt($("#pro_stock").val()); // 사업자가 설정한 최대 상품수
+function plusqty(count){
+	var cart_seq = $('#cart_seq' + count).val(); // 장바구니 번호
 	
-	var pro_price = parseInt($("#pro_price").val()); // 제품 단가
+	var orders_pro_no = $('#orders_pro_no' + count).val(); // 상품 번호
 	
-	var orders_qty = parseInt($('#orders_qty').val()); // 사용자가 지정한 상품수
+	var orders_qty = $('#orders_qty' + count).val(); // 회원이 장바구니에 담을 때 선택한 수량
 	
-	if(orders_qty >= pro_stock) { // 재고를 초과한 경우
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('더 이상 상품을 담을 수 없습니다!');
-		$('#err_myModal').modal();
-		
-		orders_qty += 0;
-		
-		$('#orders_qty').val(orders_qty);
-		$('#cart_price').text(orders_qty * pro_price);
-		$('#orders_amount').val(orders_qty * pro_price);
-	}else{ // 재고를 초과하지 않은 경우
-		orders_qty += 1;
+	var new_qty = parseInt(orders_qty) + 1; // 회원이 변경한 수량
 	
-		$('#orders_qty').val(orders_qty);
-		$('#cart_price').text(orders_qty * pro_price);
-		$('#orders_amount').val(orders_qty * pro_price);
-	}
 	
-	return false;
+	
+	$('#orders_qty' + count).val(new_qty);
+	
 }
 
 function minusqty(){
@@ -336,6 +308,30 @@ function qty_check() {
 		$('#cart_total_price').text(pro_stock * pro_price);
 	}
 	
+}
+
+
+/* ===============================
+	장바구니 삭제
+   ===============================
+*/
+function getContextPath() {
+	var offset = location.href.indexOf(location.host) + location.host.length;
+	var ctxPath = location.href.substring(offset, location.href.indexOf('/', offset + 1));
+	return ctxPath;
+}
+
+function click_count(count){
+	$('#myModal').modal();
+	$('#count').val(count);
+}
+
+
+function del_check(count) {
+	var count = $('#count').val();
+	
+	var cart_seq = $('#cart_seq' + count).val();
+	location.href = getContextPath() + "/caDelete.ca?cart_seq=" + cart_seq;
 }
 
 

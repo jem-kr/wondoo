@@ -1,5 +1,4 @@
 
-
 /* =========================
 	원데이 클래스 상세 및 결제[시작]
    =========================
@@ -457,4 +456,3 @@ function onedaySellCancle(){
 	
 	location.href = getContextPath() + "/onedaySellCancle.odc?onedayorder_seq=" + onedayorder_seq;
 }
-

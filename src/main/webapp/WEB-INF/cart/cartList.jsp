@@ -57,8 +57,8 @@
 		                                <tr class="table-info">
 		                                	
 		                                    <td class="produ">
-		                                    	<%--@--%><input type="text" id="orders_cust_email" name="orders_cust_email" value="${customer.cust_Email}">
-		                      		      		<%--@--%><input type="text" id="orders_pro_no" name="orders_pro_no" value="${bean.cart_pro_no}">
+		                                    	<%--@--%><input type="hidden" id="orders_cust_email" name="orders_cust_email" value="${customer.cust_Email}">
+		                      		      		<%--@--%><input type="text" id="orders_pro_no${status.count}" name="orders_pro_no" value="${bean.cart_pro_no}">
 		                                        <a href="${contextPath}/prDetail.pr?products_seq=${bean.cart_pro_no}">
 		                                        	<img width="250" height="150" alt="noimage" src="${contextPath}/upload/${bean.pro_pic}">
 		                                        </a>
@@ -72,22 +72,23 @@
 		                                    </td>
 		                                    
 		                                    <td class="quantity">
+		                                    	<!-- 수정 & 삭제 처리에 사용됨 -->
+		                                    	<input id="cart_seq${status.count}" type="text" disabled="disabled" value="${bean.cart_seq}">
 		                                        <div class="cart-plus-minus">
 		                                            <div class="dec qtybutton" onclick="minusqty();">-</div>
-		                                            <input type="hidden" id="pro_stock" disabled="disabled" value="${bean.pro_stock}" name="qtybutton" class="cart-plus-minus-box">
-		                                            <%--@--%><input type="text" id="orders_qty" name="orders_qty"  value="${bean.cart_cust_qty}" 
+		                                            <%--@--%><input type="text" id="orders_qty${status.count}" name="orders_qty"  value="${bean.cart_cust_qty}" 
 		                                            name="qtybutton" class="cart-plus-minus-box" oninput="qty_check()">
-		                                            <div class="inc qtybutton" onclick="plusqty();">+</div>
+		                                            <div class="inc qtybutton" onclick="plusqty(${status.count});">+</div>
 		                                        </div>
 		                                    </td>
 		                                    <td class="unit">
 		                                    	<input type="hidden" disabled="disabled" id="pro_price" value="${bean.pro_price}" name="qtybutton" class="cart-plus-minus-box">
 		                                        <h5 id="cart_price"><fmt:formatNumber pattern="#,###,###" value="${bean.cart_price}"/></h5>
-		                                       	<%--@--%><input type="text" id="orders_amount" name="orders_amount" value="${bean.cart_price}">
+		                                       	<%--@--%><input type="hidden" id="orders_amount" name="orders_amount" value="${bean.cart_price}">
 		                                    </td>
 		                                    <td class="acti">
-		                                    	<input id="cart_seq" type="hidden" disabled="disabled" value="${bean.cart_seq}">
-		                                        <i class="far fa-trash-alt" data-toggle="modal" data-target=".modal"></i>
+		                                    	
+		                                        <i class="far fa-trash-alt" onclick="click_count(${status.count});"></i>
 		                                    </td>
 		                                </tr>
 		                            </tbody>
@@ -117,7 +118,7 @@
 		                            		<fmt:formatNumber pattern="#,###,###" value="${requestScope.sum_price + requestScope.delivery_price}"/>
 		                            	</span>원
 		                            	<%-- 이건 DB에 들어가는 파라미터는 아니지만.. 결제 API 사용시 총 결제 금액이 필요 할 듯 해서 일단..남길게 --%>
-		                            	<%--@@--%><input type="text" id="orders_total_amount" name="orders_total_amount" value="${requestScope.sum_price + requestScope.delivery_price}">
+		                            	<%--@@--%><input type="hidden" id="orders_total_amount" name="orders_total_amount" value="${requestScope.sum_price + requestScope.delivery_price}">
 		                            </h6>
 		                        </div>
 		                        <a id="all_procedto" href="#">전체 상품주문</a>
@@ -301,6 +302,7 @@
 	
 	  <!-- Modal -->
 	  <div class="modal fade" id="myModal" role="dialog">
+	  	<input id="count" type="hidden" value=""> <!-- foreach 문에서 반복 횟수 -->
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
 	        <div class="modal-header">
