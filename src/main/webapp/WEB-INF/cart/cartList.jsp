@@ -154,6 +154,7 @@
 		                                    </td>
 		                                    <td class="col-sm-10">
 		                                        <input id="cust_name" class="new_data" disabled="disabled" name="cust_name" type="text" value="${customer.cust_Name}">
+		                                        <%--지은--%><input id="cust_Name" class="new_data" name="cust_Name" type="hidden" value="${customer.cust_Name}">
 		                                    </td>
 		                                </tr>
 		                                <tr class="table-info">
@@ -283,7 +284,7 @@
 	                        	<a href="#" class="prev"><i class="fas fa-chevron-left"></i>&nbsp;이전 단계</a>
 	                    	</div>
 	                    	<div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-	                    		<input id="payment_css" type="button" value="전체 상품결제" onclick="return pay_check();">
+	                    		<input id="payment_css" type="button" value="전체 상품결제" onclick="payment();">
 	                    	</div>
 	                	</div>
                 </form>

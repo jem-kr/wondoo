@@ -99,7 +99,8 @@ public class OnedayClassIamportApiController extends SuperClass {
 			String totalprice, 
 			HttpServletRequest request) {
 		String result = "";
-//		System.out.println(imp_uid);
+		System.out.println("imp_uid : " + imp_uid);
+		System.out.println("merchant_uid : " + merchant_uid);
 //		String _imp_uid = imp_uid.substring(8,24);
 
 		try {

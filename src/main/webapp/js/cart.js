@@ -538,6 +538,9 @@ function payment() {
       return pStr;
    }
    
+   // API 용 파라미터 
+   var cust_name = $('#cust_name').val(); // 회원 이름
+   
    IMP.init('imp63433419'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
    IMP.request_pay({
        pg : 'inicis', // version 1.1.0부터 지원.
@@ -546,6 +549,7 @@ function payment() {
        name : '주문명: ' + orders_pro_no + " | 결제 테스트",
        amount : orders_total_amount, // 결제 금액
        buyer_email : orders_cust_email,// 결제자 이메일
+       buyer_name : cust_name, // 결제자 이름
        buyer_tel : orders_phone// 결제자 휴대폰 번호
    }, function(rsp) {
        if ( rsp.success ) {
@@ -561,11 +565,13 @@ function payment() {
             merchant_uid : rsp.merchant_uid,
             
              //기타 필요한 데이터가 있으면 추가 전달
-            orders_realtime : orders_realtime,
-            orders_qty : orders_qty,
+            orders_cust_email : orders_cust_email,
+            orders_phone : orders_phone,
             orders_zipcode : orders_zipcode,
             orders_adr01 : orders_adr01,
             orders_adr02 : orders_adr02,
+            orders_request : orders_request,
+            orders_total_amount : orders_total_amount
           },
          success : function(data){
          console.log(data)
@@ -586,6 +592,6 @@ function payment() {
         alert(msg);
       
       }
-        window.location.replace("/prOrderList.po");  
+        window.location.replace("/prList.pr");
    });
 }

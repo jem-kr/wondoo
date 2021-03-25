@@ -62,6 +62,7 @@ public class prOrderPaymentController extends SuperClass{
 	
 	// API key와 API Secret Key 를 활용해 IamportClient 생성
 	IamportClient getTestClient() {
+		System.out.println("getTestClient메소드 통과");
 		String test_api_key = "7205267933492054";
 		String test_api_secret = "5TLqSUxE7BdnfZjzkOzxPaXrwrOSRYQWSCmLwUpEwC1LCllX9VuY5sqCTeuKdkH5W3QtXg7uS9gvuBsD";
 		return new IamportClient(test_api_key, test_api_secret);
@@ -97,7 +98,7 @@ public class prOrderPaymentController extends SuperClass{
 
 	@PostMapping("pay")
 	public void getPay(String merchant_uid) {
-		System.out.println("merchant_uid: " + merchant_uid);
+		System.out.println("getPay메소드 통과, merchant_uid: " + merchant_uid);
 		this.getToken();
 	}	
 	
@@ -117,18 +118,18 @@ public class prOrderPaymentController extends SuperClass{
 			HttpSession session) {
 		
 		String result = "";
-		System.out.println("imp_uid : " + imp_uid);
-		System.out.println("merchant_uid : " + merchant_uid);
+		System.out.println("===> doPost메소드 진입");
+		System.out.println("===> 확인 imp_uid : " + imp_uid);
+		System.out.println("===> 확인 merchant_uid : " + merchant_uid);
 //		String _imp_uid = imp_uid.substring(8,24);
 
 		try {
 			IamportResponse<Payment> pay_response = client.paymentByImpUid(imp_uid);
-			System.out.println(pay_response.getResponse().getAmount());
-			System.out.println(pay_response.getResponse().getStatus());
+			System.out.println("===> 확인 pay_response.getResponse().getAmount() : " + pay_response.getResponse().getAmount());
+			System.out.println("===> 확인 pay_response.getResponse().getStatus()" + pay_response.getResponse().getStatus());
 		
-				System.out.println("prOrderList POST메소드");
-				List<Cart> mycart = (ArrayList<Cart>) session.getAttribute("lists");
-				System.out.println("mycart : " + mycart);
+				List<Cart> mycart = (ArrayList<Cart>) session.getAttribute("cartlists");
+				System.out.println("===> 확인 mycart : " + mycart);
 				
 				int cnt;
 				for(Cart cart : mycart) { // bean setting
@@ -179,7 +180,7 @@ public class prOrderPaymentController extends SuperClass{
 						}
 						
 					} else {  // 2. 재고 없음 ---> 결제 실패
-						System.out.println("상품 결제 실패");
+						System.out.println("재고 없음, 상품 결제 실패");
 						session.setAttribute("message", "상품 재고가 부족합니다!");
 						result = "fail";
 						
