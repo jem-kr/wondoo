@@ -88,8 +88,16 @@ public class OnedayClassIamportApiController extends SuperClass {
 	@RequestMapping(command)
 	@ResponseBody
 	public String doPost(
-			String imp_uid, String merchant_uid,String code, String cust_email, String sell_email, String bookdate,
-			String booktime, String person, String totalprice, HttpServletRequest request) {
+			String imp_uid, 
+			String merchant_uid,
+			String code, 
+			String cust_email, 
+			String sell_email, 
+			String bookdate,
+			String booktime, 
+			String person, 
+			String totalprice, 
+			HttpServletRequest request) {
 		String result = "";
 //		System.out.println(imp_uid);
 //		String _imp_uid = imp_uid.substring(8,24);

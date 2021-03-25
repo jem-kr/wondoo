@@ -44,7 +44,7 @@
 	</select>
 	
 	<!-- 장바구니 상품번호 중복 체크 후 기존에 들어있던 상품이면 수량 , 가격을 누적한다.-->
-	<update id="UpdateQtyPrice" parameterType="MyCart">
+	<update id="FirstUpdateQtyPrice" parameterType="MyCart">
 		update cart set cart_cust_qty = cart_cust_qty  <![CDATA[+]]> #{cart_cust_qty} , 
 		cart_price = cart_price <![CDATA[+]]> #{cart_price}
 		where cart_pro_no=#{cart_pro_no} 
@@ -57,4 +57,17 @@
 		where cart_pro_no=#{cart_pro_no} 
 		and cart_cust_email=#{cart_cust_email}
 	</select>
+	
+	<!-- 장바구니 수정 시 장바구니 번호에 따른 bean 객체를 구한다 -->
+	<select id="SelectOneData" resultType="MyCart" parameterType="Integer">
+		<include refid="basic_select"/>
+		where cart_seq=#{cart_seq}
+	</select>
+	
+	<!-- 장바구니 수정 시 신규 수량 & 신규 금액으로 업데이트 처리 -->
+	<update id="SecondUpdateQtyPrice" parameterType="java.util.HashMap">
+		update cart 
+		set cart_cust_qty=#{new_qty}, cart_price=#{new_price}
+		where cart_seq=#{cart_seq} and cart_cust_email=#{cust_email}
+	</update>
 </mapper>

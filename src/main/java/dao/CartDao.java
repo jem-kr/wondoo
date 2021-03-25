@@ -1,6 +1,8 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class CartDao {
 		// 기존에 들어 있던 상품이면 수량, 가격을 누적한다.
 
 		int cnt = -1;
-		cnt = this.sql_session.update(this.namespace + "UpdateQtyPrice", bean);
+		cnt = this.sql_session.update(this.namespace + "FirstUpdateQtyPrice", bean);
 		return cnt;
 	}
 
@@ -63,6 +65,26 @@ public class CartDao {
 		// 결론 → 사용자 이메일 별로 , 각 해당 상품번호에 대한 sum 값을 가져와야한다.
 		int cnt = -1;
 		cnt = this.sql_session.selectOne(this.namespace + "SelectByQty", bean);
+		return cnt;
+	}
+
+	public Cart SelectOneData(int cart_seq) {
+		// 장바구니 수량 수정을 위해 bean 객체 구하기
+		
+		Cart cart = this.sql_session.selectOne(this.namespace + "SelectOneData", cart_seq);
+				
+		return cart;
+	}
+
+	public int UpdateQtyPrice(int cart_seq, int new_qty, int new_price , String cust_email) {
+		// 장바구니 수정 시 ajax 를 통하여 신규 수량과 금액을 update 해준다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cart_seq", cart_seq);
+		map.put("new_qty", new_qty);
+		map.put("new_price", new_price);
+		map.put("cust_email", cust_email);
+		
+		int cnt = this.sql_session.update(this.namespace + "SecondUpdateQtyPrice", map);
 		return cnt;
 	}
 

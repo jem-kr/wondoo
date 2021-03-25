@@ -169,66 +169,13 @@ $(document).ready(function() {
 		
 	});
 });
-
-// 최종 결제 전 유효성 체크
-function pay_check(){
-	// 우편 번호
-	var fake_orders_zipcode = $('#fake_orders_zipcode').val();
-	var orders_zipcode = $('#orders_zipcode').val();
-	
-	// 주소
-	var fake_orders_adr01 = $('#fake_orders_adr01').val();
-	var orders_adr01 = $('#orders_adr01').val();
-	
-	// 상세 주소
-	var fake_orders_adr02 = $('#fake_orders_adr02').val();
-	var orders_adr02 = $('#orders_adr02').val();
-	
-	// 휴대폰 번호
-	var fake_orders_phone = $('#fake_orders_phone').val();
-	var orders_phone = $('#orders_phone').val();
-	
-	// 유효성 에러 부분
-	var valid_check = $('.valid_check').text();
-	
-		
-	// 우편 주소를 입력하지 않은 경우
-	if(fake_orders_zipcode == '' || 
-	   orders_zipcode == '' ||
-	   fake_orders_adr01 == '' ||
-	   orders_adr01 == ''){
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('우편번호 찾기 버튼을 클릭하여 <br>주소를 입력하세요!');
-		$('#err_myModal').modal();
-		
-		return false;
-	
-	// 사용자가 직접 입력하는 부분
-	}else if(
-		fake_orders_adr02 == '' ||
-		orders_adr02 == '' ||
-		fake_orders_phone == '' ||
-		orders_phone == ''){
-	
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('입력한 값을 확인하세요!');
-		$('#err_myModal').modal();
-	
-		return false;
-
-	}else if (valid_check != '') {// 유효성 에러가 담기는 <p> 태그에 값이 들어 있어도 modal 팝업 기능 추가 
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('입력한 값을 확인하세요!');
-		$('#err_myModal').modal();
-		
-		return false;
-		
-	} else{
-		return true;
-	}
+/* ==================================
+	장바구니에서 쇼핑계속하기 버튼을 눌렀을때 이동
+   ==================================
+*/
+function cart_back(){ // 쇼핑 계속 하기 버튼을 누르면 이전 페이지로 이동
+	window.history.back();
 }
-
-
 
 /* ===============================
 	수량 부분 + , - 버튼
@@ -241,73 +188,127 @@ function plusqty(count){
 	
 	var orders_pro_no = $('#orders_pro_no' + count).val(); // 상품 번호
 	
-	var orders_qty = $('#orders_qty' + count).val(); // 회원이 장바구니에 담을 때 선택한 수량
+	var orders_qty = parseInt($('#orders_qty' + count).val()); // 회원이 장바구니에 담을 때 선택한 수량
 	
-	var new_qty = parseInt(orders_qty) + 1; // 회원이 변경한 수량
+	var new_qty = orders_qty + 1; // 회원이 변경한 수량
 	
+	var pro_price = parseInt($('#pro_price' + count).val()); // 단가
 	
+	var new_price = new_qty * pro_price; // 회원이 변경한 수량에 맞는 상품 하나의 금액
 	
-	$('#orders_qty' + count).val(new_qty);
+	var sum_price = parseInt($('#sum_price').text()); // 장바구니 상품 총 금액
+	
+	var new_sum_price = sum_price + pro_price; // + 버튼을 눌렀을 때 상품 총 금액
+	
+	// 배송비 기준 30,000원 미만 2500원 30,000원 이상 0원
+	var delivery_price;
+	
+	if(new_sum_price >= 30000){ 
+		delivery_price = 0;
+	}else{
+		delivery_price = 2500;
+	}
+	
+	var total_amount = new_sum_price + delivery_price; // 총 상품 금액 + 배송비
+	
+	// + 수량 ajax 
+	$.ajax({
+		url: '/caUpdate.ca',
+		type: 'get',
+		dataType: "text",
+		contentType: "application/json; charset=UTF-8",
+		data: { 'cart_seq' : cart_seq , 'orders_pro_no': orders_pro_no ,'new_qty' : new_qty}, // 1. {code : code } code=code 형식 , 2. String 으로 받을 수 있음..  
+		success: function(data) { 
+			if(data == 'over'){ // 재고의 max 값을 초과했을 때 
+				$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+				$('#err_modal-body').html('더 이상 상품을 담을 수 없습니다!');
+				$('#err_myModal').modal();
+			}else if(data == 'success'){
+				$('#orders_qty' + count).val(new_qty);
+				$('#cart_price' + count).text(new_price);
+				$('#sum_price').text(new_sum_price);
+				$('#delivery_price').text(delivery_price);
+				$('#total_amount').text(total_amount);
+				$('#orders_total_amount').val(total_amount);
+			}else if(data == 'fail'){
+				$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+				$('#err_modal-body').html('상품 수량 수정이 불가능 합니다!');
+				$('#err_myModal').modal();
+			}else if(data == 'login'){
+				location.href = getContextPath() + "/custLog.cu";
+			}
+		}, error:function(request,status,error){
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		   }
+
+
+	});
 	
 }
 
-function minusqty(){
+function minusqty(count){
 	
-	var pro_price = parseInt($("#pro_price").val()); // 제품 단가
+	var cart_seq = $('#cart_seq' + count).val(); // 장바구니 번호
 	
-	var orders_qty = parseInt($('#orders_qty').val()); // 사용자가 지정한 상품수
+	var orders_pro_no = $('#orders_pro_no' + count).val(); // 상품 번호
 	
+	var orders_qty = parseInt($('#orders_qty' + count).val()); // 회원이 장바구니에 담을 때 선택한 수량
+	
+	var new_qty = orders_qty - 1; // 회원이 변경한 수량
+	
+	var pro_price = parseInt($('#pro_price' + count).val()); // 단가
+	
+	var new_price = new_qty * pro_price; // 회원이 변경한 수량에 맞는 상품 하나의 금액
+	
+	var sum_price = parseInt($('#sum_price').text()); // 장바구니 상품 총 금액
+	
+	var new_sum_price = sum_price - pro_price; // + 버튼을 눌렀을 때 상품 총 금액
+	
+	// 배송비 기준 30,000원 미만 2500원 30,000원 이상 0원
+	var delivery_price;
+	
+	if(new_sum_price >= 30000){ 
+		delivery_price = 0;
+	}else{
+		delivery_price = 2500;
+	}
+	
+	var total_amount = new_sum_price + delivery_price; // 총 상품 금액 + 배송비
+	
+	// + 수량 ajax 
+	$.ajax({
+		url: '/caUpdate.ca',
+		type: 'get',
+		dataType: "text",
+		contentType: "application/json; charset=UTF-8",
+		data: { 'cart_seq' : cart_seq , 'orders_pro_no': orders_pro_no ,'new_qty' : new_qty}, // 1. {code : code } code=code 형식 , 2. String 으로 받을 수 있음..  
+		success: function(data) { 
+			if(data == 'over'){ // 재고의 max 값을 초과했을 때 
+				$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+				$('#err_modal-body').html('더 이상 상품을 담을 수 없습니다!');
+				$('#err_myModal').modal();
+			}else if(data == 'zero'){
+				$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+				$('#err_modal-body').html('수량은 1개 이상이어야 합니다!');
+				$('#err_myModal').modal();
+			}else if(data == 'success'){
+				$('#orders_qty' + count).val(new_qty);
+				$('#cart_price' + count).text(new_price);
+				$('#sum_price').text(new_sum_price);
+				$('#delivery_price').text(delivery_price);
+				$('#total_amount').text(total_amount);
+				$('#orders_total_amount').val(total_amount);
+			}else if(data == 'fail'){
+				$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+				$('#err_modal-body').html('상품 수량 수정이 불가능 합니다!');
+				$('#err_myModal').modal();
+			}
+		}, error:function(request,status,error){
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		   }
 
-	if(orders_qty <= 1) { // 사용자가 지정한 재고가 1인 경우
-		orders_qty -= 0;
-		
-		$('#orders_qty').val(orders_qty);
-		$('#cart_price').text(orders_qty * pro_price);
-		$('#orders_amount').val(orders_qty * pro_price);
-		
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('수량은 1개 이상이어야 합니다!');
-		$('#err_myModal').modal();
-	}else{ // 사용자가 지정한 재고가 1보다 큰 경우 
-		orders_qty -= 1;
-	
-		$('#orders_qty').val(orders_qty);
-		$('#cart_price').text(orders_qty * pro_price);
-		$('#orders_amount').val(orders_qty * pro_price);
-	}
-	
-	return false;
-}
 
-/* ===============================
-	수량을 직접 입력하는 경우 조건 체크
-   ===============================
-*/
-function qty_check() {
-	// 조건 1. 수량은 1이상 입력되어야함
-	var pro_stock = parseInt($("#pro_stock").val()); // 사업자가 설정한 최대 상품수
-	var pro_price = parseInt($("#pro_price").val()); // 제품 단가
-	var cart_cust_qty = parseInt($('#cart_cust_qty').val()); // 사용자가 지정한 상품수
-	
-	if(cart_cust_qty < 1){
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('수량은 1개 이상이어야 합니다!');
-		$('#err_myModal').modal();
-		
-		$('#cart_cust_qty').val(1);
-		$('#cart_total_price').text(pro_price);
-	}
-	
-	// 조건 2. 사업자가 지정한 초기 제품수보다 작거나 같아야함
-	if(cart_cust_qty > pro_stock){
-		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
-		$('#err_modal-body').html('재고가 부족합니다!');
-		$('#err_myModal').modal();
-		
-		$('#cart_cust_qty').val(pro_stock);
-		$('#cart_total_price').text(pro_stock * pro_price);
-	}
-	
+	});
 }
 
 
@@ -449,6 +450,142 @@ function zipCheck2() {
 }
 
 
+/*=======================================
+   최종 결제 전 유효성 체크
+=========================================*/
+
+function pay_check(){
+	// 우편 번호
+	var fake_orders_zipcode = $('#fake_orders_zipcode').val();
+	var orders_zipcode = $('#orders_zipcode').val();
+	
+	// 주소
+	var fake_orders_adr01 = $('#fake_orders_adr01').val();
+	var orders_adr01 = $('#orders_adr01').val();
+	
+	// 상세 주소
+	var fake_orders_adr02 = $('#fake_orders_adr02').val();
+	var orders_adr02 = $('#orders_adr02').val();
+	
+	// 휴대폰 번호
+	var fake_orders_phone = $('#fake_orders_phone').val();
+	var orders_phone = $('#orders_phone').val();
+	
+	// 유효성 에러 부분
+	var valid_check = $('.valid_check').text();
+	
+		
+	// 우편 주소를 입력하지 않은 경우
+	if(fake_orders_zipcode == '' || 
+	   orders_zipcode == '' ||
+	   fake_orders_adr01 == '' ||
+	   orders_adr01 == ''){
+		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+		$('#err_modal-body').html('우편번호 찾기 버튼을 클릭하여 <br>주소를 입력하세요!');
+		$('#err_myModal').modal();
+		
+		return false;
+	
+	// 사용자가 직접 입력하는 부분
+	}else if(
+		fake_orders_adr02 == '' ||
+		orders_adr02 == '' ||
+		fake_orders_phone == '' ||
+		orders_phone == ''){
+	
+		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+		$('#err_modal-body').html('입력한 값을 확인하세요!');
+		$('#err_myModal').modal();
+	
+		return false;
+
+	}else if (valid_check != '') {// 유효성 에러가 담기는 <p> 태그에 값이 들어 있어도 modal 팝업 기능 추가 
+		$('#err_modal-title').html('<i class="fas fa-exclamation-circle"></i>');
+		$('#err_modal-body').html('입력한 값을 확인하세요!');
+		$('#err_myModal').modal();
+		
+		return false;
+		
+	} else{
+		payment(); // 지은 - payment() 호출은 했으나 정상 처리 되는지 확인 필요
+		return true;
+	}
+}
 
 
+/*=======================================
+   상품 실 결제 처리 => 아임포트 API
+=========================================*/
 
+function payment() {
+   // 결제 테이블에 넣을 파라미터
+   var orders_pro_no = $('#orders_pro_no').val(); // 주문 클래스
+   var orders_cust_email = $('#orders_cust_email').val(); // 회원 이메일
+   var orders_realtime = $('#orders_realtime').val(); // 결제 일자
+   var orders_zipcode = $('#orders_zipcode').val(); // 우편 번호
+   var orders_qty = $('#orders_qty').val(); // 구매 수량
+   var orders_adr01 = $('#orders_adr01').val(); // 우편 번호
+   var orders_adr02 = $('#orders_adr02').val(); // 주소
+   var orders_phone = $('#orders_phone').val(); // 상세 주소
+   var orders_request = $('#orders_request').val(); // 요청사항
+   var orders_total_amount = $('#orders_total_amount').val(); // 결제 총 가격
+   
+   orders_total_amount = removecomma(orders_total_amount); // 페이징 로딩 될때 설정했던 콤마 제거
+
+   function removecomma(pStr) {
+      var strCheck = /\,/g;
+      pStr = pStr.replace(strCheck, '');
+      return pStr;
+   }
+   
+   IMP.init('imp63433419'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+   IMP.request_pay({
+       pg : 'inicis', // version 1.1.0부터 지원.
+       pay_method : 'card',
+       merchant_uid : 'merchant_' + new Date().getTime(),
+       name : '주문명: ' + orders_pro_no + " | 결제 테스트",
+       amount : orders_total_amount, // 결제 금액
+       buyer_email : orders_cust_email,// 결제자 이메일
+       buyer_tel : orders_phone// 결제자 휴대폰 번호
+   }, function(rsp) {
+       if ( rsp.success ) {
+       //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+            
+       jQuery.ajax({
+          url: "/prOrderPayment.po", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+          type: 'get',
+          dataType: 'json',
+         contentType: "application/json; charset=UTF-8",
+          data: {
+             imp_uid : rsp.imp_uid,
+            merchant_uid : rsp.merchant_uid,
+            
+             //기타 필요한 데이터가 있으면 추가 전달
+            orders_realtime : orders_realtime,
+            orders_qty : orders_qty,
+            orders_zipcode : orders_zipcode,
+            orders_adr01 : orders_adr01,
+            orders_adr02 : orders_adr02,
+          },
+         success : function(data){
+         console.log(data)
+             var msg = '결제가 완료되었습니다.';
+             msg += '\n고유ID : ' + rsp.imp_uid;
+             msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+             msg += '\결제 금액 : ' + rsp.paid_amount;
+             msg += '카드 승인번호 : ' + rsp.apply_num;
+
+             alert(msg);
+         }
+       });
+        
+    } else{
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+
+        alert(msg);
+      
+      }
+        window.location.replace("/cartList.ca");  
+   });
+}

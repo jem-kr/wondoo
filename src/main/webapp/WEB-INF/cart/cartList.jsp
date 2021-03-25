@@ -13,9 +13,10 @@
 	<script type="text/javascript" src="${contextPath}/js/cart.js"></script>
 	<!-- Stylesheet CSS -->
 	<link rel="stylesheet" type="text/css" href="${contextPath}/css/cart.css" />
-	<script type="text/javascript">
-	
-	</script>
+	<%-- 아임포트 사용 시 제이쿼리 버전이 1.12.4로만 사용 가능한지 확인 필요 , 
+		 1.12.4 버전이 낮아 기존 장바구니에 적용되었던 자바스크립트가 적용이 안됨	--%>
+	<%-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> --%>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
     <section class="cart-page page fix"><!--Start Cart Area-->
@@ -34,8 +35,10 @@
                     <%-- ================================
                     		form 태그 시작 
                     ===================================== --%>
+                    <%-- ※ jsp 주석 <%-현지-%> 는 장바구니 자바스크립트 함수 적용 시 필요한 input 태그임 , disabled로 결제 처리 시 파라미터는 안넘어감 --%>
+                    <%-- ※ jsp 주석 <%-지은-%> 는 결제 처리 시 넘어가야 되는 파라미터 --%>
                     <c:set var="contextPath" value="<%=contextPath%>" scope="application" />
-                    <form id="contact-form" method="post" action="${contextPath}/orderPayment.or" role="form">
+                    <form id="contact-form" method="post" action="${contextPath}/prOrderPayment.po" role="form">
 	                    <!-- ====================
 	                  		 STEP1. 장바구니 부분
 	             		   ====================== -->
@@ -52,13 +55,11 @@
 	                            <!-- =====================================
 	                            		list 반복문 부분 [시작]
 	                            ========================================== -->
-	                            <c:forEach var="bean" items="${requestScope.lists}" varStatus="status">
+	                            <c:forEach var="bean" items="${sessionScope.cartlists}" varStatus="status">
 		                            <tbody>
 		                                <tr class="table-info">
-		                                	
 		                                    <td class="produ">
-		                                    	<%--@--%><input type="hidden" id="orders_cust_email" name="orders_cust_email" value="${customer.cust_Email}">
-		                      		      		<%--@--%><input type="text" id="orders_pro_no${status.count}" name="orders_pro_no" value="${bean.cart_pro_no}">
+		                      		      		<%--현지--%><input type="hidden" disabled="disabled" id="orders_pro_no${status.count}" name="orders_pro_no" value="${bean.cart_pro_no}">
 		                                        <a href="${contextPath}/prDetail.pr?products_seq=${bean.cart_pro_no}">
 		                                        	<img width="250" height="150" alt="noimage" src="${contextPath}/upload/${bean.pro_pic}">
 		                                        </a>
@@ -70,24 +71,21 @@
 		                                        	</a>
 		                                        </h2>
 		                                    </td>
-		                                    
 		                                    <td class="quantity">
 		                                    	<!-- 수정 & 삭제 처리에 사용됨 -->
-		                                    	<input id="cart_seq${status.count}" type="text" disabled="disabled" value="${bean.cart_seq}">
+		                                    	<%--현지--%><input id="cart_seq${status.count}" type="hidden" disabled="disabled" value="${bean.cart_seq}">
 		                                        <div class="cart-plus-minus">
-		                                            <div class="dec qtybutton" onclick="minusqty();">-</div>
-		                                            <%--@--%><input type="text" id="orders_qty${status.count}" name="orders_qty"  value="${bean.cart_cust_qty}" 
-		                                            name="qtybutton" class="cart-plus-minus-box" oninput="qty_check()">
+		                                            <div class="dec qtybutton" onclick="minusqty(${status.count});">-</div>
+		                                            <%--현지--%><input type="text" disabled="disabled" id="orders_qty${status.count}" name="orders_qty" value="${bean.cart_cust_qty}" 
+		                                            name="qtybutton" class="cart-plus-minus-box">
 		                                            <div class="inc qtybutton" onclick="plusqty(${status.count});">+</div>
 		                                        </div>
 		                                    </td>
 		                                    <td class="unit">
-		                                    	<input type="hidden" disabled="disabled" id="pro_price" value="${bean.pro_price}" name="qtybutton" class="cart-plus-minus-box">
-		                                        <h5 id="cart_price"><fmt:formatNumber pattern="#,###,###" value="${bean.cart_price}"/></h5>
-		                                       	<%--@--%><input type="hidden" id="orders_amount" name="orders_amount" value="${bean.cart_price}">
+		                                    	<%--현지--%><input type="hidden" disabled="disabled" id="pro_price${status.count}" value="${bean.pro_price}" name="qtybutton" class="cart-plus-minus-box">
+		                                        <h5 id="cart_price${status.count}">${bean.cart_price}</h5>
 		                                    </td>
 		                                    <td class="acti">
-		                                    	
 		                                        <i class="far fa-trash-alt" onclick="click_count(${status.count});"></i>
 		                                    </td>
 		                                </tr>
@@ -102,23 +100,23 @@
 	           			</div>
 	             	    <div class="footer_step1 col-sm-6 col-md-5">
 		                    <div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-		                        <a href="${contextPath}/cfList.pr" id="back_list"><i class="fas fa-chevron-left"></i>&nbsp;쇼핑 계속하기</a>
+		                        <a id="back_list" onclick="cart_back();"><i class="fas fa-chevron-left"></i>&nbsp;쇼핑 계속하기</a>
 		                        <div class="total">
 		                            <h5>
 		                            	총 ${requestScope.total_list}개의 상품금액 
-		                            	<span><fmt:formatNumber pattern="#,###,###" value="${requestScope.sum_price}"/></span>원
+		                            	<span id="sum_price">${requestScope.sum_price}</span>원
 		                            </h5>
 		                            <h5>
 		                            	<i class="fas fa-plus-circle"></i>&nbsp;&nbsp;배송비 
-		                            	<span><fmt:formatNumber pattern="#,###,###" value="${requestScope.delivery_price}"/></span>원
+		                            	<span id="delivery_price">${requestScope.delivery_price}</span>원
 		                            </h5>
 		                            <hr>
 		                            <h6>
-		                            	합계<span>
-		                            		<fmt:formatNumber pattern="#,###,###" value="${requestScope.sum_price + requestScope.delivery_price}"/>
+		                            	합계
+		                            	<span id="total_amount">
+		                            		${requestScope.sum_price + requestScope.delivery_price}
 		                            	</span>원
-		                            	<%-- 이건 DB에 들어가는 파라미터는 아니지만.. 결제 API 사용시 총 결제 금액이 필요 할 듯 해서 일단..남길게 --%>
-		                            	<%--@@--%><input type="hidden" id="orders_total_amount" name="orders_total_amount" value="${requestScope.sum_price + requestScope.delivery_price}">
+		                            	<%--지은--%><input type="hidden" id="orders_total_amount" name="orders_total_amount" value="${requestScope.sum_price + requestScope.delivery_price}">
 		                            </h6>
 		                        </div>
 		                        <a id="all_procedto" href="#">전체 상품주문</a>
@@ -128,6 +126,7 @@
 	                 		  STEP2. 배송지 입력 부분 - 1. 기존 배송지가 있는 경우 / 2. 없는 경우로 나뉨
 	                		===========================================================================  -->
 	                     <div class="step2 table-responsive wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="0.6s" >
+	                     	<%--지은--%><input type="hidden" id="orders_cust_email" name="orders_cust_email" value="${customer.cust_Email}">
 	                        <%-- 1. 기존 배송지가 있는 경우 [시작] --%>
 	                		<c:if test="${not empty customer.cust_Zipcode}">
 		                        <table class="table cart-table">
@@ -165,14 +164,14 @@
 		                                        <div class="address_find">
 		                                            <div class="zipcode_find">
 		                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text" value="${customer.cust_Zipcode}">
-		                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden" value="${customer.cust_Zipcode}">
+		                                                <%--지은--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden" value="${customer.cust_Zipcode}">
 		                                                <button id="zipcodebtn" type="button" disabled="disabled" onclick='zipCheck1();' data-toggle="tooltip" title="주소 변경 시 클릭하세요!">우편번호 찾기</button>
 		                                            </div>
 		                                            <div class="address_css">
 		                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text" value="${customer.cust_ADR01}">
-		                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
+		                                                <%--지은--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden" value="${customer.cust_ADR01}">
 		                                                <input disabled="disabled"  id="fake_orders_adr02" class="new_data" name="fake_orders_adr02" type="text" value="${customer.cust_ADR02}" oninput="input_adr2()">
-		                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
+		                                                <%--지은--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="hidden" value="${customer.cust_ADR02}">
 		                                            </div>
 		                                             <p class="valid_check" id="err_address2"></p>
 		                                        </div>
@@ -186,10 +185,10 @@
 		                                    <td class="col-sm-10">
 		                                    	<c:if test="${not empty customer.cust_Contact}">
 		                                        	<input disabled="disabled" class="new_data" id="fake_orders_phone" name="fake_orders_phone" type="text" value="${customer.cust_Contact}" oninput="input_phone()">
-		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="hidden" value="${customer.cust_Contact}">
+		                                        	<%--지은--%><input class="new_data" id="orders_phone" name="orders_phone" type="hidden" value="${customer.cust_Contact}">
 		                                        </c:if>
 		                                        <c:if test="${empty customer.cust_Contact}">
-		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
+		                                        	<%--지은--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
 		                                        </c:if>
 		                                        <p class="valid_check" id="err_phone"></p>
 		                                    </td>
@@ -199,7 +198,7 @@
 		                                        &nbsp;&nbsp;&nbsp;남기실 말씀
 		                                    </td>
 		                                    <td class="col-sm-10">
-		                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
+		                                        <%--지은--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
 		                                        <p class="valid_check" id="err_request"></p>
 		                                    </td>
 		                                </tr>
@@ -238,13 +237,13 @@
 		                                        <div class="address_find">
 		                                            <div class="zipcode_find">
 		                                                <input disabled="disabled" class="new_data" id="fake_orders_zipcode" name="fake_orders_zipcode" type="text">
-		                                                <%--@--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden">
+		                                                <%--지은--%><input id="orders_zipcode" class="new_data" name="orders_zipcode" type="hidden">
 		                                                <button id="zipcodebtn" type="button" onclick='zipCheck2();'>우편번호 찾기</button>
 		                                            </div>
 		                                            <div class="address_css">
 		                                                <input disabled="disabled"  id="fake_orders_adr01" class="new_data" name="fake_orders_adr01" type="text">
-		                                                <%--@--%><input id="orders_adr01" class="new_data" name="orders_adr01" type="hidden">
-		                                                <%--@--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="text">
+		                                                <%--지은--%><input id="orders_adr01" name="orders_adr01" class="new_data" type="hidden">
+		                                                <%--지은--%><input id="orders_adr02" name="orders_adr02" class="new_data" type="text">
 		                                            </div>
 		                                        </div>
 		                                        <p class="valid_check" id="err_address2"></p>
@@ -256,10 +255,10 @@
 		                                    </td>
 		                                    <td class="col-sm-10">
 		                                    	<c:if test="${not empty customer.cust_Contact}">
-		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text" value="${customer.cust_Contact}">
+		                                        	<%--지은--%><input class="new_data" id="orders_phone" name="orders_phone" type="text" value="${customer.cust_Contact}">
 		                                        </c:if>
 		                                        <c:if test="${empty customer.cust_Contact}">
-		                                        	<%--@--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
+		                                        	<%--지은--%><input class="new_data" id="orders_phone" name="orders_phone" type="text">
 		                                        </c:if>
 		                                        <p class="valid_check" id="err_phone"></p>
 		                                    </td>
@@ -269,7 +268,7 @@
 		                                        &nbsp;&nbsp;&nbsp;남기실 말씀
 		                                    </td>
 		                                    <td class="col-sm-10">
-		                                        <%--@--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
+		                                        <%--지은--%><textarea id="orders_request" name="orders_request" rows="5"></textarea>
 		                                        <p class="valid_check" id="err_request"></p>
 		                                    </td>
 		                                </tr>
@@ -347,6 +346,5 @@
 	    </div>
 	  </div>
 	</div>
-	
 </body>
 </html>

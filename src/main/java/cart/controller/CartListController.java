@@ -52,7 +52,8 @@ public class CartListController extends SuperClass {
 	}
 
 	@GetMapping(command)
-	public ModelAndView doGet(@RequestParam(value = "cart_cust_email", required = true) String cart_cust_email,
+	public ModelAndView doGet(
+			@RequestParam(value = "cart_cust_email", required = true) String cart_cust_email,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession(); // 에러메세지를 담는 영역
 
@@ -89,7 +90,10 @@ public class CartListController extends SuperClass {
 			}
 			
 			this.mav.addObject("delivery_price", delivery_price); // 배송비 
-			this.mav.addObject("lists", lists); // 장바구니 목록
+			
+			
+			session.setAttribute("cartlists", lists); // 장바구니 목록
+			
 			this.mav.addObject("total_list", lists.size()); // 장바구니 갯수
 
 			// 회원 정보
@@ -105,10 +109,5 @@ public class CartListController extends SuperClass {
 		return this.mav;
 	}
 
-	@PostMapping(command)
-	public ModelAndView doPost() {
-		this.mav.setViewName(super.postpage);
-		return this.mav;
-	}
-
+	
 }

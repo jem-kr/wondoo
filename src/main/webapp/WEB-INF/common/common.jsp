@@ -140,6 +140,9 @@ int twelve = 12;
 	function search() {
 	$('#search').toggle();
 	}	
+	
+	
+
 </script>
 </head>
 <body onload="modal_popup();">
@@ -366,8 +369,8 @@ int twelve = 12;
 			$('#cart_pop').modal();
 		}
 	<%
-		session.removeAttribute("message");
 		session.removeAttribute("cart_modal");
+		session.removeAttribute("message");
 	%>
 	}
 	
@@ -390,6 +393,7 @@ int twelve = 12;
 		location.href = getContextPath() + "/caList.ca?cart_cust_email=" + cart_cust_email;
 	}
 
+	
 
 </script>
 
