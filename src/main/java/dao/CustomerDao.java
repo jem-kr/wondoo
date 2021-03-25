@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import bean.Cart;
 import bean.Customer;
 
 @Component("cdao")
@@ -103,5 +104,19 @@ public class CustomerDao {
 		return this.abcd.selectOne(namespace+"kakaoLogin", email);
 	}
 
-	
+	public List<Cart> GetCartInfo(String cust_Email) {
+		// 로그인 하면서 이전에 keep했던 나의 장바구니 정보를 다시 읽어 옵니다. 
+		return this.abcd.selectList(namespace + "GetCartInfo", cust_Email);
+	}
+
+	public void InsertCartData(Customer cust, List<Cart> lists) {
+		// 1. 장바구니 테이블에 혹시 남아 있을 수 있는 회원의 행을 모두 삭제합니다. 
+		this.abcd.delete(namespace + "DeleteCartData", cust.getCust_Email());
+		
+		// 2.반복문을 사용하여 테이블에 인서트 합니다.
+		for(Cart cart : lists){
+			this.abcd.insert(namespace + "InsertCartData", cart);
+		}
+	}
+
 }

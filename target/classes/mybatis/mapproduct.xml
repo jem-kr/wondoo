@@ -85,4 +85,19 @@
 	<delete id="DeleteData" parameterType="Integer">
 		delete from products where products_seq = #{products_seq}
 	</delete>
+	
+	<!-- 결제 시 상품 재고 차감 -->
+	<update id="UpdateStockData" parameterType="java.util.HashMap">
+		update products set 
+		pro_stock = pro_stock <![CDATA[ - ]]> #{orders_qty}
+		where products_seq = #{orders_pro_no}
+	</update>	
+	
+		<!-- 결제 취소 시 상품 재고 plus -->
+	<update id="ReupdateStockData" parameterType="java.util.HashMap">
+		update products set 
+		pro_stock = pro_stock <![CDATA[ + ]]> #{orders_qty}
+		where products_seq = #{orders_pro_no}
+	</update>	
+	
 </mapper>

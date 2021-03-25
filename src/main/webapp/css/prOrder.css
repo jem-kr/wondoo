@@ -1,0 +1,1229 @@
+@charset "EUC-KR";
+
+/* ==================================
+		상품 등록
+   ==================================  */
+
+body{
+	padding-top: 100px ;
+}
+
+
+/* 각 input 태그 상단 컬럼 이름 */
+.column_name{
+	font-weight: bold !important;
+	margin-bottom: 5px !important;
+	margin-top: 10px !important;
+}
+
+.wizard {
+    margin: 20px auto;
+    background: #fff;
+}
+
+    .wizard .nav-tabs {
+        position: relative;
+        margin: 40px auto;
+        margin-bottom: 0;
+        border-bottom-color: #e0e0e0;
+    }
+
+    .wizard > div.wizard-inner {
+        position: relative;
+    }
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background: #fff;
+    border: 2px solid #5080BF;
+    
+}
+.wizard li.active span.round-tab i{
+    color: #5080BF;
+}
+
+span.round-tab:hover {
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li {
+    width: 25%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #5080BF;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: #5080BF;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+    
+    
+}
+
+/* ------------------------------------------------------------------------------ */
+button.next-step, button.next-step:hover, button.next-step:after{
+	font-size: 13px;
+	margin: 0;
+	width: 100%;
+    color: #fff;
+    outline: none;
+    background: #84C1D9;
+    border-radius: 1px;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+}
+
+.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
+    color: #fff;
+    background-color: #84C1D9;
+    border-color: #84C1D9;
+}
+
+button.prev-step, button.prev-step:hover, button.prev-step:after{
+	font-size: 13px;
+	margin: 0;
+	width: 100%;
+    color: #fff;
+    outline: none;
+    background: #84C1D9;
+    border-radius: 1px;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+}
+
+
+
+
+/* 우편번호 전체 */
+#contact-section div#zipcode-section2{ 
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin:0px;
+	padding-bottom: 15px;
+}
+
+/* 우편번호 input 태그 */
+#contact-section input#fakezipcode{
+  width: 80%;
+}
+
+/* 우편번호 버튼 */
+#contact-section button#zipcode-find{
+	font-size: 13px;
+	margin: 0;
+	width: 18%;
+    color: #fff;
+    outline: none;
+    background: #5080BF;
+    border-radius: 1px;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+}
+
+
+.list-inline > li.step-li {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+#contact-section div.pickercss{
+	margin-bottom: 15px;
+}
+
+
+#contact-section div.pickercss input{
+	width: 100%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+    -webkit-box-shadow: none;
+}
+
+.add_btn{
+	width : 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: row;
+	padding: 0px;
+}
+
+.add_btn i{
+	font-size: 13px;
+}
+
+.add_btn p.btn_icon{
+	font-size: 11px;
+	font-weight: bold;
+	padding: 5px 15px 5px 15px;
+	border-radius: 0px;
+    background-color: #A3D0EB;
+    color: #fff;
+    cursor: pointer;
+}
+
+div#submit{
+	width: 100% !important;
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.btn-send{
+	width: 30% !important;
+	margin-top: 40px !important;
+    color: #fff !important;
+    outline: none !important;
+    background: #5080BF !important;
+}
+
+
+/* ========================
+	파일 업로드
+   ========================
+ */
+ 
+ body {
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Malgun Gothic';
+  background-color: #ffffff;
+}
+
+.file-upload {
+  background-color: #ffffff;
+  width: 100%;
+  margin: 0px 0px 20px 0px;
+  padding: 0px;
+}
+
+.file-upload-btn {
+  font-size: 13px;
+  width: 100%;
+  margin: 0;
+  color: #222;
+  background: #F2EDDC;
+  border: none;
+  padding: 10px;
+  border-radius: 0px;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.file-upload-btn:hover {
+  background: #F2EDDC;
+  color: #222;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: relative;
+  height: 0px !important;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+  display: block;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #F2EDDC;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+ 
+  background-color: #ffffff;
+  border: 4px dashed #F2EDDC;
+}
+
+.file-upload-content{
+	margin-top: 20px;
+	background-color: #ffffff;
+ 	border: 4px dashed #F2EDDC;
+}
+
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  text-transform: uppercase;
+  color: #222;
+  padding: 60px;
+}
+
+.file-upload-image {
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+  padding: 20px 0px 20px 0px;
+}
+
+.remove-image {
+  font-size: 13px;
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #402211;
+  border: none;
+  padding: 10px;
+  transition: all .2s ease;
+  outline: none;
+  font-weight: bold;
+}
+
+.remove-image:hover {
+  background: #402211;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+
+/* ==================================
+		상품 목록
+   ==================================  */
+   
+/*이미지 hover 되었을 때 전체*/
+.overlay{
+    width: 100% !important;
+}
+
+/*이미지 hover 되었을 때 버튼*/
+.buttons{
+    width: inherit !important;
+    position: absolute !important;
+    top: 45% !important;
+    left: 0% !important;
+}
+
+/* 이미지 클래스명 부분 */
+figure figcaption h4 a {
+    color: #5080BF !important;
+}
+
+figure figcaption h4 a:hover {
+    color: #5080BF !important;
+}
+
+/* 이미지 가격 부분 */
+figure figcaption p {
+    font-size: 18px !important;
+    margin-bottom: 0 !important;
+    margin-top: 15px !important;
+}
+
+.list_bottom{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: center;
+}
+
+.list_bottom p.list_person {
+	font-size: 13px !important;
+	border-radius: 20px;
+    background-color: #84C1D9;
+	padding: 5px 10px 5px 10px;
+	color: #fff;
+	font-weight: bold !important;
+	margin-top: 10px !important;
+}
+
+/* 총 갯수 부분 , 헤더 부분*/
+
+#list_top{
+	padding-left: 15px;	
+}
+
+.top, #top{ /* .top 은 list.jsp 를 제외한 헤더부분 , #top은 list.jsp 에서만 해당하는 헤더부분임 */
+	padding-top: 60px;
+	margin-bottom: 50px;
+}
+
+.top h2{
+	font-weight: bold !important;
+	font-size: 30px;
+}
+
+/* 검색 부분  시작*/
+#search_btn{
+	cursor: pointer;
+}
+
+
+#search {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-left : 15px;
+	padding-right : 5px;
+	margin: 10px 0px 10px 0px;
+}
+
+
+select#mode{
+	width: 10%;
+    height: 40px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);	
+}
+
+input#keyword{
+	display: block !important;
+	width: 20%;
+    height: 40px !important;
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    line-height: 1.428571429 !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important;
+    border-radius: 1px !important;
+    border: 1px solid rgba(111, 121, 122, 0.3) !important;
+    -webkit-box-shadow: none !important;
+}
+
+#search button{
+	height: 40px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);	
+}
+
+@media( max-width : 585px ) {
+	select#mode{
+		width: 30%;
+	} 
+	
+	input#keyword{
+		width: 60%;
+	}
+	
+	button {
+		width: 10%;
+	}
+	
+	
+}
+
+/* 검색 부분  끝*/
+	
+
+/* ====================
+    원데이클래스 상세보기
+=======================*/
+#contact-submit{
+	width: 100% !important;
+}
+
+
+/* ====================
+    이미지 부분
+=======================*/
+
+ /* 클래스 명 */
+h3.widget-head {
+    color: #5080BF;
+    font-family: "맑은 고딕" !important;
+    font-weight: bold !important;
+
+}
+
+/* 부트스트랩 이미지 수정 */
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+    display: block;
+    max-width: 100%;
+    height: 100% !important;
+}
+
+
+
+/* 메인 사진 섬네일 */
+.blog-post-image {
+    margin-top: 30px !important;
+    margin-bottom: 30% !important;
+  }
+  
+/* 메인 사진을 감싸고 있는 div 태그 */
+.blog-post-image {
+    height: 350px;
+}
+
+.blog-post-image > div.carousel-inner img{
+	width: 100% !important;
+    height: 100% !important;
+}
+
+/* 사진 밑 부분 상품 내용 부분 */
+
+
+
+
+/*  상품 내용 있는 부분 */
+#content_css {
+    padding-top: 0px !important;
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.blog-meta i{
+	font-size: 25px;
+	color: #222;
+}
+
+#content_css p#frist_content{
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+	width: 30%;
+}
+
+#content_css p#second_content{
+	width: 70%;
+	color: #222;
+}
+
+h3.widget-head h3 {
+    padding-top: 0px !important;
+}
+
+/* 사이드 부분 첫번째 프로필 있는 부분 */
+h3#sellname_css{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#form_css{
+	margin-top: 0px;
+	
+}
+/* 사이드 부분 두번째 예약 정보  있는 부분*/
+.sidebar .categories ul li {
+    height: 80px;
+    padding: 0;
+    list-style: none;
+}
+
+/* 수업 신청 부분 */
+h3#class_css{
+    text-align: center;
+    font-size: 15px;
+    color: #fff !important;
+    border-radius: 20px;
+    width: 27%;
+    height: 30px;
+    background-color: #84C1D9;
+    padding: 6px;
+}
+
+
+/* 전체 input 태그 */
+
+
+input.input_data{
+    display: block;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+/* select 이용시간 부분 */
+#booktime{
+    width: 100%;
+    height: 40px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    background-image: none;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    border-radius: 1px;
+    border: 1px solid rgba(111, 121, 122, 0.3);	
+}
+
+/* 인원수 + , - 클릭  */
+#person_css{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input#fake_person{
+    width: 75%;
+}
+
+
+
+/* 버튼 */
+
+
+.btn-send{
+    width: 30% !important;
+	margin-top: 40px !important;
+    color: #fff !important;
+    outline: none !important;
+    background: #5080BF !important;
+    border-radius: 0px;
+    border: #5080BF;
+    height: 40px;
+}
+
+/* + , - 버튼 */
+.pmbtn{
+    margin: 0 !important;
+    width: 10% !important;
+    height: 10%;
+    background-color: #84C1D9 !important;
+    border: #84C1D9 !important;
+}
+
+
+#plusbtn{
+	margin-top: 20px;
+	border-radius: 50px;
+}
+
+#minusbtn{
+	border-radius: 50px;
+}
+
+/* 반응형으로  적용 */
+@media( max-width : 585px ) {
+
+    /* 메인 사진을 감싸고 있는 섬네일 사진임 */
+    article{
+       padding-bottom: 0px !important;
+    }
+
+    .blog-post-image {
+        height: 300px !important;
+        margin-bottom: 10% !important;
+    }
+
+    img#image_part{
+       width: 100%; 
+       height: 300px !important;
+    }
+
+    .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+        display: block;
+        max-width: 100%;
+        height: 300px !important;
+    }
+
+    .sidebar{
+        padding-top: 0px !important;
+    }
+
+    .btn-send{
+        margin-top: 20px !important;
+    }
+
+    /* 인원수 + , - 클릭  */
+    #person_css{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    input#fake_person{
+       width: 75% !important;
+    }
+
+    /* + , - 버튼 */
+   .pmbtn{
+      margin: 0 !important;
+      width: 10% !important;
+      background-color: #84C1D9 !important;
+      border: #84C1D9 !important;
+    }
+    
+    /* 사진 밑에 내용부분  */
+    #content_css {
+    padding-top: 0px !important;
+    border: 0;
+    display: block;
+    
+	}
+
+	/* 사진 밑에 내용부분  */
+	#content_css p#frist_content{
+		font-size: 20px;
+		font-weight: bold;
+		color: black;
+		width: 100%;
+	}
+
+	/* 사진 밑에 내용부분  */
+	#content_css p#second_content{
+		width: 100%;
+		color: #222;
+	}
+
+	/* 상품 등록 및 수정 step title */	
+	.sub_steptitle{
+	margin-bottom: 20px !important;
+}
+    
+}
+
+/* ====================
+    코드펜에서 가져온 이미지 
+=======================*/
+
+* CROUSAL-STARTS */
+#sg-carousel {
+    position: relative;
+    height: 100vh;
+}
+#sg-carousel .carousel-inner .item {
+    height: 100vh;
+}
+.carousel-caption{top:50%;}
+.carousel-caption h1 {
+    font-size: 6em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+#sg-carousel .carousel-control.left {
+    top: 48%;
+}
+#sg-carousel .carousel-control.right {
+    top: 48%;
+}
+.uppr-txt {
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 35px;
+}
+#sg-carousel .carousel-control.left,
+#sg-carousel .carousel-control.right {
+    background-image: none;
+    background-repeat: no-repeat;
+    opacity: 0;
+    text-shadow: none;
+    transition: all 0.8s ease 0s;
+}
+.carousel-control {
+    bottom: 0;
+    color: #fff;
+    font-size: 20px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    top: 0;
+    width: auto;
+    transition: all 0.8s ease 0s;
+}
+.carousel-inner {
+    box-shadow: 0px;
+}
+.fa-angle-right,
+.fa-angle-left {
+    font-size: 80px;
+}
+#sg-carousel:hover .carousel-control.left {
+    left: 38px;
+    transition: all .2s ease 0;
+}
+#sg-carousel:hover .carousel-control.right {
+    right: 38px;
+    transition: all .2s ease 0;
+}
+#sg-carousel:hover .carousel-control.left,
+#sg-carousel:hover .carousel-control.right {
+    opacity: 1;
+}
+.carousel-inner > .item > a > img,
+.carousel-inner > .item > img,
+.img-responsive,
+.thumbnail a > img,
+.thumbnail > img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+.item.active img {
+    transition: transform 3000ms linear 0s;
+    transform: scale(1.05, 1.05);
+}
+.carousel-fade .carousel-inner .active {
+    opacity: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+}
+.carousel-fade .carousel-control {
+    z-index: 2;
+    font-size: 80px;
+}
+.carousel-caption {
+    left: 60%;
+    padding-bottom: 5%;
+    right: 0;
+    text-align: left;
+}
+
+.carousel-caption h1 {
+    font-family: raavi;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 18px;
+}
+.carousel-caption > p {
+    font-size: 30px;
+    color: #fff;
+}
+.carousel-caption > a {
+    text-transform: uppercase;
+    color: #fff;
+    background: #041132;
+    padding: 6px 12px;
+}
+.button--tamaya {
+    border: 2px solid #40a304 !important;
+    border-radius: 5px;
+    color: #7986cb;
+    min-width: 180px;
+    overflow: hidden;
+}
+    
+
+/* 상세보기 */
+#map{
+	margin-top: 100px;
+}
+
+
+/* =======================
+	상품 수정 및 등록
+========================== */
+.sub_steptitle{
+	margin-bottom: 70px;
+}
+
+/* 등록하기 및 수정하기 버튼 css */
+#contact-submit-css{
+	width: 30%;
+}
+
+@media(max-width : 585px){
+	#contact-submit-css{
+		width: 50% !important;
+	}
+}
+
+/* =======================
+	상품 예약하기
+========================== */
+.payment_css{
+	padding-top: 0px !important;
+	
+}
+
+/* 수업 정보 및 예약 정보 부분 */
+.payment_css h3{
+	text-align: center;
+    font-size: 15px;
+    color: #fff !important;
+    border-radius: 20px;
+    width: 10%;
+    height: 30px;
+    background-color: #84C1D9;
+    padding: 6px;
+	
+}
+
+
+#author_widget{
+	margin-top: 10px !important;
+	height: 200px ;
+	padding: 0px;
+	display: flex;
+	flex-direction: row;
+}
+
+/* 사진 부분 */
+
+#author_img_css img{
+	margin-top: 52px !important;
+	margin-left: 166px;
+}
+
+#author_css{
+	width: 20%;
+	margin: 0px;
+	padding-top: 10px;
+}
+
+/* 사진 옆 클래스 네임 */
+#author_pont_css p{
+	color:  #5080BF ;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top:70px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #dedede;
+	
+}
+
+/* 예약 정보를 나타내는 부분 */
+.payment_input{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	
+}
+
+.payment_input input{
+	width: 70%;
+	text-align: center;
+}
+
+.final_payment{
+	margin-top: 20px;
+	margin-bottom: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.final_payment p{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.final_payment p#price{
+	color:  #5080BF ;
+}
+
+.submit_detail{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-weight: bold;
+}
+
+#kakaopay{
+	background-color: #F7E600 !important;
+}
+
+#naverpay{
+	background-color: #00C43B !important;
+}
+
+
+@media( max-width : 585px  ) {
+	/* 제목 부분 */
+	.subtitle_css{
+		font-size: 20px !important;
+	}
+	
+	
+	/* 수업 정보 및 예약 정보 부분 */
+	.payment_css h3{
+	    width: 30% ;
+	
+	}
+	
+	.author-bio{
+		width: 50% !important;
+	}
+	
+	#author_css img{
+		width: 150px;
+		height: 180px;
+	}
+	
+	#author_img_css img{
+	margin-top: 52px !important;
+	margin-left : 0px;
+	}
+	
+	
+	/* 사진 옆 클래스 네임 */
+	#author_pont_css{
+		width: 80%;
+	}
+	
+	.final_payment p{
+	font-size: 18px !important;
+	font-weight: bold;
+}
+	
+	
+	#author_pont_css p{
+	font-size: 13px;
+	font-weight: bold;
+	margin-top:10px;
+	width: 200%;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #dedede;
+	
+	}
+	
+	#p_css{
+		font-size: 9px;
+	}
+
+
+	
+}
+
+
+/* 상품 결제 내역 (회원용) - 검색 모드*/
+table{
+	text-align: center;
+}
+
+.thead_css th{
+	text-align: center;
+	background-color: #5080BF;
+	color: #fff;
+}
+
+table td{
+	vertical-align: middle !important;
+	
+}
+
+table td img{
+	border-radius: 4px;
+}
+
+table td a , table td a:hover{
+	text-decoration: none;
+	color: #222;
+}
+
+
+#list_top_css{
+	padding: 0px;
+}
+
+
+.search_css{
+	padding: 0px !important;
+}
+
+
+/* 상품 결제 상세(회원용) */
+.categories_css ul li{
+	height: 65px !important;
+    padding: 0;
+    list-style: none;
+}
+
+.detail_css{
+	display: flex;
+	flex-direction: row;
+	width: 100%;	
+	justify-content: flex-end;
+}
+
+#btn_detail{
+	margin-left: 10px;
+	width: 10% !important;
+}
+
+@media (max-width : 585px) {
+	
+	#btn_detail{
+		width: 30% !important;
+	}
+	
+}
+
+/* 상품 결제 상세(사업자용) */
+.management_css {
+	cursor: pointer !important;
+	font-size: 13px !important;
+	border-radius: 20px;
+    background-color: #84C1D9;
+	padding: 5px 10px 5px 10px;
+	color: #fff;
+	font-weight: bold !important;
+	margin-top: 10px !important;
+}
+
+.management_css:hover{
+	color: #fff;
+}

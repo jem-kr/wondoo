@@ -115,4 +115,19 @@
       select * from customers where cust_Email = #{email}
    </select>
 
+	<!-- 회원 로그 아웃과 관련된 항목들 -->
+	<delete id="DeleteCartData" parameterType="String">
+		delete from cart				
+		where cart_cust_email = #{cart_cust_email}
+	</delete>
+	<insert id="InsertCartData" parameterType="MyCart">
+		insert into cart(cart_seq, cart_pro_no, cart_cust_qty, cart_cust_email, cart_price)
+		values(cart_seq.nextval, #{cart_pro_no}, #{cart_cust_qty}, #{cart_cust_email}, #{cart_price})		
+	</insert>	
+	
+	<select id="GetCartInfo" parameterType="String" resultType="MyCart">
+		select * from cart
+		where cart_cust_email=#{cart_cust_email}
+	</select>
+
 </mapper>

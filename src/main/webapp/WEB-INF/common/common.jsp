@@ -194,11 +194,11 @@ int twelve = 12;
 										<li><a href="${contextPath}/custDetail.cu">마이페이지</a></li>
 										<li><a
 											href="${contextPath}/custUpdate.cu?cust_Email=${sessionScope.loginfo.cust_Email}">회원정보수정</a></li>
-										<li><a href="${contextPath}/history.sc">나의 구매내역</a></li>
+										<li><a href="${contextPath}/prOrderList.po?cust_email=${sessionScope.loginfo.cust_Email}">나의 구매내역</a></li>
 										<li>
 											<a href="${contextPath}/onedayCustOrderList.odc?cust_email=${sessionScope.loginfo.cust_Email}">나의 수업내역</a>
 										</li>
-										<li><a href="${contextPath}/list.sc">나의 장바구니</a></li>
+										<li><a href="${contextPath}/caList.ca?cart_cust_email=${sessionScope.loginfo.cust_Email}">나의 장바구니</a></li>
 									</ul>
 								</div>
 							</c:if> 

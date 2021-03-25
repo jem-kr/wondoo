@@ -32,7 +32,7 @@ th{
 			<p class="subtitle-des wow fadeInDown" data-wow-duration="500ms"
 				data-wow-delay="0.3s">개인회원 전체 목록 페이지입니다.</p>
 		</div>
-
+			
 		<div class="row">
 			<%-- 상단 페이지 수 show ---------------------------------------------------%>
 			<div class="container" align="center">

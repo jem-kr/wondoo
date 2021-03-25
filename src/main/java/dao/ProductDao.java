@@ -82,4 +82,28 @@ public class ProductDao {
 		return lists;
 	}
 
+	public int UpdateStockData(Product product) {
+		int cnt = -1;
+		cnt = this.sst.update(namespace + "UpdateStockData", product);
+		return cnt;
+	}
+
+	public int UpdateStockData(int orders_pro_no, int orders_qty) {
+		int cnt = -1;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("orders_pro_no", orders_pro_no);
+		map.put("orders_qty", orders_qty);
+		cnt = this.sst.update(namespace + "UpdateStockData", map);
+		return cnt;
+	}
+
+	public int ReupdateStockData(int orders_pro_no, int orders_qty) {
+		int cnt = -1;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("orders_pro_no", orders_pro_no);
+		map.put("orders_qty", orders_qty);
+		cnt = this.sst.update(namespace + "ReupdateStockData", map);
+		return cnt;
+	}
+
 }

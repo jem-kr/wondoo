@@ -73,7 +73,7 @@
 								</h3>
 								<%-- ========================== Form 양식 시작 부분 ====================================--%>
 								<c:set var="contextPath" value="<%=contextPath%>" scope="application" />
-								<form method="post" action="${contextPath}/onedayPayment.odc">
+								<form method="post" action="${contextPath}/onedayIamportApi.odc">
 									<input type="hidden" id="code" name="code" value="${onedayclass.code}"><!-- 상품코드 -->
 									<input type="hidden" id="cust_email" name="cust_email" value="${sessionScope.loginfo.cust_Email}"><!-- 로그인 정보 -->
 									<input type="hidden" id="sell_email" name="sell_email" value="${onedayclass.sell_email}"><!-- 사업자 이메일 정보 -->
@@ -134,8 +134,8 @@
 										<p id="price"><i class="fas fa-won-sign"></i>&nbsp;${totalprice}원</p>
 									</div>
 									<div class="submit_detail">
-										<!-- <input type="button" id="pay" class="btn-send" value="결제하기" onclick="payment();"> -->
-										<input type="submit" id="pay" class="btn-send" value="테스트용 결제 버튼">  
+										<input type="button" id="pay" class="btn-send" value="결제하기" onclick="payment();"> 
+										<!-- <input type="submit" id="pay" class="btn-send" value="테스트용 결제 버튼"> -->
 									</div>
 								</form>
 							</div>

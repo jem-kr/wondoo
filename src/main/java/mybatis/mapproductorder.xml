@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NsProductOrder">
+	<sql id="basic_select">
+		select * from orders
+	</sql>
+
+	<!-- 상품 결제 등록 -->
+	<insert id="InsertData" parameterType="MyProductOrder">
+		insert into orders
+		(orders_seq, orders_pro_no, orders_zipcode, orders_adr01, orders_adr02, orders_cust_email, orders_request, orders_realtime, orders_qty, orders_amount, orders_phone, remark)
+		values
+		(orders_seq.nextval, #{orders_pro_no}, #{orders_zipcode}, #{orders_adr01}, #{orders_adr02}, #{orders_cust_email}, #{orders_request}, default, #{orders_qty}, #{orders_amount}, #{orders_phone}, #{remark})
+	</insert>
+	
+	<!-- 회원 이메일로 상품 결제 내역 담기 -->
+	<select id="SelectAllData" parameterType="String" resultType="MyProductOrder">
+		<include refid="basic_select"/>
+		where cust_email=#{cust_email}
+		<if test="mode == 'orders_realtime'">
+			and orders_realtime like #{keyword}
+		</if>
+		order by orders_realtime asc
+	</select>
+	
+		<!-- 회원용 결제 상세보기 -->
+	<select id="SelectOneData" resultType="MyProductOrder" parameterType="Integer">
+		<include refid="basic_select"/>
+		where orders_seq=#{orders_seq}
+	</select>
+	
+		<!-- 검색모드, 키워드 별 총 게시물 데이터를 조회합니다. -->
+	<select id="SelectDataList" resultType="MyProductOrder">
+		select
+		orders_seq, orders_pro_no, orders_zipcode, orders_adr01, orders_adr02, orders_cust_email, orders_request, 
+		orders_realtime, orders_qty, orders_amount, orders_phone, remark
+		from orders 
+		where orders_cust_email = #{orders_cust_email}
+		order by orders_seq desc
+	</select>
+	
+	<!-- 검색모드, 키워드 별 게시물 건수 조회  -->
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) as cnt 
+		from orders
+		where orders_cust_email = #{orders_cust_email}
+	</select>
+
+	<!-- 회원용 결제 취소하기 -->
+	<delete id="DeleteData" parameterType="Integer">
+		delete from orders 
+		where orders_seq=#{orders_seq}
+	</delete>
+	
+</mapper>

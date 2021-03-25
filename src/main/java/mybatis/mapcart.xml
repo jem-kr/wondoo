@@ -57,7 +57,7 @@
 		where cart_pro_no=#{cart_pro_no} 
 		and cart_cust_email=#{cart_cust_email}
 	</select>
-	
+
 	<!-- 장바구니 수정 시 장바구니 번호에 따른 bean 객체를 구한다 -->
 	<select id="SelectOneData" resultType="MyCart" parameterType="Integer">
 		<include refid="basic_select"/>
@@ -70,4 +70,26 @@
 		set cart_cust_qty=#{new_qty}, cart_price=#{new_price}
 		where cart_seq=#{cart_seq} and cart_cust_email=#{cust_email}
 	</update>
+	
+	<!-- 장바구니 삭제 하기 -->
+	<delete id="DeleteCartData" parameterType="String">
+		delete from cart
+		where cart_cust_email=#{cart_cust_email}
+	</delete>
+	
+	<update id="UpdateStock">
+		update products set pro_stock = pro_stock - #{pro_qty}
+		where products_seq = #{products_seq}
+	</update>
+	
+	<insert id="InsertOrder" parameterType="MyProductOrder">
+		insert into orders(
+		orders_seq, orders_pro_no, orders_zipcode, orders_adr01, orders_adr02, orders_cust_email, orders_request, orders_realtime, 
+		orders_qty, orders_amount, orders_phone, remark
+		)
+		values(orders_seq.nextval, #{orders_pro_no}, #{orders_zipcode}, 
+		#{orders_adr01}, #{orders_adr02}, #{orders_cust_email}, #{orders_request}, default, #{orders_qty}, #{orders_amount}, #{orders_phone}, #{remark})
+	</insert>
+
+	
 </mapper>

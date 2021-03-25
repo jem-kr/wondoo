@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,8 +51,7 @@ public class CartListController extends SuperClass {
 	}
 
 	@GetMapping(command)
-	public ModelAndView doGet(
-			@RequestParam(value = "cart_cust_email", required = true) String cart_cust_email,
+	public ModelAndView doGet(@RequestParam(value = "cart_cust_email", required = true) String cart_cust_email,
 			HttpServletRequest request) {
 		HttpSession session = request.getSession(); // 에러메세지를 담는 영역
 
@@ -90,10 +88,8 @@ public class CartListController extends SuperClass {
 			}
 			
 			this.mav.addObject("delivery_price", delivery_price); // 배송비 
-			
-			
-			session.setAttribute("cartlists", lists); // 장바구니 목록
-			
+			this.mav.addObject("lists", lists); // 장바구니 목록
+			session.setAttribute("cartlists", lists); // lists -> 현지 "cartlists"로 수정
 			this.mav.addObject("total_list", lists.size()); // 장바구니 갯수
 
 			// 회원 정보
@@ -109,5 +105,4 @@ public class CartListController extends SuperClass {
 		return this.mav;
 	}
 
-	
 }

@@ -2,6 +2,7 @@ package dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import bean.Cart;
+import bean.Customer;
+import bean.ProductOrder;
 
 @Component("cartDao")
 public class CartDao {
@@ -86,6 +89,53 @@ public class CartDao {
 		
 		int cnt = this.sql_session.update(this.namespace + "SecondUpdateQtyPrice", map);
 		return cnt;
+	}	
+
+	public int DeleteCartData(String cart_cust_email) {
+		int cnt = -1;
+		cnt = this.sql_session.delete(this.namespace + "DeleteCartData", cart_cust_email);
+		return cnt;
 	}
+
+	public void Calculate(Customer cust, Map<Integer, Integer> maplists) {
+		// cust : 일반회원(구매자) 정보
+		// maplists : 구매한 상품 리스트
+		
+		// 장바구니 결제 진행
+		// 1. orders 테이블에 추가(1)
+		ProductOrder productOrder = new ProductOrder();
+		
+		Set<Integer> keylist = maplists.keySet() ;
+		System.out.println("상품 개수 : " + keylist.size());
+		
+		Map<String, Object> map = new HashMap<String, Object>() ;
+		
+		
+		// 2. orders 테이블에 추가(2-기존 선생님 예제 od테이블 존재X) 
+		for(Integer pnum : keylist) {
+			
+			productOrder.setOrders_zipcode(cust.getCust_Zipcode());
+			productOrder.setOrders_adr01(cust.getCust_ADR01());
+			productOrder.setOrders_adr02(cust.getCust_ADR02());
+			productOrder.setOrders_phone(cust.getCust_Contact());
+			
+			productOrder.setOrders_cust_email(cust.getCust_Email());
+			productOrder.setOrders_pro_no(pnum); // 상품 번호
+			int qty = maplists.get(pnum);
+			productOrder.setOrders_qty(qty); // 구매 수량
+			productOrder.setRemark(" ");
+			this.sql_session.insert(namespace + "InsertOrder", productOrder);		
+			
+		// 3. 해당 상품 번호(pnum)을 이용하여 재고 수량 감소
+		map.put("pro_qty", qty);
+		map.put("products_seq", pnum) ;
+		this.sql_session.update(namespace + "UpdateStock", map);
+		}
+		
+		map.clear();
+		
+	}
+
+
 
 }

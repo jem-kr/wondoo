@@ -1,6 +1,8 @@
 package customer.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import bean.Cart;
 import bean.Customer;
+import common.controller.MyCartList;
 import common.controller.SuperClass;
 import dao.CustomerDao;
 
@@ -61,6 +65,27 @@ public class CustLoginController extends SuperClass{
 						// 이 내용은 common.jsp 파일에서 참조
 						System.out.println("로그인 테스트3 : 로그인 성공");
 						session.setAttribute("loginfo", bean);
+						
+						// 반복문을 사용하여 나의 카트에 저장합니다.
+						List<Cart> lists = this.cdao.GetCartInfo(bean.getCust_Email());
+
+						if(lists.size() > 0) { // 이전에 담아 둔 목록이 1개 이상이면
+							MyCartList mycart = (MyCartList)session.getAttribute("mycart") ; // 강등
+							
+							if (mycart == null) {
+								mycart = new MyCartList() ;
+							}					
+							
+							// 반복문을 사용하여 나의 카트에 저장합니다.
+							for(Cart item : lists) {
+								// 각 상품에 대하여 구매 수량을 장바구니에 추가해 줍니다.
+								mycart.AddOrder(item.getCart_pro_no(), item.getCart_cust_qty()); 
+							}
+							
+							// 카트 정보 세션에 바인딩
+							session.setAttribute("mycart", mycart); 
+						}
+						
 						this.mav.setViewName(redirect);
 					}
 				

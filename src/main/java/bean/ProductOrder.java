@@ -1,6 +1,6 @@
 package bean;
 
-public class Order {
+public class ProductOrder {
 	// 변수 선언
 	private int orders_seq;
 	private int orders_pro_no;	
@@ -14,6 +14,21 @@ public class Order {
 	private int orders_qty;
 	private String orders_phone;	
 	private String remark;
+	
+	// 총 결제 금액 -> DB접근X
+	private int orders_total_amount;
+	
+	// 회원용 결제 내역에서 보여주는 변수 -> DB접근X
+	private String pro_pic; // 상품 이미지
+	private String pro_name; // 상품 이름
+	
+	// 사업자용 결제 상세에 보여주는 변수 -> DB접근X
+	private String cust_name; // 회원 이름
+	private String cust_contact;
+	
+	// 장바구니 목록에서 수량 선택 시 필요한 변수 -> DB접근X
+	private int pro_stock; // 사업자가 설정한 최대 상품수
+	private int pro_price; // 사업자가 설정한 개 당 가격
 	
 	// getter & setter
 	public int getOrders_seq() {
@@ -88,19 +103,59 @@ public class Order {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	public String getPro_pic() {
+		return pro_pic;
+	}
+	public void setPro_pic(String pro_pic) {
+		this.pro_pic = pro_pic;
+	}
+	public String getPro_name() {
+		return pro_name;
+	}
+	public void setPro_name(String pro_name) {
+		this.pro_name = pro_name;
+	}
+	public String getCust_name() {
+		return cust_name;
+	}
+	public void setCust_name(String cust_name) {
+		this.cust_name = cust_name;
+	}
+	public String getCust_contact() {
+		return cust_contact;
+	}
+	public void setCust_contact(String cust_contact) {
+		this.cust_contact = cust_contact;
+	}
 	
-	// toString
+	public int getPro_stock() {
+		return pro_stock;
+	}
+	public void setPro_stock(int pro_stock) {
+		this.pro_stock = pro_stock;
+	}
+	public int getPro_price() {
+		return pro_price;
+	}
+	public void setPro_price(int pro_price) {
+		this.pro_price = pro_price;
+	}
+	
+	public int getOrders_total_amount() {
+		return orders_total_amount;
+	}
+	public void setOrders_total_amount(int orders_total_amount) {
+		this.orders_total_amount = orders_total_amount;
+	}
 	@Override
 	public String toString() {
-		return "Order [orders_seq=" + orders_seq + ", orders_pro_no=" + orders_pro_no + ", orders_zipcode="
+		return "ProductOrder [orders_seq=" + orders_seq + ", orders_pro_no=" + orders_pro_no + ", orders_zipcode="
 				+ orders_zipcode + ", orders_adr01=" + orders_adr01 + ", orders_adr02=" + orders_adr02
 				+ ", orders_cust_email=" + orders_cust_email + ", orders_request=" + orders_request
 				+ ", orders_realtime=" + orders_realtime + ", orders_amount=" + orders_amount + ", orders_qty="
-				+ orders_qty + ", orders_phone=" + orders_phone + ", remark=" + remark + "]";
-	}	
-	
-	public Order() {
-
+				+ orders_qty + ", orders_phone=" + orders_phone + ", remark=" + remark + ", orders_total_amount="
+				+ orders_total_amount + ", pro_pic=" + pro_pic + ", pro_name=" + pro_name + ", cust_name=" + cust_name
+				+ ", cust_contact=" + cust_contact + ", pro_stock=" + pro_stock + ", pro_price=" + pro_price + "]";
 	}
 	
 }
