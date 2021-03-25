@@ -62,7 +62,7 @@ public class prOrderPaymentController extends SuperClass{
 	
 	// API key와 API Secret Key 를 활용해 IamportClient 생성
 	IamportClient getTestClient() {
-		System.out.println("getTestClient메소드 통과");
+		System.out.println("getTestClient 메소드 통과");
 		String test_api_key = "7205267933492054";
 		String test_api_secret = "5TLqSUxE7BdnfZjzkOzxPaXrwrOSRYQWSCmLwUpEwC1LCllX9VuY5sqCTeuKdkH5W3QtXg7uS9gvuBsD";
 		return new IamportClient(test_api_key, test_api_secret);
@@ -98,7 +98,7 @@ public class prOrderPaymentController extends SuperClass{
 
 	@PostMapping("pay")
 	public void getPay(String merchant_uid) {
-		System.out.println("getPay메소드 통과, merchant_uid: " + merchant_uid);
+		System.out.println("getPay 메소드 통과, merchant_uid : " + merchant_uid);
 		this.getToken();
 	}	
 	
@@ -118,7 +118,7 @@ public class prOrderPaymentController extends SuperClass{
 			HttpSession session) {
 		
 		String result = "";
-		System.out.println("===> doPost메소드 진입");
+		System.out.println("===> doPost 메소드 진입");
 		System.out.println("===> 확인 imp_uid : " + imp_uid);
 		System.out.println("===> 확인 merchant_uid : " + merchant_uid);
 //		String _imp_uid = imp_uid.substring(8,24);
@@ -126,7 +126,7 @@ public class prOrderPaymentController extends SuperClass{
 		try {
 			IamportResponse<Payment> pay_response = client.paymentByImpUid(imp_uid);
 			System.out.println("===> 확인 pay_response.getResponse().getAmount() : " + pay_response.getResponse().getAmount());
-			System.out.println("===> 확인 pay_response.getResponse().getStatus()" + pay_response.getResponse().getStatus());
+			System.out.println("===> 확인 pay_response.getResponse().getStatus() : " + pay_response.getResponse().getStatus());
 		
 				List<Cart> mycart = (ArrayList<Cart>) session.getAttribute("cartlists");
 				System.out.println("===> 확인 mycart : " + mycart);
@@ -148,7 +148,7 @@ public class prOrderPaymentController extends SuperClass{
 					bean.setOrders_amount(cart.getCart_price());
 					
 					Product product = ProductDao.SelectOneData(cart.getCart_pro_no());
-					System.out.println("product 확인 ===> " + product);
+					System.out.println(" 확인 product ===> " + product);
 					
 					// 재고 확인
 					if(product.getPro_stock() - bean.getOrders_qty() >= 0) { // 1. 재고 있음 ---> 결제 가능
