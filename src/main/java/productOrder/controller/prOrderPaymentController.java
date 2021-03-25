@@ -69,6 +69,7 @@ public class prOrderPaymentController extends SuperClass{
 
 	// 토큰 값 가져오기
 	void getToken() {
+		System.out.println("토큰 값 가져오기");
 		try {
 			IamportResponse<AccessToken> auth_response = client.getAuth();
 			assertNotNull(auth_response.getResponse());
@@ -104,7 +105,8 @@ public class prOrderPaymentController extends SuperClass{
 	@RequestMapping(command)
 	@ResponseBody
 	public String doPost(
-			String imp_uid, String merchant_uid,
+			String imp_uid,
+			String merchant_uid,
 			@RequestParam(value = "orders_zipcode") String orders_zipcode,
 			@RequestParam(value = "orders_adr01") String orders_adr01, 
 			@RequestParam(value = "orders_adr02") String orders_adr02,
@@ -116,6 +118,7 @@ public class prOrderPaymentController extends SuperClass{
 		
 		String result = "";
 		System.out.println("imp_uid : " + imp_uid);
+		System.out.println("merchant_uid : " + merchant_uid);
 //		String _imp_uid = imp_uid.substring(8,24);
 
 		try {
@@ -144,6 +147,7 @@ public class prOrderPaymentController extends SuperClass{
 					bean.setOrders_amount(cart.getCart_price());
 					
 					Product product = ProductDao.SelectOneData(cart.getCart_pro_no());
+					System.out.println("product 확인 ===> " + product);
 					
 					// 재고 확인
 					if(product.getPro_stock() - bean.getOrders_qty() >= 0) { // 1. 재고 있음 ---> 결제 가능
@@ -152,23 +156,24 @@ public class prOrderPaymentController extends SuperClass{
 						cnt = this.ProductOrderDao.InsertData(bean);
 						
 						if (cnt > 0) { // 1-1. 결제 성공
-							System.out.println("상품 결제 성공");
+							System.out.println("===> 상품 결제 성공");
 							
 							// 1-2. 재고 차감
 							this.ProductDao.UpdateStockData(bean.getOrders_pro_no(), bean.getOrders_qty());
+							System.out.println("===> 재고 차감 성공");
 							
 							// 1-3. 장바구니 삭제
 							cnt = -1;
 							cnt = this.cartDao.DeleteCartData(orders_cust_email);
 							
 							if (cnt > 0) { // 장바구니 삭제 성공
-								System.out.println("장바구니 삭제 성공");
+								System.out.println("===> 장바구니 삭제 성공");
 								session.setAttribute("message", "상품이 성공적으로 결제 되었습니다!");
 								result = "success";
 							}
 							
 						} else { // 결제 실패
-							System.out.println("상품 결제 실패");
+							System.out.println("===> 상품 결제 실패");
 							session.setAttribute("message", "상품 결제가 실패되었습니다!");
 							result = "fail";
 						}

@@ -46,7 +46,7 @@
 							        
 							      	<%-- 결제 목록의 내용 부분 -------------------------------------------------------%>
 						            <tbody>
-							            <c:forEach var="bean" items="${sessionScope.cartlists}">
+							            <c:forEach var="bean" items="${requestScope.lists}">
 							                	<tr>
 							                    	<td>
 								                    	<a href="${contextPath}/prOrderDetail.po?orders_seq=${bean.orders_seq}">

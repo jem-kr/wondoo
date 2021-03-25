@@ -55,7 +55,7 @@
 	                            <!-- =====================================
 	                            		list 반복문 부분 [시작]
 	                            ========================================== -->
-	                            <c:forEach var="bean" items="${sessionScope.cartlists}" varStatus="status">
+	                            <c:forEach var="bean" items="${requestScope.lists}" varStatus="status">
 		                            <tbody>
 		                                <tr class="table-info">
 		                                    <td class="produ">
@@ -283,7 +283,7 @@
 	                        	<a href="#" class="prev"><i class="fas fa-chevron-left"></i>&nbsp;이전 단계</a>
 	                    	</div>
 	                    	<div class="proceed fix wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s">
-	                    		<input id="payment_css" type="submit" value="전체 상품결제" onclick="return pay_check();">
+	                    		<input id="payment_css" type="button" value="전체 상품결제" onclick="return pay_check();">
 	                    	</div>
 	                	</div>
                 </form>

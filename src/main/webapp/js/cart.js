@@ -586,6 +586,6 @@ function payment() {
         alert(msg);
       
       }
-        window.location.replace("/cartList.ca");  
+        window.location.replace("/prOrderList.po");  
    });
 }
