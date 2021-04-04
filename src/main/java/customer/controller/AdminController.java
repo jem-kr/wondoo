@@ -55,8 +55,7 @@ public class AdminController extends SuperClass {
 	System.out.println("파라미터 정보를 위한 출력");
 	System.out.println(parameters.toString()); 
 	
-	String contextpath = request.getContextPath() + "/" ;
-	String myurl = contextpath +  this.command ;
+	String myurl = this.command ;
 	
 	Paging pageInfo 
 		= new Paging(parameters.getPageNumber(), parameters.getPageSize(), totalCount, myurl, parameters.getMode(),

@@ -3,6 +3,7 @@ package customer.controller;
 import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class CustInsertController extends SuperClass{
 	
 	@PostMapping(command)
 	public ModelAndView doPost(
-		@ModelAttribute("customer") Customer customer, HttpServletRequest request,
+		@ModelAttribute("customer") Customer customer, HttpServletRequest request, HttpSession session,
 		@Valid Customer xxx, BindingResult errors, @RequestParam(value = "img", required = false) MultipartFile img) {
 		
 		if (errors.hasErrors()) {
@@ -77,12 +78,14 @@ public class CustInsertController extends SuperClass{
 					int cnt = -99999;
 					// Bean 객체를 이용하여 해당 게시물을 추가한다.
 					cnt = cdao.InsertData(customer);
+					session.setAttribute("message", "회원가입이 완료되었습니다!");
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 					mav.setViewName("");
 				} catch (Exception e) {
 					e.printStackTrace();
 					this.mav.setViewName(this.redirect);
+					session.setAttribute("message", "회원가입이 완료되었습니다!");
 				}
 			}else {
 				int cnt = -99999;
@@ -90,6 +93,7 @@ public class CustInsertController extends SuperClass{
 				cnt = cdao.InsertData(customer);
 				System.out.println();
 				this.mav.setViewName(this.redirect);
+				session.setAttribute("message", "회원가입이 완료되었습니다!");
 			}
 		}
 		return this.mav;

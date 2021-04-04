@@ -37,31 +37,30 @@ th{
 				data-wow-delay="0.3s">사업자회원 전체 목록 페이지입니다.</p>
 		</div>
 		<div class="row">
-			<%-- 상단 페이지 수 show ---------------------------------------------------%>
-			<div class="container" align="center">
-				<div id="top">
-					<span class="subtitle-des wow fadeInDown" data-wow-duration="500ms"
-						data-wow-delay="0.1s" id="search_btn" data-toggle="tooltip"
-						title="클릭하세요!" onclick="search();"> </span> <br>
+			<%-- [검색 모드] ==== 시작 ==== --%>
+				<span class="subtitle-des wow fadeInDown" data-wow-duration="500ms"
+					data-wow-delay="0.1s" id="search_btn" data-toggle="tooltip"
+					title="클릭하세요!" onclick="search();"> <i class="fas fa-search"></i>
+					검색
+				</span> <br>
+			<form id="contact-form search" method="get"
+				action="${contextPath}/adminApp.cu" role="form">
+				<div id="search">
+					<select class="form-control" name="mode" id="mode"
+						data-toggle="tooltip" title="검색할 조건을 선택하세요!">
+						<option class="form-control" value="all">전체</option>
+						<option class="form-control" value="sell_Name">상호명</option>
+						<option class="form-control" value="sell_Contact">연락처</option>
+						<option class="form-control" value="sell_Email">이메일</option>
+						<option class="form-control" value="sell_Status">상태</option>
+					</select> <input type="text" class="form-control"
+						placeholder="검색할 내용을 입력하세요" id="keyword" name="keyword">
+					<button type="submit">
+						<i class="fas fa-search"></i>
+					</button>
 				</div>
-				<%-- form태그 시작 ---------------------------------------------------%>
-				<form id="contact-form search" method="get"
-					action="${contextPath}/adminList.cu" role="form">
-					<div id="search">
-						<select class="form-control" name="mode" id="mode"
-							data-toggle="tooltip" title="검색할 조건을 선택하세요!">
-							<option class="form-control" value="all">전체</option>
-							<option class="form-control" value="sell_Contact">연락처</option>
-							<option class="form-control" value="sell_Email">이메일</option>
-						</select> <input type="text" class="form-control"
-							placeholder="검색할 내용을 입력하세요" id="keyword" name="keyword">
-						<button type="submit">
-							<i class="fas fa-search"></i>
-						</button>
-					</div>
-				</form>
-				<%-- form태그 끝 ---------------------------------------------------%>
-			</div>
+			</form>
+			<%-- ==== 끝 ==== --%>
 			<%-- 테이블 시작 ---------------------------------------------------%>
 			<table class="table table-bordered table-hover dt-responsive">
 				<%-- 회원 목록의 header 부분 -------------------------------------------------------%>

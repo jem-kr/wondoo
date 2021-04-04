@@ -43,11 +43,17 @@
 		select sell_Email, sell_PW, sell_Name, sell_Contact, sell_Zipcode, sell_ADR01, sell_ADR02, 
 		sell_Pic, sell_Join, sell_License, sell_Status, remark 
 		from sellers
+		<if test="mode == 'sell_Name'">
+			where sell_Name like #{keyword}
+		</if>
 		<if test="mode == 'sell_Contact'">
 			where sell_Contact like #{keyword}
 		</if>
 		<if test="mode == 'sell_Email'">
 			where sell_Email like #{keyword}
+		</if>
+		<if test="mode == 'sell_Status'">
+			where sell_Status like #{keyword}
 		</if>
 	</select>
 	

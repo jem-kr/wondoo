@@ -3,6 +3,7 @@ package seller.controller;
 import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class SellInsertController extends SuperClass{
 	}
 	
 	@PostMapping(command)
-	public ModelAndView doPost(
+	public ModelAndView doPost(HttpSession session,
 		@ModelAttribute("seller") Seller seller, BindingResult errors) {
 		if (errors.hasErrors()) {
 			System.out.println("유효성 검사에 문제가 있습니다.");
@@ -63,6 +64,7 @@ public class SellInsertController extends SuperClass{
 			// 회원 가입을 한 다음, 로그인 페이지로 다시 이동합니다.
 			this.sdao.InsertData(seller) ;
 			this.mav.setViewName(this.redirect);
+			session.setAttribute("message", "회원가입이 완료되었습니다!");
 		} 
 		return this.mav ;
 	}

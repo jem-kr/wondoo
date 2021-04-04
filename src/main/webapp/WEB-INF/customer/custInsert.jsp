@@ -78,6 +78,10 @@ $(function(){
 			$("#cust-submit").attr("disabled", true);
 			$('#cust_Contact').val('');
           	$('#cust_Contact').focus();
+	} else if(cust_Contact == ""){
+		$("#check_custContact").text("휴대폰번호를 입력해주세요 :p");
+		$("#check_custContact").css('color', 'red');
+		$("#cust-submit").attr("disabled", true);
 	} else { 
            	$("#check_custContact").text("올바른 휴대폰번호 형태입니다 :)");
 			$("#check_custContact").css('color', '#5080BF');

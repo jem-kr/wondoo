@@ -117,6 +117,8 @@ public class SellAppController extends SuperClass{
             }catch (Exception e) {
                e.printStackTrace();
                this.mav.setViewName(this.redirect);
+		        session.setAttribute("message", "사업자 승인 신청이 완료되었습니다.");
+
             }
 	         	} else {
 	            seller.setSell_Pic(oldimg);
@@ -126,9 +128,10 @@ public class SellAppController extends SuperClass{
 	            cnt = this.sdao.UpdateSellApp(seller) ;
 	            
 	            session = request.getSession();
-		        session.setAttribute("message", "사업자 승인 신청이 완료되었습니다.");
 	
 	            mav.setViewName(this.redirect);
+		        session.setAttribute("message", "사업자 승인 신청이 완료되었습니다.");
+	            
 	         }
       }         
       return this.mav ;
