@@ -14,14 +14,6 @@
 	</sql>
 
 	<!-- 회원 탈퇴와 관련된 항목들 -->
-<!-- 	<update id="UpdateBoardRemark" parameterType="String">
-		update boards set remark = #{remark} 
-		where writer = #{writer}
-	</update>
-	<update id="UpdateOrderRemark" parameterType="String">
-		update orders set remark = #{remark} 
-		where mid = #{mid}
-	</update>	 -->
 	<delete id="DeleteData" parameterType="String">
 		delete from sellers
 	 	where sell_Email = #{sell_Email}
@@ -113,7 +105,8 @@
 		select count(*) as cnt from sellers 
 		where sell_Email = #{sell_Email}
 	</select>
-	   <!-- 관리자용 사업자 승인 상태 수정 -->
+	
+	<!-- 관리자용 사업자 승인 상태 수정 -->
    <update id="UpdateStatusData" parameterType="MySeller">
       update sellers set 
       sell_Status = #{sell_Status}

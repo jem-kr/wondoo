@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 회원 비밀번호 찾기 결과에 대한 컨트롤러입니다.
 @Controller
 public class SellPWResultController extends SuperClass {
 	private final String command = "/sellPWResult.se";

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+//회원 비밀번호 찾기 컨트롤러입니다.
 @Controller
 public class SellPWSearchController extends SuperClass {
 	private final String command = "/sellPWSearch.se";

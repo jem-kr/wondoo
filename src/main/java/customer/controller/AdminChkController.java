@@ -1,5 +1,4 @@
 package customer.controller;
-//관리자가 사업자의 승인상태를 수정하는 controller
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+//관리자가 사업자의 승인상태를 수정하는 컨트롤러입니다.
 @Controller
 public class AdminChkController extends SuperClass{
 	   private final String command = "/adminChk.cu"; 

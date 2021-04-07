@@ -20,7 +20,7 @@ import common.controller.MyCartList;
 import common.controller.SuperClass;
 import dao.CustomerDao;
 import dao.ProductDao;
-
+// 회원 로그아웃 관련 컨트롤러입니다.
 @Controller
 public class CustLogoutController extends SuperClass{
 	private final String command = "/custLogout.cu";
@@ -42,7 +42,7 @@ public class CustLogoutController extends SuperClass{
 		this.mav = new ModelAndView();
 	}
 	
-	//사용자가 로그아웃 시도
+	// 사용자가 로그아웃 시도
 	@GetMapping(command)
 	public ModelAndView doGet(
 		HttpSession session) {

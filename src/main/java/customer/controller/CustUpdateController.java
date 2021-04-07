@@ -20,7 +20,7 @@ import bean.Customer;
 import common.controller.SuperClass;
 import dao.CustomerDao;
 import utility.Utility;
-
+// 회원 정보 수정에 대한 컨트롤러입니다.
 	@Controller 
 	public class CustUpdateController extends SuperClass{
 		private final String command = "/custUpdate.cu"; 
@@ -46,7 +46,7 @@ import utility.Utility;
 		@GetMapping(command)
 		public ModelAndView doGet(
 				@RequestParam(value = "cust_Email", required = true) String cust_Email) {
-			/* 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요함 */
+			// 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요함
 			System.out.println("doGet메소드");
 			Customer bean = cdao.SelectDataByPk(cust_Email);
 			this.mav.addObject("bean", bean);
@@ -85,6 +85,7 @@ import utility.Utility;
 					multi.transferTo(target);
 					customer.setCust_Pic(target.getName());
 					int cnt = -999999;
+					// 회원테이블에서 수정된 회원 데이터를 업데이트합니다.
 					cnt = this.cdao.UpdateData(customer) ;
 					session.setAttribute("message", "회원정보수정이 완료되었습니다.");
 					mav.setViewName(this.redirect);

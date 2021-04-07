@@ -16,6 +16,98 @@ int formright = twelve - formleft;
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/css/custLog-style.css">
 <script type="text/javascript" src="${contextPath}/js/custSearch.js"></script>
+<script type="text/javascript">
+/* ===============================
+이름 정규표현식(한글, 영어만)
+===============================
+*/
+$(function(){
+$("#cust_Name").blur(function() {
+	var regExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z]+$/;
+	var cust_Name = $('#cust_Name').val();
+if(regExp.test(cust_Name) == false) {
+		$("#check_custName").text("한글 또는 영어로 입력해주세요 :p");
+		$("#check_custName").css('color', 'red');
+		$("#searchbtn").attr("disabled", true);
+		$('#cust_Name').val('');
+      	$('#cust_Name').focus();
+} else { 
+       	$("#check_custName").text("올바른 이름 형태입니다 :)");
+		$("#check_custName").css('color', '#5080BF');
+		$("#searchbtn").attr("disabled", false);
+}
+});
+});	
+/* ===============================
+이름 정규표현식(한글, 영어만)
+===============================
+*/
+$(function(){
+$("#cust_Name").blur(function() {
+	var regExp = /^[ㄱ-ㅎ|가-힣|a-z|A-Z]+$/;
+	var cust_Name = $('#cust_Name').val();
+if(regExp.test(cust_Name) == false) {
+		$("#check_custName").text("한글 또는 영어로 입력해주세요 :p");
+		$("#check_custName").css('color', 'red');
+		$("#searchbtn").attr("disabled", true);
+		$('#cust_Name').val('');
+      	$('#cust_Name').focus();
+} else { 
+       	$("#check_custName").text("올바른 이름 형태입니다 :)");
+		$("#check_custName").css('color', '#5080BF');
+		$("#searchbtn").attr("disabled", false);
+}
+});
+});	
+
+/* ===============================
+휴대폰번호 정규표현식
+===============================
+*/
+$(function(){
+$("#cust_Contact").blur(function() {
+	var regexp = /^[0-9]*$/;
+	var cust_Contact = $('#cust_Contact').val();
+	if( !regexp.test(cust_Contact) ) {
+		$("#check_custContact").text("숫자만 입력해주세요 :p");
+		$("#check_custContact").css('color', 'red');
+		$("#searchbtn").attr("disabled", true);
+		$('#cust_Contact').val('');
+      	$('#cust_Contact').focus();
+} else if(cust_Contact == ""){
+	$("#check_custContact").text("휴대폰번호를 입력해주세요 :p");
+	$("#check_custContact").css('color', 'red');
+	$("#searchbtn").attr("disabled", true);
+} else { 
+       	$("#check_custContact").text("올바른 휴대폰번호 형태입니다 :)");
+		$("#check_custContact").css('color', '#5080BF');
+		$("#searchbtn").attr("disabled", false);
+}
+});
+});	
+
+/* ===============================
+생년월일 정규표현식
+===============================
+*/
+$(function(){
+	$("#cust_Birth").blur(function() {
+		var regExp = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+		var cust_Birth = $('#cust_Birth').val();
+	if(regExp.test(cust_Birth) == false) { //값이 올바른 생년월일 형태가 아닌 경우
+			$("#check_custBirth").text("올바른 생년월일 형태가 아닙니다 :p");
+			$("#check_custBirth").css('color', 'red');
+			$("#searchbtn").attr("disabled", true);
+			$('#cust_Birth').val('');
+          	$('#cust_Birth').focus();
+	} else { //값이 존재하고 올바른 생년월일 형태인 경우(YYMMDD)
+           	$("#check_custBirth").text("올바른 생년월일 형태입니다 :)");
+			$("#check_custBirth").css('color', '#5080BF');
+			$("#searchbtn").attr("disabled", false);
+	}
+});
+});	
+</script>
 </head>
 <body style="padding-top: 100px;">
 	<div align="center" class="container col-sm-offset-2 col-sm-8">
@@ -35,18 +127,28 @@ int formright = twelve - formleft;
 					<input type="text" placeholder="Email Address" class="input"
 						name="cust_Email" id="cust_Email" data-toggle="tooltip"
 						data-placement="top">
+					<div class="valid_check" id="check_custEmail"></div>		
 				</div>
 				<!-- cust_Name 이름 입력 -->
 				<div class="form-fild">
 					<input type="text" placeholder="Name" class="input"
 						name="cust_Name" id="cust_Name" data-toggle="tooltip"
 						data-placement="top">
+					<div class="valid_check" id="check_custName"></div>		
 				</div>
 				<!-- cust_Contact 휴대폰번호 입력 -->
 				<div class="form-fild">
 					<input type="text" placeholder="Contact" class="input"
 						name="cust_Contact" id="cust_Contact" data-toggle="tooltip"
 						data-placement="top">
+					<div class="valid_check" id="check_custContact"></div>	
+				</div>
+				<!-- cust_Birth 생년월일 입력 -->
+				<div class="form-fild">
+					<input type="text" placeholder="Birth (ex. 950101)" class="input"
+						name="cust_Birth" id="cust_Birth" data-toggle="tooltip"
+						data-placement="top">
+					<div class="valid_check" id="check_custBirth"></div>	
 				</div>
 				<!-- 하단 버튼 -->
 				<button type="button" id="searchbtn" onclick="history.back();"

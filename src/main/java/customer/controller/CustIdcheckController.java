@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dao.CustomerDao;
-
-@RestController // 아이디 중복 체크
+// 회원 이메일을 중복 체크하는 컨트롤러입니다.
+@RestController
 public class CustIdcheckController{
 	
-	
 	@Autowired
-	@Qualifier("cdao") // (변경 요망)
-	private CustomerDao cdao ;// (변경 요망)
+	@Qualifier("cdao")
+	private CustomerDao cdao;
 	
 	@RequestMapping(value =  "/idCheck.cu", method = RequestMethod.GET)
 	@ResponseBody
@@ -34,6 +33,4 @@ public class CustIdcheckController{
 		System.out.println(result);
 		return result;
 	}
-	
-	
 }

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 이메일 찾기에 대한 컨트롤러입니다.
 @Controller
 public class SellIdSearchController extends SuperClass {
 	private final String command = "/sellIdSearch.se";

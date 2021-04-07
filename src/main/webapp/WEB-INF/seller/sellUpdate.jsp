@@ -80,12 +80,6 @@ $("#sell-submit").attr("disabled", true);
 });
 });	
 
-
-/* ===============================
-비밀번호 확인 일치 검사
-===============================
-*/
-
 /* ===============================
 이름 정규표현식(사업자는 한글, 영어, 숫자만)
 ===============================
@@ -109,6 +103,7 @@ if(regExp.test(sell_Name) == false) {
 });	
 
 </script>
+
 </head>
 <body style="padding-bottom: 150px;">
 	<div align="center" class="container col-sm-offset-2 col-sm-8">

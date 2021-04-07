@@ -17,22 +17,22 @@ import common.controller.SuperClass;
 import dao.CustomerDao;
 import utility.FlowParameters;
 import utility.Paging;
-
-@Controller // 관리자가 회원들의 목록을 조회하는 컨트롤러
+// 관리자가 회원들의 목록을 조회하는 컨트롤러입니다.
+@Controller
 public class AdminListController extends SuperClass{
-	private final String command = "/adminList.cu" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/adminList.cu" ; // 리다이렉션(변경 요망)
+	private final String command = "/adminList.cu" ; 
+	private final String redirect = "redirect:/adminList.cu" ;
 	
 	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("cdao") // (변경 요망)
-	private CustomerDao cdao ;// (변경 요망)
+	@Qualifier("cdao") 
+	private CustomerDao cdao ;
 	
 	public AdminListController() {
 		// (변경 요망)
-		super("adminList", "adminList"); // super(getpage, postpage)  
+		super("adminList", "adminList"); 
 		this.mav = new ModelAndView();
 	}
 	
@@ -67,12 +67,9 @@ public class AdminListController extends SuperClass{
 							parameters.getMode(),
 							parameters.getKeyword()) ;
 	
-	// 스프링은 기본 값으로 request 영역에 바인딩합니다.
 	this.mav.addObject("lists", lists) ;
-
 	mav.addObject("pagingHtml", pageInfo.getPagingHtml());
 	mav.addObject("pagingStatus", pageInfo.getPagingStatus());	
-	// jsp 파일에서 방금 넣었던 모드와 키워드의 상태를 보여 주기 위하여 바인딩합니다.
 	this.mav.addObject("mode", parameters.getMode()) ;
 	this.mav.addObject("keyword", parameters.getKeyword()) ;
 	

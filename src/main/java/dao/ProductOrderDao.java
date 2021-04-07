@@ -20,10 +20,11 @@ public class ProductOrderDao {
 	@Autowired
 	private SqlSession sql_session;
 	
-	//상품 결제 내역 저장
+	// 상품 결제 내역 저장
 	public int InsertData(ProductOrder prOrder) {
 		int cnt = -1;
 		cnt = this.sql_session.insert(this.namespace + "InsertData", prOrder);
+		
 		return cnt;
 	}
 
@@ -31,6 +32,7 @@ public class ProductOrderDao {
 	public List<ProductOrder> SelectAllData(String orders_cust_email) {
 		// 회원 이메일 별로 주문 목록 보기
 		List<ProductOrder> lists = this.sql_session.selectList(this.namespace + "SelectAllData", orders_cust_email);
+		
 		return lists;
 	}
 	
@@ -47,15 +49,15 @@ public class ProductOrderDao {
 	}
 	
 	public int SelectTotalCount(String orders_cust_email, String mode, String keyword) {
-		// 회원용 결제 목록의 총 갯수를 가져온다.
+		// 회원용 결제 목록의 총 갯수를 가져옵니다.
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("orders_cust_email", orders_cust_email);
 		map.put("mode", mode);
 		map.put("keyword", keyword);
+		
 		int cnt = -1;
-
 		cnt = this.sql_session.selectOne(this.namespace + "SelectTotalCount", map);
-
+		
 		return cnt;
 	}
 
@@ -63,7 +65,7 @@ public class ProductOrderDao {
 	public ProductOrder SelectOneData(int orders_seq) {
 		// 회원용 결제 상세보기
 		ProductOrder bean = this.sql_session.selectOne(this.namespace + "SelectOneData", orders_seq);
-
+		
 		return bean;
 	}
 
@@ -71,6 +73,7 @@ public class ProductOrderDao {
 	public int DeleteData(int orders_seq) {
 		// 회원용 결제 취소하기
 		int cnt = this.sql_session.delete(this.namespace + "DeleteData", orders_seq);
+		
 		return cnt;
 	}
 	

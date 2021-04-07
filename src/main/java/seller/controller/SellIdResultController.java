@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 이메일 찾기 결과에 대한 컨트롤러입니다.
 @Controller
 public class SellIdResultController extends SuperClass {
 	private final String command = "/sellIdResult.se";

@@ -15,6 +15,10 @@ int formright = twelve - formleft;
 <title>Insert title here</title>
 <link rel="stylesheet" href="${contextPath}/css/custInsert-style.css">
 <style type="text/css">
+#status a{
+  color: white;
+}
+
 #status {
   width: 65px;
   height: 20px;
@@ -39,7 +43,7 @@ int formright = twelve - formleft;
 				data-wow-delay="0.3s">
 				${sessionScope.loginfo_seller.sell_Name}&nbsp;사업자님의 가입 정보입니다.</p>
 				
-				<div id="status">${sessionScope.loginfo_seller.sell_Status}</div>
+				<div id="status"><a href="${contextPath}/sellApp.se?sell_Email=${sessionScope.loginfo_seller.sell_Email}">${sessionScope.loginfo_seller.sell_Status}</a></div>
 		</div>
 		<div class="panel panel-body">
 			<%-- sell_Email ------------------------------------------------- --%>

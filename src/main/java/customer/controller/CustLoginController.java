@@ -18,7 +18,7 @@ import bean.Customer;
 import common.controller.MyCartList;
 import common.controller.SuperClass;
 import dao.CustomerDao;
-
+// 회원 로그인 관련 컨트롤러입니다.
 @Controller
 public class CustLoginController extends SuperClass{
 	private final String command = "/custLog.cu";

@@ -10,17 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Customer;
 import common.controller.SuperClass;
 import dao.CustomerDao;
-
+// 회원 정보 상세에 대한 컨트롤러입니다.
 @Controller
 public class CustDetailController extends SuperClass {
-	private final String command = "/custDetail.cu" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/xxx.me" ; // 리다이렉션(변경 요망)
+	private final String command = "/custDetail.cu" ;
+	private final String redirect = "redirect:/xxx.me" ;
 	
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("cdao") // (변경 요망)
-	private CustomerDao cdao ;// (변경 요망)
+	@Qualifier("cdao") 
+	private CustomerDao cdao ;
 	
 	public CustDetailController() {
 		super("custDetail", null);
@@ -30,6 +30,7 @@ public class CustDetailController extends SuperClass {
 	@GetMapping(command)
 	public ModelAndView doGet(
 		@RequestParam(value = "cust_Email", required = false) String cust_Email) {
+		// 회원 이메일(cust_Email)을 통해 회원 정보 1건을 가져옵니다. 
 		Customer bean = this.cdao.SelectDataByPk(cust_Email) ;
 		this.mav.addObject("bean", bean) ;
 		this.mav.setViewName(super.getpage); 

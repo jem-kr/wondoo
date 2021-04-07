@@ -30,6 +30,7 @@ public class SellerDao {
 		Map<String, String> map = new HashMap<String, String>() ;
 		map.put("mode", mode);
 		map.put("keyword", "%" + keyword + "%"); // keyword를 포함하는...
+		
 		return this.abcd.selectOne(namespace + "SelectTotalCount", map);
 	}
 
@@ -47,7 +48,8 @@ public class SellerDao {
 	public List<Seller> SelectDataList(int beginRow, int endRow) {
 		return null ;
 	}
-
+	
+	// 회원가입
 	public int InsertData(Seller bean) {
 		return this.abcd.insert(namespace + "InsertData", bean);
 	}
@@ -60,8 +62,10 @@ public class SellerDao {
 	public Seller SelectData(String sell_Email, String sell_PW) {
 		System.out.println( "dao의 selectData 출력 : " + "(1)이메일 : " + sell_Email + "\t" + "(2)비밀번호 : " + sell_PW );
 		Map<String, String> map = new HashMap<String, String>();
+		
 		map.put("sell_Email", sell_Email);
 		map.put("sell_PW", sell_PW);
+		
 		return this.abcd.selectOne(namespace + "SelectData", map);
 	}
 
@@ -78,8 +82,10 @@ public class SellerDao {
 	public Seller SelectEmail(String sell_Name, String sell_Contact) {
 		System.out.println( "dao의 selectData 출력 : " + "(1)상호명 : " + sell_Name + "\t" + "(2)연락처 : " + sell_Contact);
 		Map<String, String> map = new HashMap<String, String>();
+		
 		map.put("sell_Name", sell_Name);
 		map.put("sell_Contact", sell_Contact);
+		
 		return this.abcd.selectOne(namespace + "SelectEmail", map);
 	}
 
@@ -87,9 +93,11 @@ public class SellerDao {
 	public Seller SelectPW(String sell_Email, String sell_Name, String sell_Contact) {
 		System.out.println( "dao의 selectData 출력 : " + "(1)이메일 : " + sell_Email + "\t" + "(2)상호명 : " + sell_Name + "\t" + "(3)연락처 : " + sell_Contact);
 		Map<String, String> map = new HashMap<String, String>();
+		
 		map.put("sell_Email", sell_Email);
 		map.put("sell_Name", sell_Name);
 		map.put("sell_Contact", sell_Contact);
+		
 		return this.abcd.selectOne(namespace + "SelectPW", map);
 	}
 
@@ -98,7 +106,7 @@ public class SellerDao {
 		return 0;
 	}
 	
-	//사업자 승인 신청
+	// 사업자 승인 신청
 	public int UpdateSellApp(Seller bean) {
 		return this.abcd.update(namespace + "UpdateSellApp", bean);
 	}
@@ -107,6 +115,7 @@ public class SellerDao {
 		return this.abcd.selectOne(namespace + "CountData", sell_Email);	
 	}
 
+	// 사업 승인 상태 변경
 	public int UpdateStatusData(Seller bean) {
 		return this.abcd.update(namespace + "UpdateStatusData", bean);
 	}

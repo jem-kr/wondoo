@@ -22,11 +22,11 @@ import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
 import utility.Utility;
-
+// 회원가입에 대한 컨트롤러입니다.
 @Controller
 public class SellInsertController extends SuperClass{
-	private final String command = "/sellInsert.se" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/main.co" ; // 리다이렉션(변경 요망)
+	private final String command = "/sellInsert.se" ; 
+	private final String redirect = "redirect:/main.co" ;
 	
 	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
@@ -36,8 +36,7 @@ public class SellInsertController extends SuperClass{
 	private SellerDao sdao;
 	
 	public SellInsertController() {
-		// (변경 요망)
-		super("sellInsert", null); // super(getpage, postpage)  
+		super("sellInsert", null); 
 		this.mav = new ModelAndView();
 	}
 	

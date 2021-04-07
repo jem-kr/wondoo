@@ -18,8 +18,8 @@ import com.google.gson.JsonParser;
 @Service
 public class KakaoService {
 
-		// 사용자정보를 가져오기 위한 토큰을 발급해준다. 
-		// 아직 사용자 정보 가져오기 전! 로그인만 된 상태
+		// 사용자정보를 가져오기 위한 토큰을 발급해줍니다.
+		// 아직 사용자 정보 가져오기 전! 로그인만 된 상태입니다.
         public String getAccessToken (String authorize_code) {
             String access_Token = "";
             String refresh_Token = "";
@@ -29,12 +29,12 @@ public class KakaoService {
             	/***************************************
             	 * 요청을 보낼 값 셋팅 
             	 * 우리가 브라우저에서 요청을 보내는것과 같은 일을 
-            	 * 자바단에서 하려고 할때 사용한다. 
+            	 * 자바단에서 하려고 할때 사용합니다.
             	 **************************************/
             	 URL url = new URL(reqURL);
                  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                  conn.setRequestMethod("POST");
-                 conn.setDoOutput(true);// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+                 conn.setDoOutput(true); // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
 
                  
                  /***************************************
@@ -44,7 +44,7 @@ public class KakaoService {
                  StringBuilder sb = new StringBuilder();
                  sb.append("grant_type=authorization_code");
                  sb.append("&client_id=b8d0c914a6edd571c65d199b22e14fb8");  // 발급받은 key
-                 sb.append("&redirect_uri=http://localhost:8989/cafe/kakaoLog.cu");     // 설정해 놓은 경로
+                 sb.append("&redirect_uri=http://localhost:8989/cafe/kakaoLog.cu"); // 설정해 놓은 경로
                  sb.append("&code=" + authorize_code);
                  bw.write(sb.toString());
                  bw.flush();
@@ -152,10 +152,10 @@ public class KakaoService {
                 JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
                 JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
                 
-                // 1 맵에서 데이터를 가져오듯 키값으로 데이터를 가져온다 .
+                // 1 맵에서 데이터를 가져오듯 키값으로 데이터를 가져옵니다.
                 // JsonObject kakao_account = element.getAsJsonObject().get("kakao_account")
 
-                //2. 그런데  kakao_account  키값에 저장된 데이터는 객체다 그러니 객체 형태로 꺼내줘 ~ 
+                //2. 그런데  kakao_account  키값에 저장된 데이터는 객체다 그러니 객체 형태로 꺼내줍니다.
                 //JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
  
@@ -169,10 +169,7 @@ public class KakaoService {
                 userInfo.put("profile_image", profile_image);
                 
 
-                
-                
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                
             }

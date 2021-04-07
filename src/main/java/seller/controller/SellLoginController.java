@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 회원 로그인 컨트롤러입니다.
 @Controller
 public class SellLoginController extends SuperClass{
 	private final String command = "/sellLog.se";
@@ -31,11 +31,6 @@ public class SellLoginController extends SuperClass{
 		this.mav = new ModelAndView();
 	}
 	
-	//로그인 메뉴 클릭
-	/*
-	 * @GetMapping(command) public ModelAndView doGet() {
-	 * this.mav.setViewName(super.getpage); return this.mav; }
-	 */	
 	//로그인 페이지에서 "로그인" 버튼 클릭
 	@PostMapping(command)
 	public ModelAndView doPost(

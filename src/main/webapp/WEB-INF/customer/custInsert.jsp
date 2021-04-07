@@ -206,20 +206,26 @@ $(function(){
 		</div>
 		<div class="panel panel-body">
 			<c:set var="apppath" value="<%=contextPath%>" />
+			<%--  
+				파일 업로드를 위한 설정
+				1. 전송하고자 하는 입력 폼을 <form>태그 사이에 위치해놓습니다.
+				2. method를 post로 설정해줍니다.(get으로 설정 시 파라미터값들이 url에 따라들어가기 떄문)
+			 	3. enctype을 multipart/form-data로 설정합니다.
+			 	4. input type submit 버튼을 <form>태그 사이에 위치시킵니다.
+				* multipart/form-data는 서버에서 MultipartHttpServletRequest로 받아야 합니다.			 
+			 --%>
+			
 			<%-- form태그 시작 ------------------------------------------------- --%>
 			<form enctype="multipart/form-data" method="post"
 				action="${apppath}/custInsert.cu" class="form-horizontal"
 				role="form" name="myform" onsubmit="return chk_submit();">
 
-				<!-- hidden으로 변경할 데이터 -->
-				<input type="hidden" name="cust_Join" value="Y">
-
 				<%-- 프로필사진, cust_Pic ------------------------------------------------- --%>
 				<div class="form-group">
 					<div class="file-upload">
+						<%-- 파일 UPLOAD : button 또는 h3 클릭 --%>
 						<button class="file-upload-btn" type="button"
-							onclick="$('.file-upload-input').trigger( 'click' )">Add
-							Image</button>
+							onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
 						<div class="image-upload-wrap">
 							<input type="file" class="file-upload-input" name="img" id="img"
 								onchange="readURL(this);" accept="image/*" />
@@ -229,29 +235,30 @@ $(function(){
 								</h3>
 							</div>
 						</div>
+						<%-- 기존 파일 REMOVE --%>
 						<div class="file-upload-content">
 							<img class="file-upload-image" src="#" alt="your image" />
 							<div class="image-title-wrap">
 								<button type="button" onclick="removeUpload()"
-									class="remove-image">
-									Remove <span class="image-title">Uploaded Image</span>
+									class="remove-image"> Remove <span class="image-title">Uploaded Image</span>
 								</button>
 							</div>
 						</div>
 					</div>
-					<!-- 파일 업로드 끝 --------------------------------------------------- -->
 				</div>
 				
-				<%-- [ajax] cust_Email ---------------------------------------- --%>
+				<%-- cust_Email ---------------------------------------- --%>
 				<div class="form-group wow fadeInDown animated"
 					data-wow-duration="500ms" data-wow-delay=".6s">
 					<label for="cust_Email" class="col-sm-3" style="text-align: right">
 						<spring:message code="customer.cust_Email" />*
 					</label>
 					<div class="col-sm-6">
+					<%-- 
+						카카오 회원가입 시 sessionScope.k_email로 카카오계정의 이메일 주소를 받아옵니다.
+					 --%>
 						<input type="text" placeholder="Your Email" class="form-control"
-							name="cust_Email" id="cust_Email" value="${sessionScope.k_email != null ? sessionScope.k_email : ''}"
-							/> 
+							name="cust_Email" id="cust_Email" value="${sessionScope.k_email != null ? sessionScope.k_email : ''}"/> 
 							<div class="valid_check" id="check_custEmail"></div>
 					</div>
 				</div>
@@ -266,7 +273,6 @@ $(function(){
 						<input type="password" placeholder="Your Password"
 							class="form-control" name="cust_PW" id="cust_PW"> 
 							<div class="valid_check" id="check_custPW"></div>
-							
 					</div>
 				</div>
 				
@@ -359,19 +365,23 @@ $(function(){
 							value="${cust_ADR02}">
 					</div>
 				</div>
+				
+				<%-- 개인정보동의 여부 기본값인 "Y"를 hidden으로 넘겨줍니다. --%>
+				<input type="hidden" name="cust_Join" value="Y">
+				
 				<br /><br />
 				<%-- 하단 버튼------------------------------------------------- --%>
 				<div class="submit_btn col-sm-offset-3 col-sm-6">
 					<p style="font-size: 10px; line-height: 12px;">
-						<i class="fas fa-check-circle"></i>&nbsp;가입 시, 구매 이용약관, 원두 전자금융거래
-						이용약관, <br />구매자 개인정보 수집 및 이용 동의에 대해 동의합니다.
+						<i class="fas fa-check-circle"></i>&nbsp;
+						가입 시, 구매 이용약관, 원두 전자금융거래 이용약관, <br />
+						구매자 개인정보 수집 및 이용 동의에 대해 동의합니다.
 					</p>
 					<button type="submit" id="cust-submit" class="submit"
-						data-toggle="modal" data-target="#myModal"
-						>동의하고 가입하기</button>
+						data-toggle="modal" data-target="#myModal">동의하고 가입하기</button>
 				</div>
 			</form>
-			<%-- form태그 시작 ------------------------------------------------- --%>
+			<%-- form태그 끝 ------------------------------------------------- --%>
 		</div>
 	</div>
 	<!-- ------------------------------------- [모달 section]--------------------------------------- -->

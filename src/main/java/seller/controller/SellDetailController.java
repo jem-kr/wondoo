@@ -10,17 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 회원 정보 상세에 대한 컨트롤러입니다.
 @Controller
 public class SellDetailController extends SuperClass {
-	private final String command = "/sellDetail.se" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/xxx.me" ; // 리다이렉션(변경 요망)
+	private final String command = "/sellDetail.se" ;  
+	private final String redirect = "redirect:/xxx.me" ; 
 	
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("sdao") // (변경 요망)
-	private SellerDao sdao ;// (변경 요망)
+	@Qualifier("sdao") 
+	private SellerDao sdao ;
 	
 	public SellDetailController() {
 		super("sellDetail", null);
@@ -30,6 +30,7 @@ public class SellDetailController extends SuperClass {
 	@GetMapping(command)
 	public ModelAndView doGet(
 		@RequestParam(value = "sell_Email", required = false) String sell_Email) {
+		// 회원 이메일을 통해 1건의 회원 정보를 조회합니다.
 		Seller bean = this.sdao.SelectDataByPk(sell_Email) ;
 		this.mav.addObject("bean", bean) ;
 		this.mav.setViewName(super.getpage); 

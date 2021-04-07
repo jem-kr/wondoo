@@ -10,8 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import common.controller.SuperClass;
 import dao.SellerDao;
-
-
+// 회원 로그아웃 컨트롤러입니다.
 @Controller
 public class SellLogoutController extends SuperClass{
 	private final String command = "/sellLogout.se";
@@ -22,12 +21,6 @@ public class SellLogoutController extends SuperClass{
 	@Autowired
 	@Qualifier("sdao")
 	private SellerDao sdao;
-	
-	/* 수정필요) 상품, 장바구니
-	 * @Autowired
-	 * 
-	 * @Qualifier("pdao") private ProductDao pdao;
-	 */
 	
 	public SellLogoutController() {
 		super("sellLog", null);

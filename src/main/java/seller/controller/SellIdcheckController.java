@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dao.SellerDao;
-
-@RestController // 아이디 중복 체크
+// 이메일 중복 체크에 대한 컨트롤러입니다.
+@RestController 
 public class SellIdcheckController{
 	
 	
 	@Autowired
-	@Qualifier("sdao") // (변경 요망)
-	private SellerDao sdao ;// (변경 요망)
+	@Qualifier("sdao") 
+	private SellerDao sdao ;
 	
 	@RequestMapping(value =  "/idCheck.se", method = RequestMethod.GET)
 	@ResponseBody

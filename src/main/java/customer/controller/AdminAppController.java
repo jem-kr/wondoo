@@ -16,18 +16,18 @@ import common.controller.SuperClass;
 import dao.SellerDao;
 import utility.FlowParameters;
 import utility.Paging;
-
-@Controller // 관리자가 회원들의 목록을 조회하는 컨트롤러
+//관리자가 사업 승인 상태가 포함된 사업자 회원 목록을 조회하는 컨트롤러입니다.
+@Controller 
 public class AdminAppController extends SuperClass{
-	private final String command = "/adminApp.cu" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/adminApp.cu" ; // 리다이렉션(변경 요망)
+	private final String command = "/adminApp.cu" ; 
+	private final String redirect = "redirect:/adminApp.cu" ; 
 	
 	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("sdao") // (변경 요망)
-	private SellerDao sdao ;// (변경 요망)
+	@Qualifier("sdao")
+	private SellerDao sdao ;
 	
 	public AdminAppController() {
 		// (변경 요망)
@@ -71,6 +71,7 @@ public class AdminAppController extends SuperClass{
 
 	mav.addObject("pagingHtml", pageInfo.getPagingHtml());
 	mav.addObject("pagingStatus", pageInfo.getPagingStatus());	
+	
 	// jsp 파일에서 방금 넣었던 모드와 키워드의 상태를 보여 주기 위하여 바인딩합니다.
 	this.mav.addObject("mode", parameters.getMode()) ;
 	this.mav.addObject("keyword", parameters.getKeyword()) ;

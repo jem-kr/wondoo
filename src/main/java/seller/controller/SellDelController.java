@@ -12,22 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-
+// 회원 탈퇴에 대한 컨트롤러입니다.
 @Controller
 public class SellDelController extends SuperClass{
-	private final String command = "/sellDel.se" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/main.co" ; // 리다이렉션(변경 요망)
+	private final String command = "/sellDel.se" ; 
+	private final String redirect = "redirect:/main.co" ; 
 	
-	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("sdao") // (변경 요망)
-	private SellerDao sdao ;// (변경 요망)
+	@Qualifier("sdao") 
+	private SellerDao sdao ;
 	
 	public SellDelController() {
-		// (변경 요망)
-		super("sellDel", null); // super(getpage, postpage)  
+		super("sellDel", null);  
 		this.mav = new ModelAndView();
 	}
 	
@@ -36,9 +34,11 @@ public class SellDelController extends SuperClass{
 		@RequestParam(value = "sell_Email", required = true) String sell_Email,
 		HttpSession session) {
 		
+		// 사업자회원의 정보 1건을 조회합니다.
 		Seller bean = this.sdao.SelectDataByPk(sell_Email) ;
 		
 		int cnt = -99999 ;
+		// 회원테이블에서 해당 건에 대한 데이터를 삭제합니다.
 		cnt = this.sdao.DeleteData(bean) ;
 		
 		// 탈퇴하는 사람에 대한 세션 정보를 완전히 비웁니다.

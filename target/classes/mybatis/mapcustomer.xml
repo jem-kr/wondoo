@@ -14,14 +14,6 @@
 	</sql>
 	
 	<!-- 회원 탈퇴와 관련된 항목들 -->
-<!-- 	<update id="UpdateBoardRemark" parameterType="String">
-		update boards set remark = #{remark} 
-		where writer = #{writer}
-	</update>
-	<update id="UpdateOrderRemark" parameterType="String">
-		update orders set remark = #{remark} 
-		where mid = #{mid}
-	</update>	 -->
 	<delete id="DeleteData" parameterType="String">
 		delete from customers
 	 	where cust_Email = #{cust_Email}
@@ -52,7 +44,7 @@
 		order by cust_Name desc, cust_Email desc
 	</select>
 	
-	<!-- 회원가입시 데이터 추가 -->
+	<!-- 회원가입 시 customers table에 데이터 추가 -->
 	<insert id="InsertData" parameterType="MyCustomer">
 		insert into customers(cust_Email, cust_PW, cust_Name, cust_Contact, cust_Birth, cust_Zipcode, cust_ADR01, cust_ADR02, 
 		cust_Pic, cust_RegDate, cust_Join, remark) 
@@ -75,14 +67,14 @@
 	
 	<!-- 이메일 찾기 시 기존 데이터에서 이름, 연락처, 생년월일 일치하는지 조회 -->
 	<select id="SelectEmail" resultType="MyCustomer">
-		select cust_Email, cust_Name from customers
-		where cust_Name = #{cust_Name} and cust_Contact = #{cust_Contact}
+		select cust_Email, cust_Name, cust_Birth from customers
+		where cust_Name = #{cust_Name} and cust_Contact = #{cust_Contact} and cust_Birth = #{cust_Birth}
 	</select>
 	
-	<!-- 비밀번호 찾기 시 기존 데이터에서 메일, 이름, 연락처 일치하는지 조회 -->
+	<!-- 비밀번호 찾기 시 기존 데이터에서 메일, 이름, 연락처, 생년월일 일치하는지 조회 -->
 	<select id="SelectPW" resultType="MyCustomer">
 		select cust_PW, cust_Name from customers
-		where cust_Email = #{cust_Email} and cust_Name = #{cust_Name} and cust_Contact = #{cust_Contact}
+		where cust_Email = #{cust_Email} and cust_Name = #{cust_Name} and cust_Contact = #{cust_Contact} and cust_Birth = #{cust_Birth}
 	</select>
 
 	<!-- 기존 회원 데이터 수정 관련 항목 -->
@@ -120,6 +112,8 @@
 		delete from cart				
 		where cart_cust_email = #{cart_cust_email}
 	</delete>
+	
+	<!-- 장바구니 관련 항목들 -->
 	<insert id="InsertCartData" parameterType="MyCart">
 		insert into cart(cart_seq, cart_pro_no, cart_cust_qty, cart_cust_email, cart_price)
 		values(cart_seq.nextval, #{cart_pro_no}, #{cart_cust_qty}, #{cart_cust_email}, #{cart_price})		

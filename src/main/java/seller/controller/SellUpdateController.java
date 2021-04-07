@@ -22,13 +22,12 @@ import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
 import utility.Utility;
-
+// 회원 정보 수정에 대한 컨트롤러입니다.
 	@Controller 
 	public class SellUpdateController extends SuperClass{
-		private final String command = "/sellUpdate.se"; // 요청 커맨드(변경 요망)
-		private final String redirect = "redirect:/main.co"; // 리다이렉션(변경 요망)
+		private final String command = "/sellUpdate.se";
+		private final String redirect = "redirect:/main.co"; 
 		
-		// 뷰에 넘겨줄 ModelAndView 객체
 		private ModelAndView mav = null ; 
 		
 		@Autowired
@@ -48,9 +47,10 @@ import utility.Utility;
 		@GetMapping(command)
 		public ModelAndView doGet(
 				@RequestParam(value = "sell_Email", required = true) String sell_Email) {
-			/* 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요함 */
+			// 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요합니다.
 			System.out.println("doGet메소드");
 			Seller bean = this.sdao.SelectDataByPk(sell_Email);
+			// 이메일을 통해 1건의 회원 정보를 조회합니다.
 			this.mav.addObject("bean", bean);
 			this.mav.setViewName(super.getpage); 
 			return this.mav ;
@@ -73,6 +73,7 @@ import utility.Utility;
 			} else {
 				System.out.println("유효성 검사 통과");
 				// 회원정보수정 완료 후, 다시 회원정보수정 페이지로 이동
+				// 수정된 데이터를 회원테이블에 업데이트합니다.
 				this.sdao.UpdateData(seller);
 				session.setAttribute("message", "회원정보수정이 완료되었습니다.");
 				this.mav.setViewName(this.redirect);

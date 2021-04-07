@@ -17,21 +17,20 @@ import dao.SellerDao;
 import utility.FlowParameters;
 import utility.Paging;
 
-//관리자가 사업자 승인상태를 '대기중' -> '승인'으로 변경해주는 controller
+//관리자가 사업자 승인상태를 '대기중' -> '승인'으로 변경해주는 컨트롤러입니다.
 @Controller
 public class AdminController extends SuperClass {
-	private final String command = "/admin.cu" ; // 요청 커맨드(변경 요망)
-	private final String redirect = "redirect:/adminChk.cu" ; // 리다이렉션(변경 요망)
+	private final String command = "/admin.cu" ; 
+	private final String redirect = "redirect:/adminChk.cu" ;
 	
 	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
 	
 	@Autowired
-	@Qualifier("sdao") // (변경 요망)
-	private SellerDao sdao ;// (변경 요망)
+	@Qualifier("sdao") 
+	private SellerDao sdao;
 	
 	public AdminController() {
-		// (변경 요망)
 		super("admin", "adminChk"); // super(getpage, postpage)  
 		this.mav = new ModelAndView();
 	}
@@ -67,7 +66,7 @@ public class AdminController extends SuperClass {
 							parameters.getMode(),
 							parameters.getKeyword()) ;
 	
-	// 스프링은 기본 값으로 request 영역에 바인딩합니다.
+	// 스프링은 기본 값으로 request 영역에 바인딩
 	this.mav.addObject("lists", lists) ;
 
 	mav.addObject("pagingHtml", pageInfo.getPagingHtml());
