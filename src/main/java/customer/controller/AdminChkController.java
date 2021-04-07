@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.Seller;
 import common.controller.SuperClass;
 import dao.SellerDao;
-//관리자가 사업자의 승인상태를 수정하는 컨트롤러입니다.
+// 관리자용 사업자의 승인 상태를 수정하는 컨트롤러입니다.
 @Controller
 public class AdminChkController extends SuperClass{
 	   private final String command = "/adminChk.cu"; 
@@ -44,7 +44,7 @@ public class AdminChkController extends SuperClass{
 	         @RequestParam(value = "sell_Email", required = true) String sell_Email,
 	         HttpServletRequest request
 	         ) {
-	      /* 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요함 */
+	      // 회원 가입과는 달리 수정은 이전에 기입했던 정보를 읽어 들이는 부분이 필요합니다.
 	      HttpSession session = request.getSession();
 	      
 	      System.out.println("doGet메소드");

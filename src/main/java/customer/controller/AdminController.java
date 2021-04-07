@@ -17,7 +17,7 @@ import dao.SellerDao;
 import utility.FlowParameters;
 import utility.Paging;
 
-//관리자가 사업자 승인상태를 '대기중' -> '승인'으로 변경해주는 컨트롤러입니다.
+// 관리자용 (승인상태가 포함된)사업자 전체 목록 컨트롤러입니다.
 @Controller
 public class AdminController extends SuperClass {
 	private final String command = "/admin.cu" ; 

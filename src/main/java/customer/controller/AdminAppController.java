@@ -16,7 +16,7 @@ import common.controller.SuperClass;
 import dao.SellerDao;
 import utility.FlowParameters;
 import utility.Paging;
-//관리자가 사업 승인 상태가 포함된 사업자 회원 목록을 조회하는 컨트롤러입니다.
+// 관리자용 (승인 상태가 포함되지 않은) 사업자 전체 목록 컨트롤러입니다.
 @Controller 
 public class AdminAppController extends SuperClass{
 	private final String command = "/adminApp.cu" ; 
@@ -30,7 +30,6 @@ public class AdminAppController extends SuperClass{
 	private SellerDao sdao ;
 	
 	public AdminAppController() {
-		// (변경 요망)
 		super("adminApp", "adminApp"); // super(getpage, postpage)  
 		this.mav = new ModelAndView();
 	}

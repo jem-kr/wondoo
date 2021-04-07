@@ -17,13 +17,12 @@ import common.controller.SuperClass;
 import dao.CustomerDao;
 import utility.FlowParameters;
 import utility.Paging;
-// 관리자가 회원들의 목록을 조회하는 컨트롤러입니다.
+// 관리자용 일반 회원 전체 목록을 조회하는 컨트롤러입니다.
 @Controller
 public class AdminListController extends SuperClass{
 	private final String command = "/adminList.cu" ; 
 	private final String redirect = "redirect:/adminList.cu" ;
 	
-	// 뷰에 넘겨줄 ModelAndView 객체
 	private ModelAndView mav = null ; 
 	
 	@Autowired
@@ -31,7 +30,6 @@ public class AdminListController extends SuperClass{
 	private CustomerDao cdao ;
 	
 	public AdminListController() {
-		// (변경 요망)
 		super("adminList", "adminList"); 
 		this.mav = new ModelAndView();
 	}
@@ -48,6 +46,8 @@ public class AdminListController extends SuperClass{
 		
 		System.out.println(this.getClass() + " : " + parameters.toString());
 		
+		// 검색 모드
+		// 선택된 검색 기준과 입력된 검색 키워드를 통해 해당되는 전체 데이터를 가져옵니다.
 		int totalCount = this.cdao.SelectTotalCount(parameters.getMode(), parameters.getKeyword());
 	
 	System.out.println("totalCount : " + totalCount);
