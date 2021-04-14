@@ -327,7 +327,8 @@ int twelve = 12;
 	<c:if test="${not empty sessionScope.cart_modal}">
 		<input type="text" id="cart_popup" value="${sessionScope.cart_modal}">
 		<!-- 장바구니 데이터 추가 후 페이지 경로 이동 시 회원 이메일 파라미터 값이 필요함 -->
-        <input type="hidden" disabled="disabled" name="cust_Email" id="cust_Email" value="${sessionScope.loginfo.cust_Email}">
+        <input type="hidden" disabled="disabled" name="cust_Email" id="cust_Email" 
+        value="${sessionScope.loginfo.cust_Email}">
 		<div class="container">
 		
 		  <!-- Modal -->
@@ -344,7 +345,8 @@ int twelve = 12;
 		          <p id="modal-body" style="font-size: 13px">장바구니에 상품이 담겼습니다.</p>
 		        </div>
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 13px" onclick="gotopage_caList();">바로가기</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 13px" 
+		          onclick="gotopage_caList();">바로가기</button>
 		          <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 13px">쇼핑 계속하기</button>
 		        </div>
 		      </div>

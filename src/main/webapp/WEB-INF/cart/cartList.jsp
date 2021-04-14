@@ -76,7 +76,8 @@
 		                                    	<%--현지--%><input id="cart_seq${status.count}" type="hidden" disabled="disabled" value="${bean.cart_seq}">
 		                                        <div class="cart-plus-minus">
 		                                            <div class="dec qtybutton" onclick="minusqty(${status.count});">-</div>
-		                                            <%--현지--%><input type="text" disabled="disabled" id="orders_qty${status.count}" name="orders_qty" value="${bean.cart_cust_qty}" 
+		                                            <%--현지--%><input type="text" disabled="disabled" id="orders_qty${status.count}" 
+		                                            name="orders_qty" value="${bean.cart_cust_qty}" 
 		                                            name="qtybutton" class="cart-plus-minus-box">
 		                                            <div class="inc qtybutton" onclick="plusqty(${status.count});">+</div>
 		                                        </div>

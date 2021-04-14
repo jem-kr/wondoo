@@ -3,10 +3,7 @@
    ====================================
 */
 
-/* ===================
-	상단 step process bar
-   ===================
-*/
+
 
 $(document).ready(function() {
 	$('[data-toggle="tooltip"]').tooltip();
@@ -44,12 +41,15 @@ $(document).ready(function() {
 	
 });
 
-
+/* =======================
+	상단 step process bar
+   =======================
+*/
 $(document).ready(function() {
-	//Initialize tooltips
+	// 마우스 hover → 툴팁 적용
 	$('.nav-tabs > li a[title]').tooltip();
 
-	//Wizard
+	// <ul> , <li> 
 	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 
 		var $target = $(e.target);
@@ -110,7 +110,7 @@ function today() {
 
 function code_ajax() {
 	
-	// 유효성 검사
+	
 	var code = $('#code').val();
 	var font_color = '#5080BF';
 
@@ -122,14 +122,13 @@ function code_ajax() {
 	}
 
 	//alert(code);
-
+	
+	
 	// 중복 ajax 
 	$.ajax({
-		url: '/onedayCodeCheck.odc',
-		type: 'post',
-		dataType: "json",
+		url: '/onedayCodeCheck.odc?code=' + code,
+		type: 'get',
 		contentType: "application/json; charset=UTF-8",
-		data: code, // 1. {code : code } code=code 형식 , 2. String 으로 받을 수 있음..  
 		success: function(data) { // OnedayClassCodeCheckController 컨트롤러 cnt 값
 			console.log("1 = 중복o / 0 = 중복x : "+ data);         
 			if (data == '1') {

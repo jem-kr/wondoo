@@ -45,6 +45,7 @@ public class CartInsertController extends SuperClass {
 		this.mav = new ModelAndView();
 	}
 
+	
 	@GetMapping(command)
 	public ModelAndView doGet(@RequestParam(value = "products_seq", required = true) int cart_pro_no,
 			@RequestParam(value = "qty", required = true) int cart_cust_qty,
@@ -69,11 +70,13 @@ public class CartInsertController extends SuperClass {
 				session.setAttribute("message", "사업자는 상품을 구매할 수 없습니다!");
 				mav.setViewName("redirect:/cfList.pr");
 			}
-
-			if (customer != null && customer.getCust_Email().equals("admin@gmail.com")) { // 관리자로 로그인 되어있다면
+			// 관리자로 로그인 되어있다면
+			if (customer != null && customer.getCust_Email().equals("admin@gmail.com")) { 
 				session.setAttribute("message", "관리자는 상품을 구매할 수 없습니다!");
 				mav.setViewName("redirect:/cfList.pr");
-			} else if (customer != null && customer.getCust_Email().equals("admin@gmail.com") == false) {// 일반 회원이라면
+			} else if (customer != null && 
+					customer.getCust_Email().equals("admin@gmail.com") == false) {
+			// 일반 회원이라면
 
 				Cart bean = new Cart();
 				bean.setCart_seq(0);
@@ -101,7 +104,6 @@ public class CartInsertController extends SuperClass {
 					
 					// 순서 ㄱ. 장바구니 테이블에서 해당 상품에 대한 수량 sum 값 구하기 → 변수 sum_qty
 					// 순서 ㄴ. 사업자가 초기 설정한 재고량 - sum_qty 의 차 구하기 → 변수 gap
-					// sum_qty 는 회원 이메일에 따라서 null or 정수 값이 될수도 있기에 object 타입으로 처리 
 					
 					// 조건 가. gap == 0 이면 상품이 품절되었다는 메세지 alert
 					// 조건 나. gap != 0 이면 아래 조건 수행 (하위 조건을 처리하므로 gap 이 0보다 작을 경우는 없음)
@@ -116,13 +118,14 @@ public class CartInsertController extends SuperClass {
 
 					product = this.productDao.SelectOneData(cart_pro_no); // 상품 정보
 
-					int gap = product.getPro_stock() - (Integer)sum_qty;
+					int gap = product.getPro_stock() - sum_qty;
 
 					int result = 0; // 조건에 해당하는 결과를 저장하는 변수
 
 					if (gap == 0) { // 조건 가.
 						session.setAttribute("message", "상품을 더 이상 담을 수 없습니다!");
-						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+						this.mav.setViewName("redirect:/prDetail.pr?"
+								+ "products_seq=" + cart_pro_no);
 					} else { // 조건 나.
 						
 						if (bean.getCart_cust_qty() <= gap) { // 하위 조건 가.
@@ -135,17 +138,18 @@ public class CartInsertController extends SuperClass {
 						case 1:
 							cnt = -1; // 초기화
 							cnt = this.cartDao.UpdateQtyPrice(bean);
-
 							if (cnt > 0) {// 중복되는 상품이 존재하여 기존 데이터에 수량 , 가격 누적 처리
 								System.out.println("기존 데이터에 수량 , 가격 누적 성공");
 								session.setAttribute("cart_modal", "success");
-								this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
-
+								this.mav.setViewName("redirect:/prDetail.pr?"
+										+ "products_seq=" + cart_pro_no);
 							}
 							break;
 						case -1:
-							session.setAttribute("message", "해당 상품은 " + gap + "개 남았습니다. <br> 수량을 확인하세요!");
-							this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+							session.setAttribute("message", "해당 상품은 " + gap + "개 남았습니다. "
+									+ "<br> 수량을 확인하세요!");
+							this.mav.setViewName("redirect:/prDetail.pr?"
+									+ "products_seq=" + cart_pro_no);
 							break;
 						}
 
@@ -160,7 +164,8 @@ public class CartInsertController extends SuperClass {
 					if (cnt > 0) {
 						System.out.println("신규 상품 등록 처리 성공");
 						session.setAttribute("cart_modal", "success");
-						this.mav.setViewName("redirect:/prDetail.pr?products_seq=" + cart_pro_no);
+						this.mav.setViewName("redirect:/prDetail.pr?"
+								+ "products_seq=" + cart_pro_no);
 					}
 				}
 

@@ -21,16 +21,16 @@ body{
     background: #fff;
 }
 
-    .wizard .nav-tabs {
-        position: relative;
-        margin: 40px auto;
-        margin-bottom: 0;
-        border-bottom-color: #e0e0e0;
-    }
+.wizard .nav-tabs {
+    position: relative;
+    margin: 40px auto;
+    margin-bottom: 0;
+    border-bottom-color: #e0e0e0;
+}
 
-    .wizard > div.wizard-inner {
-        position: relative;
-    }
+.wizard > div.wizard-inner {
+    position: relative;
+}
 
 .connecting-line {
     height: 2px;

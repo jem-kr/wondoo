@@ -43,7 +43,6 @@ public class CartDao {
 	public int DuplProNoCheck(Cart bean) {
 		// 장바구니 테이블에 상품번호가 중복되는 지 확인 한다.
 
-		// 신규 상품이면 insert 처리
 		int cnt = -1;
 		cnt = this.sql_session.selectOne(this.namespace + "DuplProNoCheck", bean);
 		return cnt;
