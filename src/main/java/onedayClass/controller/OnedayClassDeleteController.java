@@ -38,7 +38,6 @@ public class OnedayClassDeleteController extends SuperClass{
 	@GetMapping(value = command)
 	public String doGet(
 			@RequestParam(value = "code" , required = true) String code,
-			@RequestParam(value = "oneday_seq") String oneday_seq,
 			HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -51,9 +50,8 @@ public class OnedayClassDeleteController extends SuperClass{
 		
 		System.out.println("원데이 결제 테이블 비고 컬럼 수정 성공");
 		
-		int _oneday_seq = Integer.parseInt(oneday_seq); 
 		
-		count = this.onedayDao.DeleteData(code , _oneday_seq); // 원데이 클래스 테이블 삭제
+		count = this.onedayDao.DeleteData(code); // 원데이 클래스 테이블 삭제
 		
 		if (count > 0) {
 			System.out.println("원데이 클래스 삭제 성공");

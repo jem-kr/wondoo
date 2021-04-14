@@ -265,14 +265,15 @@
                                                 <div class="tab-pane wow fadeInDown" data-wow-duration="500ms" data-wow-delay="0.6s" role="tabpanel" id="step3">
                                                     <h4 class="subtitle sub_steptitle"><spring:message code="oneday.step3_title"/></h4>
                                                     <!-- ------------------------------------- [메인 사진  main_image section]--------------------------------------- -->
-                                                    <%-- ======================구분선===================== --%>
                                                     <div class="file-upload">
-												        <button class="file-upload-btn" type="button" data-toggle="tooltip" title="썸네일 사진을 업로드 해주세요!" onclick="$('#m_img').trigger( 'click' )">
+												        <button class="file-upload-btn" type="button" data-toggle="tooltip" 
+												        title="썸네일 사진을 업로드 해주세요!" onclick="$('#m_img').trigger( 'click' )">
 												        	<spring:message code="oneday.main_image"/>
 												        </button>
 												
 												        <div id="main_wrap" class="image-upload-wrap"> 
-												            <input class="file-upload-input" id="m_img" name="m_img"  type='file' onchange="readURL_main(this);" accept="image/*">
+												            <input class="file-upload-input" id="m_img" name="m_img"  type='file' 
+												            onchange="readURL_main(this);" accept="image/*">
 												            <div class="drag-text">
 												            <h3><i class="fas fa-paperclip"></i></h3>
 												            </div>
@@ -280,7 +281,8 @@
 												        <div id="main_content" class="file-upload-content">
 												            <img class="file-upload-image" id="M_image" src="#" alt="your image" />
 												            <div class="image-title-wrap">
-													            <button type="button" onclick="removeUpload_main()" class="remove-image" data-toggle="tooltip" title="클릭 하면 삭제됩니다!">
+													            <button type="button" onclick="removeUpload_main()" class="remove-image" 
+													            data-toggle="tooltip" title="클릭 하면 삭제됩니다!">
 													            	<span id="main_title" class="image-title">이미지 이름</span>
 													            </button>
 												            </div>

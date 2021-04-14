@@ -67,7 +67,7 @@ public class MainController extends SuperClass {
 				cnt = this.orderDao.UpdateRemarkData(item.getCode()); // 결제 테이블 remark 컬럼 수정
 
 				cnt = -1; // 초기화
-				cnt = this.onedayDao.DeleteData(item.getCode(), item.getOneday_seq()); // 원데이 클래스 수업 삭제
+				cnt = this.onedayDao.DeleteData(item.getCode()); // 원데이 클래스 수업 삭제
 
 				if (cnt > 0) {
 					System.out.println(_today + " 기준 원데이 클래스 수업 " + cnt + "건 삭제 처리");

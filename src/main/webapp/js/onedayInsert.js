@@ -111,8 +111,7 @@ function today() {
 function code_ajax() {
 	
 	
-	var code = $('#code').val();
-	var font_color = '#5080BF';
+	
 
 	if (code.length == 0) {
 		$("#err_code").text('클래스 코드를 입력하세요!');
@@ -124,6 +123,8 @@ function code_ajax() {
 	//alert(code);
 	
 	
+	var code = $('#code').val();
+	var font_color = '#5080BF';
 	// 중복 ajax 
 	$.ajax({
 		url: '/onedayCodeCheck.odc?code=' + code,
@@ -650,7 +651,8 @@ $(document).ready(function() {
    ==========================*/
 function date() {
 	$('.datepicker').pickadate({
-		monthsShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		monthsShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', 
+		'8월', '9월', '10월', '11월', '12월'],
 		weekdaysShort: ['일', '월', '화', '수', '목', '금', '토'],
 		format: 'yyyymmdd', // 데이터 형식
 		min: 1, // 당일 이후 부터 선택 가능

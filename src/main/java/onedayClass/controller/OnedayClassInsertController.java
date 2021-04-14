@@ -57,7 +57,8 @@ public class OnedayClassInsertController extends SuperClass {
 
 	// 유효성 검사는 jsp 단 자바스크립트로 진행하였다.
 	@PostMapping(value = command)
-	public ModelAndView doPost(@RequestParam(value = "sell_email", required = true) String sell_email,
+	public ModelAndView doPost(
+			@RequestParam(value = "sell_email", required = true) String sell_email,
 			OnedayClass oneday, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
@@ -87,13 +88,11 @@ public class OnedayClassInsertController extends SuperClass {
 				oneday.setMain_image(destination1.getName());
 
 				destination2 = utility.Utility.getUploadedFileInfo(multi_file2, realPath);
-				multi_file2.transferTo(destination2); // 파일 업로드
-				// 원래 이미지에 날짜를 붙인 새 이미지 이름을 넣기
+				multi_file2.transferTo(destination2); 
 				oneday.setDetail_image1(destination2.getName());
 
 				destination3 = utility.Utility.getUploadedFileInfo(multi_file3, realPath);
-				multi_file3.transferTo(destination3); // 파일 업로드
-				// 원래 이미지에 날짜를 붙인 새 이미지 이름을 넣기
+				multi_file3.transferTo(destination3); 
 				oneday.setDetail_image2(destination3.getName());
 			}
 
