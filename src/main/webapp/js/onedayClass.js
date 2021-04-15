@@ -322,7 +322,7 @@ function myBookdateCheck(){
 			booktime = parseInt(booktime.substring(0, 1));
 			booktime += 12;
 
-			if (date == bookdate && booktime < hours) {
+			if (date == bookdate && booktime <= hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');
 				$('#modal-body').html('이미 마감된 수업입니다.<br>이용 시간을 확인하세요!');
 				$('#myModal').modal();
@@ -331,7 +331,7 @@ function myBookdateCheck(){
 		} else {// 오전이면
 			booktime = parseInt(booktime.substring(0, 1));
 
-			if (date == bookdate && booktime < hours) {
+			if (date == bookdate && booktime <= hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');
 				$('#modal-body').html('이미 마감된 수업입니다.<br>이용 시간을 확인하세요!');
 				$('#myModal').modal();
@@ -384,7 +384,7 @@ function myBooktimeCheck() {
 			booktime = parseInt(booktime.substring(0, 1));
 			booktime += 12;
 
-			if (date == bookdate && booktime < hours) {
+			if (date == bookdate && booktime <= hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');
 				$('#modal-body').html('이미 마감된 수업입니다.<br>이용 시간을 확인하세요!');
 				$('#myModal').modal();
@@ -393,7 +393,7 @@ function myBooktimeCheck() {
 		} else {// 오전이면
 			booktime = parseInt(booktime.substring(0, 1));
 
-			if (date == bookdate && booktime < hours) {
+			if (date == bookdate && booktime <= hours) {
 				$('#modal-title').html('<i class="fas fa-exclamation-circle"></i>');
 				$('#modal-body').html('이미 마감된 수업입니다.<br>이용 시간을 확인하세요!');
 				$('#myModal').modal();

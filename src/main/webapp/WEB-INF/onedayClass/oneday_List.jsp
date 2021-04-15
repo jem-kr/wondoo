@@ -84,7 +84,7 @@
 											<a href="${contextPath}/onedayDetail.odc?code=${bean.code}">자세히 보기</a>
 											<c:if test="${bean.sell_email eq sessionScope.loginfo_seller.sell_Email}">
 												<a href="${contextPath}/onedayUpdate.odc?code=${bean.code}">수정</a>
-												<a href="${contextPath}/onedayDelete.odc?code=${bean.code}&oneday_seq=${bean.oneday_seq}">삭제</a>
+												<a href="${contextPath}/onedayDelete.odc?code=${bean.code}">삭제</a>
 											</c:if>
 										</div>
 									</div>

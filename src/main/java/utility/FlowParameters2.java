@@ -33,11 +33,6 @@ public class FlowParameters2 {
 				+ pageSize + "&mode=" + mode + "&keyword=" + keyword + "";
 	}
 	
-	/*@Override
-	public String toString() {
-		return "pageNumber=" + pageNumber + "&pageSize="
-				+ pageSize + "&mode=" + mode + "&keyword=" + keyword + "";
-	}*/
 	public String getPageNumber() {
 		return pageNumber;
 	}

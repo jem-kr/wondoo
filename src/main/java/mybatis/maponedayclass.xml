@@ -100,7 +100,7 @@
 	
 	<!-- 원데이 클래스 삭제하기 -->
 	<delete id="DeleteData" parameterType="String">
-		delete from onedayclasses where code='coffee_5'
+		delete from onedayclasses where code=#{code}
 	</delete>
 	
 	<!-- 가장 최근 등록 수업 3개 가져오기 (메인화면용) -->

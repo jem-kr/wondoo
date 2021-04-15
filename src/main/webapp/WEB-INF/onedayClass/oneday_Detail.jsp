@@ -44,7 +44,7 @@
                                       </div>
                                     <!-- Carousel nav -->
                                     
-                                  </div>
+                                </div>
                               </div>
                             </div>
                             <c:if test="${not empty bean.content}">
@@ -95,7 +95,8 @@
                                         		<spring:message code="oneday.bookdate"/>
                                         	</div>
                                         	<input type="hidden" class="input_data form-control"  disabled="disabled" id="enddate" name="enddate" value="${bean.enddate}">
-                                            <input type="text" class="input_data form-control datepicker"  placeholder="예약 일자" id="bookdate" name="bookdate" onclick="booking_date();" onmouseleave="myBookdateCheck();">
+                                            <input type="text" class="input_data form-control datepicker"  placeholder="예약 일자" id="bookdate" name="bookdate" 
+                                            onclick="booking_date();" onmouseleave="myBookdateCheck();">
                                             <span class="valid_check" id="err_bookdate"></span>
                                         </div>
                                     </li>
