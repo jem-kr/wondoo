@@ -34,7 +34,6 @@ Spring Framework를 이용한 커피 관련 상품 판매 및 원데이클래스
 - 제작기간 : 2021.02.15 ~ 2021.03.15 (4주)  
 - 주 담당 업무 : 회원 관련 기능 구현, 커피 및 상품 결제 기능 구현, Ajax 및 API 활용 업무
 - 보조 업무 : DB 설계 및 테이블 정의, Spring MVC 관련 커맨드, 컨트롤러, 클래스, 공통 화면 구성
-- 저장소 : https://github.com/seeyoufriyay/wondoo.git :bulb:
 
 <br>
 
@@ -51,12 +50,12 @@ Spring Framework를 이용한 커피 관련 상품 판매 및 원데이클래스
 - IDE : Eclipse, VS Code
 - Control : GitHub
 - OS : Windows 10
-- API : Kakao, 다음, Import
+- API : Kakao, daum, Import
 
 <br><br>
 
 # :two_men_holding_hands: 팀원 소개  
-##  Team 김이박  
+## Team 김이박  
 |  | 　팀원　 | 　팀원　 | 　팀장　 |  
 |:--------:|:--------:|:--------:|:--------:|  
 | 　name　 | 　김영남　 | 　이지은　 | 　박현지　 |  
