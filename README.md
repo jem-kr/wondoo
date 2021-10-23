@@ -1,4 +1,4 @@
-# Portfolio
+# ⭐ Spring MVC / Final Project
 
 - 이름 : 이지은
 - 교육 : `2020.09~2021.03` 디지털컨버전스 기반 웹 개발자 양성과정 
